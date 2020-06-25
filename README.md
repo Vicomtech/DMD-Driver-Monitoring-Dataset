@@ -12,7 +12,7 @@ More details of the recording and video material of DMD can be found at the [off
 ## Temporal Annotation Tool (TaTo)
 We have acquired a good amount of high quality and friendly driver’s material in the DMD (Driver Monitoring Dataset) with the purpose of developing computer vision algorithms for driver monitoring. But what would be a dataset without its corresponding annotations? 
 
-We developed the TaTo tool to annotate temporal events and actions performed by the drivers in the video sequences. The tool was used to annotate a first round of ditraction-related actions. However, through configuration, other labels can be annotated.   
+We developed the TaTo tool to annotate temporal events and actions performed by the drivers in the video sequences. The tool was used to annotate a first round of distraction-related actions. However, through configuration, other labels can be annotated.   
 
 ### Dependencies:
 The TaTo tool has been tested using the following system configuration:
