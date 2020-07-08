@@ -7,27 +7,7 @@ This project include a tool to annotate the dataset, inspect the annotated data 
 More details of the recording and video material of DMD can be found at the [official website](http://dmd.vicomtech.org/)
 
 ## Available tools:
-- Temporal Annotation Tool (TaTo)
-
-## Temporal Annotation Tool (TaTo)
-We have acquired a good amount of high quality and friendly driver’s material in the DMD (Driver Monitoring Dataset) with the purpose of developing computer vision algorithms for driver monitoring. But what would be a dataset without its corresponding annotations? 
-
-We developed the TaTo tool to annotate temporal events and actions performed by the drivers in the video sequences. The tool was used to annotate distraction-related actions. However, through configuration, other labels can be annotated.   
-
-### Dependencies:
-The TaTo tool has been tested using the following system configuration:
-
-**OS:**           Ubuntu 18.04 (on windows use WSL) <br>
-**Dependencies:** Python 3, OpenCV-Python 4.2.0, VCD 4.2.0                        
-
-For a detailed description on how to configure the running environment check: [Linux](docs/setup_linux.md) / [Windows](docs/setup_windows.md)
-
-### Launching TaTo
-In a terminal window within the folder [annotation_tool](https://github.com/Vicomtech/DMD-Driver-Monitoring-Dataset/annotation-tool) run 
-
-    ./annotate.sh
-
-The tool will ask you to input the **path** of the mosaic video you want to annotate. Please insert the path following the [DMD file structure](docs/dmd_file_struct.md).  
+- Temporal Annotation Tool (TaTo) - (more info [here](annotation-tool/README.md)) 
 
 ### Annotation Instructions
 We have detailed descriptions of how the action annotations should be done:
