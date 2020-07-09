@@ -38,9 +38,11 @@ The annotation tool developed for the DMD dataset has the following options:
 - The output annotations are saved in a JSON file in [VCD format](https://vcd.vicomtech.org/). 
 
 ## Launching TaTo
-In a terminal window within the folder [annotation_tool](https://github.com/Vicomtech/DMD-Driver-Monitoring-Dataset/annotation-tool) run 
+In a terminal window within the folder [annotation_tool](https://github.com/Vicomtech/DMD-Driver-Monitoring-Dataset/annotation-tool) run:
 
-    ./annotate.sh
+```bash
+./annotate.sh
+```
 
 The tool will ask you to input the **path** of the mosaic video you want to annotate. Please insert the path following the [DMD file structure](docs/dmd_file_struct.md).  
 
@@ -75,27 +77,28 @@ All the interaction with the tool is meant to be done through the keyboard. We h
 
 #### Keyboard Interaction
 ##### General keys
-|    Keys   |                 Function                   |
-| :-------: | :----------------------------------------- |
-| **[TAB]** | **Jump backwards** to nearest label change |
+|      Keys      |                 Function                   |
+| :------------: | :----------------------------------------- |
+| <kbd>Tab</kbd> | **Jump backwards** to nearest label change |
 
 ##### Video Navigation
-
-
-
-- **[Any Key]** besides function specific keys :arrow_right: Move forward **1 frame**
-- **[E]** :arrow_right: Move forward **50 frames**
-- **[R]** :arrow_right: Move forward **300 frames**
-- **[SPACEBAR]** :arrow_right: Move backwards **1 frame**
-- **[W]** :arrow_right: Move backwards **50 frames**
-- **[Q]** :arrow_right: Move backwards **300 frames**
-- **[S]** :arrow_right: **Jump forward** to nearest label change
-- **[A]** :arrow_right: **Jump backwards** to nearest label change
+|        Keys        |                        Function                          |
+| :----------------: | :------------------------------------------------------- |
+| <kbd>Any Key</kbd> | Besides function specific keys, move forward **1 frame** |
+| <kbd>E</kbd>       | Move forward **50 frames**                               |
+| <kbd>R</kbd>       | Move forward **300 frames**                              |
+| <kbd>W</kbd>       | Move backwards **50 frames**                             |
+| <kbd>Q</kbd>       | Move backwards **300 frames**                            |
+| <kbd>Space</kbd>   | Move backwards **1 frame**                               |
+| <kbd>S</kbd>       | **Jump forward** to nearest label change                 |
+| <kbd>A</kbd>       | **Jump backwards** to nearest label change               |
 
 ##### Playback keys
-- **[BACKSPACE]** :arrow_right: opens the **playback of the video** in a new window.
-- **[ENTER]** in the playback window :arrow_right: Closes the playback window returning to the **last frame played** in the main window.
-- **[ESC]** in the playback window :arrow_right: Closes the playback window returning to the **first frame played** in the main window.  
+|         Keys    -    |                                                 Function                                                      |
+| :------------------: | :------------------------------------------------------------------------------------------------------------ |
+| <kbd>Backspace</kbd> | Opens the **playback of the video** in a new window.                                                          |
+| <kbd>Enter</kbd>     | In the playback window, closes the playback window returning to the main window at the **last frame played**  |
+| <kbd>Esc</kbd>       | In the playback window, closes the playback window returning to the main window at the **first frame played** |
 
 ## Saving annotations
 You can save the progress by pressing the [ENTER] key. The tool also saves the progress when you exit the tool using the [ESC] key.
