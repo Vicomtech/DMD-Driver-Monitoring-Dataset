@@ -12,6 +12,10 @@ We developed the TaTo tool to annotate temporal events and actions performed by 
   - [Usage Instructions](#usage-instructions)
     - [TaTo Window description](#tato-window-description)
     - [Annotating with TaTo](#annotating-with-tato)
+      - [Keyboard Interaction](#keyboard-interaction)
+        - [General keys](#general-keys)
+        - [Video Navigation](#video-navigation)
+        - [Playback keys](#playback-keys)
   - [Saving annotations](#saving-annotations)
   - [Annotation Instructions](#annotation-instructions)
   - [FAQs](#faqs)
@@ -47,25 +51,51 @@ The annotation tool TaTo opens with three windows:
 ![Annotation Tool](../docs/imgs/annotation_tool_info.png)
 
 The main window will display:
-- The mosaic video consisting on three camera streams (these streams were previously synchronized),
-- Frames information (current frame)
+- The mosaic video consisting of three camera streams (these streams were previously synchronized).
+- Frames information (current frame). The **current frame** is the mosaic frame. 
 - the last time you saved your annotation (It is recommended to save your progress frequently).
 - The **annotation info** panel shows a list of levels (annotation groups) to be annotated and the current label for each level at the current frame. **The level you are currently annotating is indicated with the “->” sign and is written in bold in the “Annotation info” Panel.**   
 
 A second window (with dark background) will show:
 - The frame offsets between video streams
-- A list of the available labels within the current selected annotation level. Each label will have a colored box and the key to press for annotation. Check [annotation instructions](#annotating-with-tato) to know how to input annotation for each level. 
+- The **video path** you are annotating. 
+- A list of the available labels within the current selected annotation level. Each label will have a colored box and the key to press for annotation in brackets [ ]. Check [annotation instructions](#annotating-with-tato) to know how to input annotation for each level. 
 - An informative list of the frame validation state. 
 
-A third window will show:
-- The full timeline of the input video.
-- A zoomed timeline around the current frame to help the visualization of each frame label.
+In the third window there are **two timelines** which show all the video annotations in colors, depending on the level:
+- The first is a full timeline from frame 0 to the total length of the video.
+- The second is a zoomed timeline around the current frame always keeping the actual frame in the center of the window. This timeline helps the visualization of individual frame label.
 
-The colors in the timeline representation are the same as the colors in the label description panel.   
+The colors in the timeline representation are the same as the colors in the label description panel. The colors and labels depend on the selected annotation level.
+
+When there are 5 frames left, there will appear a “last frames” text and a “LAST FRAME!” text at the last frame. 
 
 ### Annotating with TaTo
+All the interaction with the tool is meant to be done through the keyboard. We have a thorough list of keys available for annotation. 
+
+#### Keyboard Interaction
+##### General keys
+|    Keys   |                 Function                   |
+| :-------: | :----------------------------------------- |
+| **[TAB]** | **Jump backwards** to nearest label change |
+
+##### Video Navigation
 
 
+
+- **[Any Key]** besides function specific keys :arrow_right: Move forward **1 frame**
+- **[E]** :arrow_right: Move forward **50 frames**
+- **[R]** :arrow_right: Move forward **300 frames**
+- **[SPACEBAR]** :arrow_right: Move backwards **1 frame**
+- **[W]** :arrow_right: Move backwards **50 frames**
+- **[Q]** :arrow_right: Move backwards **300 frames**
+- **[S]** :arrow_right: **Jump forward** to nearest label change
+- **[A]** :arrow_right: **Jump backwards** to nearest label change
+
+##### Playback keys
+- **[BACKSPACE]** :arrow_right: opens the **playback of the video** in a new window.
+- **[ENTER]** in the playback window :arrow_right: Closes the playback window returning to the **last frame played** in the main window.
+- **[ESC]** in the playback window :arrow_right: Closes the playback window returning to the **first frame played** in the main window.  
 
 ## Saving annotations
 You can save the progress by pressing the [ENTER] key. The tool also saves the progress when you exit the tool using the [ESC] key.
