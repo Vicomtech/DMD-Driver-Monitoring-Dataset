@@ -85,8 +85,8 @@ The first step to start annotating a video is to **select the annotation level**
 ##### Special labels
 All the annotations levels will have a group of text labels which are used to annotate the temporal events. However, you will see two special labels displayed in the [annotation info panel](../docs/imgs/level_panel.png):
 
-- **NAN**: This means there is not a frame from the camera stream used to annotate that level. this label is automatically set by the tool. 
-- **--**: This means absence of label. Some levels don't require to have continuos annotation labels so this "empty" label should be present. For those levels which requires continuos annotations this "empty" label should not be present. Please consult the annotation criteria to know the level characteristic. 
+- **"NAN"**: This means there is not a frame from the camera stream used to annotate that level. this label is automatically set by the tool. 
+- **"--"**: This means absence of label. Some levels don't require to have continuos annotation labels so this "empty" label should be present. For those levels which requires continuos annotations this "empty" label should not be present. Please consult the annotation criteria to know the level characteristic. 
 
 #### Annotation Modes
 The annotation tool has two modes of annotation: **frame-by-frame** and **block** annotation.
@@ -134,7 +134,7 @@ To unselect a frame interval press two times the <kbd>Z</kbd> key.
 | <kbd>Tab</kbd>   | **Switch** between annotation levels                                      |
 | <kbd>Z</kbd>     | **Select/Unselect** the starting frame for block annotation (key-frame)   |  
 | <kbd>0</kbd>...<kbd>9</kbd>, <kbd>/</kbd>, <kbd>*</kbd>, <kbd>-</kbd>, <kbd>+</kbd> | **Annotate** the frame or frame interval with the corresponding label.                         |
-| <kbd>.</kbd> | **Remove** the current label of the frame of frame interval                   |
+| <kbd>.</kbd> | **Remove** the current label of the frame or frame interval                   |
 | <kbd>X</kbd>     | Apply **automatic annotations** to other levels                           |
 
 ## Saving annotations
@@ -160,7 +160,7 @@ Depending the annotation problem, different annotation criteria should be define
 
 We have defined the following criteria to be used with tool to produce consistent annotations:
 
-- [DMD Distraction-related actions](wiki/DMD-distraction-related-action-annotation-criteria) annotation
+- [DMD Distraction-related actions](https://github.com/Vicomtech/DMD-Driver-Monitoring-Dataset/wiki/DMD-distraction-related-action-annotation-criteria) annotation
 
 ## Changelog
 For a complete list of changes check the [CHANGELOG.md]() file
