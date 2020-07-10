@@ -24,6 +24,7 @@ We developed the TaTo tool to annotate temporal events and actions performed by 
   - [Annotation criteria](#annotation-criteria)
   - [Changelog](#changelog)
   - [FAQs](#faqs)
+  - [Known Issues](#known-issues)
   - [License](#license)
 
 ## Setup and Launching
@@ -32,7 +33,7 @@ The TaTo tool has been tested using the following system configuration:
 **OS:**           Ubuntu 18.04 (on windows use WSL) <br>
 **Dependencies:** Python 3, OpenCV-Python 4.2.0, VCD 4.2.0                        
 
-For a detailed description on how to configure the running environment check: [Linux](../docs/setup_linux.md) / [Windows](../docs/setup_windows.md)
+For a detailed description on how to configure the environment and launch the tool, check: [Linux](../docs/setup_linux.md) / [Windows](../docs/setup_windows.md)
 
 ## TaTo characteristics
 Although TaTo was originally developed to tackle the temporal action annotation of the [DMD dataset](http://dmd.vicomtech.org/), we have included functions which can be applied to other action annotation problems, such as:
@@ -159,6 +160,12 @@ For a complete list of changes check the [CHANGELOG.md]() file
 
 ## FAQs
 [TBA]
+
+## Known Issues
+
+|        Issue        |                        Solution                          |
+| ------------------- | :------------------------------------------------------- |
+| When pressed <kbd>Alt Gr</kbd> the tool exists abruptly  | This is caused due to a bug in the capture system dependency used in the tool. Please **Don't press** <kbd>Alt Gr</kbd> |
 
 
 ## License 
