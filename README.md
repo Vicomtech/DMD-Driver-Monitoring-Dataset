@@ -6,6 +6,8 @@ This project include a tool to annotate the dataset, inspect the annotated data 
 ## Dataset details
 More details of the recording and video material of DMD can be found at the [official website](http://dmd.vicomtech.org/)
 
+In addition, this repository [wiki](wiki) has useful information about the DMD dataset and the annotation process.
+
 ## Available tools:
 - Temporal Annotation Tool (TaTo) - (more info [here](annotation-tool/README.md)) 
 

@@ -12,6 +12,7 @@ We developed the TaTo tool to annotate temporal events and actions performed by 
     - [TaTo Window description](#tato-window-description)
     - [Annotating with TaTo](#annotating-with-tato)
       - [Select the annotation level](#select-the-annotation-level)
+        - [Special labels](#special-labels)
       - [Annotation Modes](#annotation-modes)
         - [Frame-by-frame annotation](#frame-by-frame-annotation)
         - [Block annotation](#block-annotation)
@@ -77,9 +78,15 @@ An annotation level is a group of labels which are mutually exclusive (two or mo
 
 There are some annotation levels which require all frames to have a label. However, other levels can admit frames with empty labels. This depends on the nature of the annotation level. Annotation levels with empty labels will include this option in the config file. 
 
-The first step to start annotating a video is to **select the annotation level**. You can see the current selected level in the main window's levels panel (see figure below). The current selected level will display an arrow "->" symbol and the current label will be highlighted in bold text. To change between levels use the <kbd>Tab</kbd> key.
+The first step to start annotating a video is to **select the annotation level**. You can see the current selected level in the main window's annotation info panel (see figure below). The current selected level will display an arrow "->" symbol and the current label will be highlighted in bold text. To change between levels use the <kbd>Tab</kbd> key.
 
-![Levels Panel](../docs/imgs/level_panel.png)
+![annotation info](../docs/imgs/level_panel.png "annotation_info")
+
+##### Special labels
+All the annotations levels will have a group of text labels which are used to annotate the temporal events. However, you will see two special labels displayed in the [annotation info panel](../docs/imgs/level_panel.png):
+
+- **NAN**: This means there is not a frame from the camera stream used to annotate that level. this label is automatically set by the tool. 
+- **--**: This means absence of label. Some levels don't require to have continuos annotation labels so this "empty" label should be present. For those levels which requires continuos annotations this "empty" label should not be present. Please consult the annotation criteria to know the level characteristic. 
 
 #### Annotation Modes
 The annotation tool has two modes of annotation: **frame-by-frame** and **block** annotation.
@@ -153,7 +160,7 @@ Depending the annotation problem, different annotation criteria should be define
 
 We have defined the following criteria to be used with tool to produce consistent annotations:
 
-- [DMD Distraction-related actions]() annotation
+- [DMD Distraction-related actions](wiki/DMD-distraction-related-action-annotation-criteria) annotation
 
 ## Changelog
 For a complete list of changes check the [CHANGELOG.md]() file
