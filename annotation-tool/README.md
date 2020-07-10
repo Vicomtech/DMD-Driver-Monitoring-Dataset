@@ -168,6 +168,9 @@ For a complete list of changes check the [CHANGELOG.md]() file
 | When pressed <kbd>Alt Gr</kbd> the tool exists abruptly  | This is caused due to a bug in the capture system dependency used in the tool. Please **Don't press** <kbd>Alt Gr</kbd> |
 
 
+:warning: If you find any issue with the tool please open a new issue :warning:
+
+
 ## License 
 Copyright (c) 2020 Vicomtech
 
