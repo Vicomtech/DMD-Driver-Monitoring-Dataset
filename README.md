@@ -10,9 +10,12 @@ More details of the recording and video material of DMD can be found at the [off
 - Temporal Annotation Tool (TaTo) - (more info [here](annotation-tool/README.md)) 
 
 ### Annotation Instructions
-We have detailed descriptions of how the action annotations should be done:
+Depending the annotation problem, different annotation criteria should be defined to guarantee all the annotators produce the same output annotations.  
 
-- [Distraction-related actions]()
+We have defined the following criteria to be used with tool to produce consistent annotations:
+
+- [DMD Distraction-related actions]() annotation
+
 
 ## Credits
 Development of DMD was supported and funded by the European Commission (EC) Horizon 2020 programme (project [VI-DAS](http://www.vi-das.eu/), grant agreement 690772) 
