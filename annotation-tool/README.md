@@ -135,7 +135,7 @@ To unselect a frame interval press two times the <kbd>Z</kbd> key.
 | <kbd>Z</kbd>     | **Select/Unselect** the starting frame for block annotation (key-frame)   |  
 | <kbd>0</kbd>...<kbd>9</kbd>, <kbd>/</kbd>, <kbd>*</kbd>, <kbd>-</kbd>, <kbd>+</kbd> | **Annotate** the frame or frame interval with the corresponding label.                         |
 | <kbd>.</kbd> | **Remove** the current label of the frame or frame interval                   |
-| <kbd>X</kbd>     | Apply **automatic annotations** to other levels                           |
+| <kbd>X</kbd>     | Apply **automatic annotations** to other levels. :warning: **Caution: This is a destructive action, apply carefully.**                           |
 
 ## Saving annotations
 You can save the progress by pressing the <kbd>Enter</kbd> key. The tool also saves the progress when you exit the tool using the <kbd>Esc</kbd> key.
