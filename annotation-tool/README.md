@@ -16,6 +16,7 @@ We developed the TaTo tool to annotate temporal events and actions performed by 
       - [Annotation Modes](#annotation-modes)
         - [Frame-by-frame annotation](#frame-by-frame-annotation)
         - [Block annotation](#block-annotation)
+        - [Automatic annotations](#automatic-annotation)
       - [Keyboard Interaction](#keyboard-interaction)
         - [General keys](#general-keys)
         - [Video Navigation](#video-navigation)
@@ -127,6 +128,8 @@ It is important that you use this function after you have completed the annotati
 | <kbd>A</kbd>       | **Jump backwards** to nearest label change               |
 
 ##### Playback keys
+This is a functionality where you can play and visualize the video along with the annotations from all levels. Can be used to check annotations or to navigate in timeline. 
+
 |         Keys         |                                                 Function                                                      |
 | :------------------: | :------------------------------------------------------------------------------------------------------------ |
 | <kbd>Backspace</kbd> | Opens the **playback of the video** in a new window.                                                          |
@@ -171,9 +174,8 @@ We have defined the following criteria to be used with tool to produce consisten
 For a complete list of changes check the [CHANGELOG.md]() file
 
 ## FAQs
-[TBA]
 
-- **How can I change the labels name**
+- **How can I change the labels name?**
 
 The number of labels per level and their names are specified at the [config file](../annotation-tool/config.json). You can change them there and restart the tool. You can also add more labels. If you delete labels, some problems of compatibility might appear. 
 
