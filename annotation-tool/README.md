@@ -105,7 +105,7 @@ To unselect a frame interval press two times the <kbd>Z</kbd> key.
 ##### Automatic annotation
 In the case of DMD, there are logical relationships between different levels of annotation. For example, if the driver is performing the activity “Texting left”, then the annotation in hands_using_wheel level should be “Only Right”. There is a function that allows applying these logical annotations and change the related labels from different levels depending on the driver_actions level. 
 
-It is important that you use this function after you have completed the annotations of driver_actions, then perform the automatic annotation changes to the rest of levels. The key to do this in the tool is <kbd>x</kbd> and is a just one-time operation.  
+It is important that you use this function after you have completed the annotations of driver_actions, then perform the automatic annotation changes to the rest of levels. The key to do this in the tool is <kbd>x</kbd> and is a just one-time operation. Mor info [here](https://github.com/Vicomtech/DMD-Driver-Monitoring-Dataset/wiki/DMD-distraction-related-action-annotation-criteria#apply-automatic-annotation-interpolation-warning).
 
 #### Keyboard Interaction
 ##### General keys
