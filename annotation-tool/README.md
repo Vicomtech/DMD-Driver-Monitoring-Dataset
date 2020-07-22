@@ -16,7 +16,7 @@ We developed the TaTo tool to annotate temporal events and actions performed by 
       - [Annotation Modes](#annotation-modes)
         - [Frame-by-frame annotation](#frame-by-frame-annotation)
         - [Block annotation](#block-annotation)
-        - [Automatic annotations](#automatic-annotation)
+        - [Automatic annotation](#automatic-annotation)
       - [Keyboard Interaction](#keyboard-interaction)
         - [General keys](#general-keys)
         - [Video Navigation](#video-navigation)
@@ -171,7 +171,7 @@ We have defined the following criteria to be used with tool to produce consisten
 - [DMD Distraction-related actions](https://github.com/Vicomtech/DMD-Driver-Monitoring-Dataset/wiki/DMD-distraction-related-action-annotation-criteria) annotation
 
 ## Changelog
-For a complete list of changes check the [CHANGELOG.md]() file
+For a complete list of changes check the [CHANGELOG.md](../CHANGELOG.md) file
 
 ## FAQs
 
