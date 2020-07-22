@@ -215,6 +215,6 @@ Besides of temporal annotations, each video has context annotations, driver info
 
 
 ## License 
-Copyright (c) 2020 Vicomtech
+Copyright :copyright: 2020 Vicomtech
 
 All datasets on this page are copyright by Vicomtech and published under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. This means that you must attribute the work in the manner specified by the authors, you may not use this work for commercial purposes and if you remix, transform, or build upon the material, you may not distribute the modified material.
