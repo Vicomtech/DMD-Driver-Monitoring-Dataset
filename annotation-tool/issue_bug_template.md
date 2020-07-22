@@ -1,5 +1,5 @@
 # Opening an Issue
-If you find any problem with the temporal annotation tool you are free to open a new issue. Please check before the [README file](README.md) and other issues to see if your issue is already solved. 
+If you find any problem with the temporal annotation tool you are free to open a new issue. Please check before the [README file](README.md) and other issues to see if your it is already solved. 
 
 ## Bug Issue Template
 
