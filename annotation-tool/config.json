@@ -1,0 +1,143 @@
+{
+    "A6_dict": {
+        "0": "safe_drive",
+        "1": "texting_right",
+        "2": "phonecall_right",
+        "3": "texting_left",
+        "4": "phonecall_left",
+        "5": "radio",
+        "6": "drinking",
+        "7": "reach_side",
+        "8": "hair_and_makeup",
+        "9": "talking_to_passenger",
+        "10": "reach_backseat",
+        "11": "change_gear",
+        "12": "standstill_or_waiting",
+        "13": "unclassified",
+        "100": "NAN"
+    },
+    "A5_dict": {
+        "0": "cellphone",
+        "1": "hair_comb",
+        "2": "bottle",
+        "99": "--",
+        "100": "NAN"
+    },
+    "A4_dict": {
+        "0": "hand_on_gear",
+        "99": "--",
+        "100": "NAN"
+    },
+    "A3_dict": {
+        "0": "both",
+        "1": "only_right",
+        "2": "only_left",
+        "3": "none",
+        "100": "NAN"
+    },
+    "A2_dict": {
+        "0": "talking",
+        "99": "--",
+        "100": "NAN"
+    },
+    "A1_dict": {
+        "0": "looking_road",
+        "1": "not_looking_road",
+        "100": "NAN"
+    },
+    "A0_dict": {
+        "0": "face_camera",
+        "1": "body_camera",
+        "2": "hands_camera",
+        "99": "--",
+        "100": "NAN"
+    },
+    "dict_names": {
+        "0": "camera_occlusion",
+        "1": "gaze_on_road",
+        "2": "talking",
+        "3": "hands_using_wheel",
+        "4": "hand_on_gear",
+        "5": "objects_in_scene",
+        "6": "driver_actions"
+    },
+    "dict_types": {
+        "0": "stream_properties",
+        "1": "action",
+        "2": "action",
+        "3": "action",
+        "4": "action",
+        "5": "object",
+        "6": "action"
+    },
+    "static_dict": {
+        "0": {
+            "name": "age",
+            "text": "Subject Age",
+            "type": "num"
+        },
+        "1": {
+            "name": "gender",
+            "text": "Subject Gender",
+            "type": "text",
+            "options": {
+                "0": "Male",
+                "1": "Female"
+            }
+        },
+        "2": {
+            "name": "glasses",
+            "text": "Is wearing glasses?",
+            "type": "boolean",
+            "options": {
+                "0": "No",
+                "1": "Yes"
+            }
+        },
+        "3": {
+            "name": "drive_freq",
+            "text": "Driving Frecuency",
+            "type": "text",
+            "options": {
+                "0": "Once a week or less",
+                "1": "Between 2 or 5 times a week",
+                "2":"Everyday"
+            }
+        },
+        "4": {
+            "name": "experience",
+            "text": "Driving Experience",
+            "type": "text",
+            "options": {
+                "0":"Less than 1 year",
+                "1": "Between 1 and 3 years",
+                "2": "More than 3 years"
+            }
+        },
+        "5":{
+            "name": "weather",
+            "text": "Weather",
+            "type": "text",
+            "options": {
+                "0":"Sunny",
+                "1": "Rainy",
+                "2": "Cloudy"
+            }
+        },
+        "6":{
+            "name": "setup",
+            "text": "Setup",
+            "type": "text",
+            "options": {
+                "0":"Car Moving",
+                "1": "Car Stopped",
+                "2": "Simulator"
+            }
+        },
+        "7":{
+            "name": "annotatorID",
+            "text": "Annotatior ID",
+            "type": "num"
+        }
+    }
+}
