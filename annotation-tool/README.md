@@ -211,4 +211,4 @@ Besides of temporal annotations, each video has context annotations, driver info
 | When pressed <kbd>Alt Gr</kbd> the tool exists abruptly  | This is caused due to a bug in the capture system dependency used in the tool. Please **Don't press** <kbd>Alt Gr</kbd> |
 
 
-:warning: If you find any bug with the tool or have ideas of new features please open a new issue using the [bug report template](issue_bug_template.md) or the [feature request template](issue_feature_template.md) :warning:
+:warning: If you find any bug with the tool or have ideas of new features please open a new issue using the [bug report template](../docs/issue_bug_template.md) or the [feature request template](../docs/issue_feature_template.md) :warning:
