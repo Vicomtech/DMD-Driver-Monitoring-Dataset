@@ -8,27 +8,10 @@ We have developed DEx tool to help access those annotations in the VCD easily. T
 ## Content
 - [Dataset Explorer Tool (DEx)](#dataset-explorer-tool-dex)
   - [Content](#content)
-  - [Setup and Launching](#setup-and-launching)
-  - [TaTo characteristics](#tato-characteristics)
+  - [DEx characteristics](#dex-characteristics)
   - [Usage Instructions](#usage-instructions)
-    - [TaTo Window description](#tato-window-description)
-    - [Annotating with TaTo](#annotating-with-tato)
-      - [Select the annotation level](#select-the-annotation-level)
-        - [Special labels](#special-labels)
-      - [Annotation Modes](#annotation-modes)
-        - [Frame-by-frame annotation](#frame-by-frame-annotation)
-        - [Block annotation](#block-annotation)
-        - [Automatic annotation](#automatic-annotation)
-      - [Keyboard Interaction](#keyboard-interaction)
-        - [General keys](#general-keys)
-        - [Video Navigation](#video-navigation)
-        - [Playback keys](#playback-keys)
-        - [Annotation keys](#annotation-keys)
-  - [Saving annotations](#saving-annotations)
-  - [Annotation criteria](#annotation-criteria)
+    - [DEx initialization](#dex-initialization)
   - [Changelog](#changelog)
-  - [FAQs](#faqs)
-  - [Known Issues](#known-issues)
   - [License](#license)
 
 ## Setup and Launching
@@ -50,7 +33,7 @@ DEx was initially developed to prepare DMD distraction-related material for trai
 ### DEx initialization 
 It is recommended to initialize the tool by executing the bash file [exportLabeledData.sh](./exportLabeledData.sh). This script will guide you to prepare the DMD material. 
 
-If you need something more specific, you can direclty implement functions from [accessDMDAnn.py](./accessDMDAnn.py) or [vcd4Reader.py](./vcd4Reader.py).
+If you need something more specific, you can direclty implement functions from [accessDMDAnn.py](./accessDMDAnn.py) or [vcd4reader.py](./vcd4Reader.py).
 
 ### DEx export configuration
 There are some export settings you can change at the end of file [accessDMDAnn.py](./accessDMDAnn.py) under "-- CONTROL VARIABLES --" comment.
