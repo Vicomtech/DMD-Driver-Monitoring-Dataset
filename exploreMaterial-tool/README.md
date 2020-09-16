@@ -11,8 +11,8 @@ We have developed DEx tool to help access those annotations in the VCD easily. T
   - [DEx characteristics](#dex-characteristics)
   - [Usage Instructions](#usage-instructions)
     - [DEx initialization](#dex-initialization)
+    - [DEx export configuration](#dex-export-configuration)
   - [Changelog](#changelog)
-  - [License](#license)
 
 ## Setup and Launching
 DEx tool has been tested using the following system configuration:
