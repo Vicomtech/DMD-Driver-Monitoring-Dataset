@@ -10,7 +10,7 @@ In addition, this repository [wiki](https://github.com/Vicomtech/DMD-Driver-Moni
 
 ## Available tools:
 - Temporal Annotation Tool (TaTo) - (more info [here](annotation-tool/README.md)) 
-
+- Dataset Expolorer Tool (DEx) - (more info .[here](exploreMaterial-tool/README.md))
 ### Annotation Instructions
 Depending the annotation problem, different annotation criteria should be defined to guarantee all the annotators produce the same output annotations.  
 
