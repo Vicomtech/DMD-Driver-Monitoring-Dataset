@@ -49,4 +49,4 @@ There are some export settings you can change at the end of file [accessDMDAnn.p
 ## Changelog
 For a complete list of changes check the [CHANGELOG.md](../CHANGELOG.md) file
 
-:warning: If you find any bug with the tool or have ideas of new features please open a new issue using the [bug report template](issue_bug_template.md) or the [feature request template](issue_feature_template.md) :warning:
+:warning: If you find any bug with the tool or have ideas of new features please open a new issue using the [bug report template](../docs/issue_bug_template.md) or the [feature request template](../docs/issue_feature_template.md) :warning:
