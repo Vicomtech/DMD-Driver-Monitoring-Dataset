@@ -16,7 +16,7 @@ We developed the TaTo tool to annotate temporal events and actions performed by 
       - [Annotation Modes](#annotation-modes)
         - [Frame-by-frame annotation](#frame-by-frame-annotation)
         - [Block annotation](#block-annotation)
-        - [Automatic annotations](#automatic-annotation)
+        - [Automatic annotation](#automatic-annotation)
       - [Keyboard Interaction](#keyboard-interaction)
         - [General keys](#general-keys)
         - [Video Navigation](#video-navigation)
@@ -105,7 +105,7 @@ To unselect a frame interval press two times the <kbd>Z</kbd> key.
 ##### Automatic annotation
 In the case of DMD, there are logical relationships between different levels of annotation. For example, if the driver is performing the activity “Texting left”, then the annotation in hands_using_wheel level should be “Only Right”. There is a function that allows applying these logical annotations and change the related labels from different levels depending on the driver_actions level. 
 
-It is important that you use this function after you have completed the annotations of driver_actions, then perform the automatic annotation changes to the rest of levels. The key to do this in the tool is <kbd>x</kbd> and is a just one-time operation.  
+It is important that you use this function after you have completed the annotations of driver_actions, then perform the automatic annotation changes to the rest of levels. The key to do this in the tool is <kbd>x</kbd> and is a just one-time operation. Mor info [here](https://github.com/Vicomtech/DMD-Driver-Monitoring-Dataset/wiki/DMD-distraction-related-action-annotation-criteria#apply-automatic-annotation-interpolation-warning).
 
 #### Keyboard Interaction
 ##### General keys
@@ -171,7 +171,7 @@ We have defined the following criteria to be used with tool to produce consisten
 - [DMD Distraction-related actions](https://github.com/Vicomtech/DMD-Driver-Monitoring-Dataset/wiki/DMD-distraction-related-action-annotation-criteria) annotation
 
 ## Changelog
-For a complete list of changes check the [CHANGELOG.md]() file
+For a complete list of changes check the [CHANGELOG.md](../CHANGELOG.md) file
 
 ## FAQs
 
@@ -211,10 +211,4 @@ Besides of temporal annotations, each video has context annotations, driver info
 | When pressed <kbd>Alt Gr</kbd> the tool exists abruptly  | This is caused due to a bug in the capture system dependency used in the tool. Please **Don't press** <kbd>Alt Gr</kbd> |
 
 
-:warning: If you find any issue with the tool please open a new issue :warning:
-
-
-## License 
-Copyright (c) 2020 Vicomtech
-
-All datasets on this page are copyright by Vicomtech and published under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. This means that you must attribute the work in the manner specified by the authors, you may not use this work for commercial purposes and if you remix, transform, or build upon the material, you may not distribute the modified material.
+:warning: If you find any bug with the tool or have ideas of new features please open a new issue using the [bug report template](issue_bug_template.md) or the [feature request template](issue_feature_template.md) :warning:
