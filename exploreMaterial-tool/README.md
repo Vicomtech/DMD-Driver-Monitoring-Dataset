@@ -36,15 +36,14 @@ It is recommended to initialize the tool by executing the bash file [exportLabel
 If you need something more specific, you can direclty implement functions from [accessDMDAnn.py](./accessDMDAnn.py) or [vcd4reader.py](./vcd4Reader.py).
 
 ### DEx export configuration
-There are some export settings you can change at the end of file [accessDMDAnn.py](./accessDMDAnn.py) under "-- CONTROL VARIABLES --" comment.
-
-- To define the data format you wish to export, add "image" and/or "video" to @material variable as a list.
+There are some export settings you can change at the end of file [accessDMDAnn.py](./accessDMDAnn.py) under “-- CONTROL VARIABLES --“ comment.
+- To define the data format you wish to export, add “image” and/or “video” to @material variable as a list.
 - The list of camera perspectives to export material from can be defined in @streams variable.
-- You can make a list of the classes you want to get the frame intervals of (e.g. ["safe_drive","drinking"]) and assing it to the @annotations variable.
+- You can make a list of the classes you want to get the frame intervals of (e.g. [“safe_drive”,"drinking"]) and assing it to the @annotations variable.
 - If you want to export and create/write material in a destination folder, you must set @write variable to True.
 - If you wish to cut the frame intervals to subintervals, the size of the final subintervals can be set in @intervalChunk variable. 
 - Sometimes not all frame intervals can be cutted because they are smaller than the @intervalChunk. To ignore and not export these smaller frame intervals, set @ignoreSmall to True
-- To decide where to start cutting the frame intervals, change the @asc variable. True to start from the first frame and False to start from the final frame and go backwards. 
+- To decide where to start cutting the frame intervals, change the @asc variable. True to start from the first frame and False to start from the last frame and go backwards.
 
 ## Changelog
 For a complete list of changes check the [CHANGELOG.md](../CHANGELOG.md) file
