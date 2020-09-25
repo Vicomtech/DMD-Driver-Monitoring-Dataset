@@ -1,7 +1,7 @@
 # Driver Monitoring Dataset (DMD)
 The [Driver Monitoring Dataset](http://dmd.vicomtech.org/) is the largest visual dataset for real driving actions, with footage from synchronized multiple cameras (body, face, hands) and multiple streams (RGB, Depth, IR) recorded in two scenarios (real car, driving simulator). Different annotated labels related to distraction, fatigue and gaze-head pose can be used to train Deep Learning models for Driver Monitor Systems.
 
-This project include a tool to annotate the dataset, inspect the annotated data and export training sets (in progress). Output annotations are formatted using [VCD (Video Content Description)](https://vcd.vicomtech.org/) language.
+This project includes a tool to annotate the dataset, inspect the annotated data and export training sets (in progress). Output annotations are formatted using [VCD (Video Content Description)](https://vcd.vicomtech.org/) language.
 
 ## Dataset details
 More details of the recording and video material of DMD can be found at the [official website](http://dmd.vicomtech.org/)
