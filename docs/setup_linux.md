@@ -18,9 +18,6 @@ The TaTo tool has been tested using the following system configuration:
 - (Optional) It is recommended to create a virtual environment in Python 3 (more info [here](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)):
   - Configure a new virtual environment:
     ```bash
-    pip3 install venv
-    ```
-    ```bash
     mkdir anntool_py
     ```
     ```bash
