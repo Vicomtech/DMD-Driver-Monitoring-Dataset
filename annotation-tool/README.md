@@ -9,7 +9,7 @@ We developed the TaTo tool to annotate temporal events and actions performed by 
   - [Setup and Launching](#setup-and-launching)
   - [TaTo characteristics](#tato-characteristics)
   - [Usage Instructions](#usage-instructions)
-    - [General functionality](#general-funcionality)
+    - [General functionality](#general-functionality)
     - [TaTo Window description](#tato-window-description)
     - [Annotating with TaTo](#annotating-with-tato)
       - [Select the annotation level](#select-the-annotation-level)
