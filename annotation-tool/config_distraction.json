@@ -1,0 +1,87 @@
+{   
+    "6": {
+        "0": "safe_drive",
+        "1": "texting_right",
+        "2": "phonecall_right",
+        "3": "texting_left",
+        "4": "phonecall_left",
+        "5": "radio",
+        "6": "drinking",
+        "7": "reach_side",
+        "8": "hair_and_makeup",
+        "9": "talking_to_passenger",
+        "10": "reach_backseat",
+        "11": "change_gear",
+        "12": "standstill_or_waiting",
+        "13": "unclassified",
+        "100": "NAN"
+    },
+    "5": {
+        "0": "cellphone",
+        "1": "hair_comb",
+        "2": "bottle",
+        "99": "--",
+        "100": "NAN"
+    },
+    "4": {
+        "0": "hand_on_gear",
+        "99": "--",
+        "100": "NAN"
+    },
+    "3": {
+        "0": "both",
+        "1": "only_right",
+        "2": "only_left",
+        "3": "none",
+        "100": "NAN"
+    },
+    "2": {
+        "0": "talking",
+        "99": "--",
+        "100": "NAN"
+    },
+    "1": {
+        "0": "looking_road",
+        "1": "not_looking_road",
+        "100": "NAN"
+    },
+    "0": {
+        "0": "face_camera",
+        "1": "body_camera",
+        "2": "hands_camera",
+        "99": "--",
+        "100": "NAN"
+    },
+    "level_names": {
+        "0": "occlusion",
+        "1": "gaze_on_road",
+        "2": "talking",
+        "3": "hands_using_wheel",
+        "4": "hand_on_gear",
+        "5": "objects_in_scene",
+        "6": "driver_actions"
+    },
+    "level_types": {
+        "0": "stream_properties",
+        "1": "action",
+        "2": "action",
+        "3": "action",
+        "4": "action",
+        "5": "object",
+        "6": "action"
+    },
+    "level_defaults": {
+        "0": 99,
+        "1": 0,
+        "2": 99,
+        "3": 0,
+        "4": 99,
+        "5": 99,
+        "6": 0
+    },
+    "camera_dependencies":{
+        "face": [1,2],
+        "body": [5,6],
+        "hands": [3,4]
+    }
+}

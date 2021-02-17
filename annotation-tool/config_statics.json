@@ -1,0 +1,104 @@
+{
+    "static_dict": {
+        "0": {
+            "name": "age",
+            "text": "Subject Age",
+            "type": "num",
+            "parent": {
+                "element": "object",
+                "type": "driver"
+            }
+        },
+        "1": {
+            "name": "gender",
+            "text": "Subject Gender",
+            "type": "text",
+            "options": {
+                "0": "Male",
+                "1": "Female"
+            },
+            "parent": {
+                "element": "object",
+                "type": "driver"
+            }
+        },
+        "2": {
+            "name": "glasses",
+            "text": "Is wearing glasses?",
+            "type": "boolean",
+            "options": {
+                "0": "No",
+                "1": "Yes"
+            },
+            "parent": {
+                "element": "object",
+                "type": "driver"
+            }
+        },
+        "3": {
+            "name": "drive_freq",
+            "text": "Driving Frecuency",
+            "type": "text",
+            "options": {
+                "0": "Once a week or less",
+                "1": "Between 2 or 5 times a week",
+                "2": "Everyday"
+            },
+            "parent": {
+                "element": "object",
+                "type": "driver"
+            }
+        },
+        "4": {
+            "name": "experience",
+            "text": "Driving Experience",
+            "type": "text",
+            "options": {
+                "0": "Less than 1 year",
+                "1": "Between 1 and 3 years",
+                "2": "More than 3 years"
+            },
+            "parent": {
+                "element": "object",
+                "type": "driver"
+            }
+        },
+        "5": {
+            "name": "weather",
+            "text": "Weather",
+            "type": "text",
+            "options": {
+                "0": "Sunny",
+                "1": "Rainy",
+                "2": "Cloudy"
+            },
+            "parent": {
+                "element": "context",
+                "type": "recording_context"
+            }
+        },
+        "6": {
+            "name": "setup",
+            "text": "Setup",
+            "type": "text",
+            "options": {
+                "0": "Car Moving",
+                "1": "Car Stopped",
+                "2": "Simulator"
+            },
+            "parent": {
+                "element": "context",
+                "type": "recording_context"
+            }
+        },
+        "7": {
+            "name": "annotatorID",
+            "text": "Annotator ID",
+            "type": "num",
+            "parent": {
+                "element": "metadata",
+                "type": "annotator"
+            }
+        }
+    }
+}
