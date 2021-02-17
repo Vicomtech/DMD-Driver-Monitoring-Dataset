@@ -36,7 +36,7 @@ TaTo is a python-based tool to access VCD annotations more easily. You can prepa
 ### DEx initialization 
 You can initialize the tool by executing the python script [DExTool.py](./DExTool.py). This script will guide you to prepare the DMD material. 
 
-If you need something more specific, you can direclty implement functions from [accessDMDAnn.py](./accessDMDAnn.py), [vcd4reader.py](./vcd4Reader.py), [group_split_material.py](./group_split_material.py).
+If you need something more specific, you can direclty implement functions from [accessDMDAnn.py](./accessDMDAnn.py), [vcd4reader.py](./vcd4reader.py), [group_split_material.py](./group_split_material.py).
 
 ### DEx export configuration
 There are some export settings you can change at the end of file [accessDMDAnn.py](./accessDMDAnn.py) under “-- CONTROL VARIABLES --“ comment.
