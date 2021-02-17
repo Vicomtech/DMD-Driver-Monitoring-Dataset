@@ -101,7 +101,7 @@ When there are 5 frames left, there will appear a “last frames” text and a �
 The interaction with the tool is meant to be done using the keyboard.  We have a thorough list of keys available for interaction and annotation. Once the tool is open, you can press <kbd>P</kbd> to open instructions. 
 
 #### Select the annotation level
-An annotation level is a group of labels which are mutually exclusive (two or more labels of the same level cannot be assigned to the same frame). The definition of these levels and their corresponding labels is taken from a [config file](../annotation-tool/config.json).  
+An annotation level is a group of labels which are mutually exclusive (two or more labels of the same level cannot be assigned to the same frame). The definition of these levels and their corresponding labels is taken from a [config file](../annotation-tool/config_distraction.json).  
 
 There are some annotation levels which require all frames to have a label. However, other levels can admit frames with no label. This depends on the nature of the annotation level. Annotation levels with empty labels will include this option in the config file. 
 
@@ -203,7 +203,7 @@ For a complete list of changes check the [CHANGELOG.md](../CHANGELOG.md) file
 
 - **How can I change the labels name?**
 
-The number of labels per level and their names are specified at the [config file](../annotation-tool/config.json). You can change them there and restart the tool. You can also add more labels. If you delete labels, some problems of compatibility might appear. 
+The number of labels per level and their names are specified at the [config file](../annotation-tool/config_distraction.json). You can change them there and restart the tool. You can also add more labels. If you delete labels, some problems of compatibility might appear. 
 
 - **What if I forgot to save?**
 
