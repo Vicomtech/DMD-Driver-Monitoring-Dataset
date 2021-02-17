@@ -9,7 +9,7 @@ We developed the TaTo tool to annotate temporal events and actions performed by 
   - [Setup and Launching](#setup-and-launching)
   - [TaTo characteristics](#tato-characteristics)
   - [Usage Instructions](#usage-instructions)
-  - [General functionality](#general-funcionality)
+    - [General functionality](#general-funcionality)
     - [TaTo Window description](#tato-window-description)
     - [Annotating with TaTo](#annotating-with-tato)
       - [Select the annotation level](#select-the-annotation-level)
@@ -50,11 +50,12 @@ TaTo is a python keyboard-based software application to create and modify tempor
 - The output annotations are saved in VCD format in a **JSON file**.
 - For DMD default annotation modes, you can apply **automatic annotations**. That is, applying logically related annotations among levels.
 - To avoid loss of progress, the tool **autosaves** annotations. This autosaving is done in txt files to not affect the tool performance.
- 
 
 ## Usage Instructions
+
 ### General functionality
 Its operation depends on a general configuration file **“config.json”**. Among the main options to configure are in the object **“tatoConfig”**, these are:
+
 #### Annotation mode
 DMD has predefined annotation modes. These annotation modes are defined by a group of labels related to an analysis dimension of the dataset. For example, there is the distraction annotation mode which includes labels like texting-left, drinking, etc. 
 You can indicate the annotation mode in the “annotation_mode” field. To define a new annotation mode you must create a new configuration file and name it as: “config_$annModeName.json”. To create an annotation mode configuration file, we recommend duplicate and modify an existing one to avoid incompatibilities. Inside there must be the following JSON objects:
@@ -64,11 +65,11 @@ You can indicate the annotation mode in the “annotation_mode” field. To defi
 - **$level_id:** For each level, there is an object to list its corresponding labels. The name of the object must match the id from level_names and level_types  (e.g. “0”, “1”). In the same way, the labels within each level must be identified by a number as a string (e.g. “0”: “safe_drive”). There are two standard labels with their corresponding id: “99”: “--” that represents the absence of a label in one frame and “100”: “NAN” that means there is no frame information. 
 - **level_defaults:** In this object, the default label for level is defined. When the VCD is initially created from cero, all frames will be annotated with a default label. This label should be the most recurrent one in the video so the annotation effort is less. There must be the same number of items as in level_names, and must share the same id (e.g. “0”, “1”).
 - **camera_dependencies:** The DMD annotation is done with a mosaic video that includes 3 perspective views. Some labels are camera-dependant, so when there is no frame showing from one perspective, there shouldn’t be an annotation from those perspective-dependant labels. To indicate these dependencies, there must be an array of the labels ids for each camera perspective (e.g. "face": [1,2]).
-- 
-###Dataset
+
+#### Dataset
 This option is to identify if you are working with the DMD and load predefined configuration and validations of TaTo for this dataset. If it is different, then it loads a general configuration and allows annotating any video with VCD 4.3.
 
-###Pre_annotate
+#### Pre_annotate
 We created automatic pre-annotations for the DMD, also the DMD has metadata and static annotations we had to include inside the VCD. To do this, we load them before creating a VCD. To activate this functionality, we added this configuration option. You must leave it with a value of 0 since pre-annotation only works internally. 
 
 ### TaTo Window description 
