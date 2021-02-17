@@ -17,29 +17,32 @@ We have developed DEx tool to help access those annotations in the VCD easily. T
 ## Setup and Launching
 DEx tool has been tested using the following system configuration:
 
-**OS:**           Ubuntu 18.04 (on windows use WSL) <br>
-**Dependencies:** Python 3, OpenCV-Python 4.2.0, VCD 4.2.0                        
+**OS:**           Ubuntu 18.04, Windows 10 <br>
+**Dependencies:** Python 3.8, OpenCV-Python 4.2.0, VCD 4.3.0                        
 
 For a detailed description on how to configure the environment and launch the tool, check: [Linux](../docs/setup_linux.md) / [Windows](../docs/setup_windows.md)
 
 ## DEx characteristics
-DEx was initially developed to prepare DMD distraction-related material for training. This means that for now,  it is only meant to manage frame intervals of the distraction-related activities. 
+TaTo is a python-based tool to access VCD annotations more easily. You can prepare the DMD material for training by using DEx. The main functionalities of DEx are: exporting material in images or videos by frame intervals from the annotations, group the resulting material into folders organized by classes (only available for DMD) and after the material is organized by classes, the tool can generate a training and a testing split. 
 
-- Get a **list of frame intervals** of a specific activity from VCD.
+- Get a **list of frame intervals** of a specific activity (or label) from VCD.
 - Take a list of frame intervals and **divide** them into **subintervals** of desired size. This can be done starting from the first frame of from the last frame and back.
-- **Export** those frame intervals as **video clips** or **images**. The material can be exported from the 3 camera perspectives videos. You can choose what material to export: a group's material, a session material or just the material from a specific VCD.
+- **Export** those frame intervals as **video clips** or **images**. The material can be exported from the 3 camera perspectives videos (only available for DMD).  
+- You can choose what material to export: a group's material, a session material or just the material from a specific VCD annotation.
+- If you are working with the DMD, the exported material will be organized in a similar way as the DMD structure: by groups, sessions and subjects. With DEx, you can **group** this material by **classes**. This is only possible with DMD material.
+- After you have the data organized by classes, you can **split** the material into a **training** and a **testing** split. You must provide the testing **ratio or proportion** (e.g: 0.20, 0.25). If the testing ratio is 0.20, the result is a folder named “train” with 80% of the data and a folder named “test” with the 20% of the data.
 
 ## Usage Instructions
 ### DEx initialization 
-It is recommended to initialize the tool by executing the bash file [exportLabeledData.sh](./exportLabeledData.sh). This script will guide you to prepare the DMD material. 
+You can initialize the tool by executing the python script [DExTool.py](./DExTool.py). This script will guide you to prepare the DMD material. 
 
-If you need something more specific, you can direclty implement functions from [accessDMDAnn.py](./accessDMDAnn.py) or [vcd4reader.py](./vcd4Reader.py).
+If you need something more specific, you can direclty implement functions from [accessDMDAnn.py](./accessDMDAnn.py), [vcd4reader.py](./vcd4Reader.py), [group_split_material.py](./group_split_material.py).
 
 ### DEx export configuration
 There are some export settings you can change at the end of file [accessDMDAnn.py](./accessDMDAnn.py) under “-- CONTROL VARIABLES --“ comment.
 - To define the **data format** you wish to export, add “image” and/or “video” to @material variable as a list.
-- The list of **camera perspectives** to export material from can be defined in @streams variable.
-- You can make a list of the **classes** you want to get the frame intervals of (e.g. [“safe_drive”,"drinking"]) and assing it to the @annotations variable.
+- The list of **camera perspectives** to export material from can be defined in @streams variable, these are: "face", "body" or "hands" camera. If is a video from other dataset, it must be "general"
+- You can make a list of the **classes** you want to get the frame intervals of (e.g. [“safe_drive”,"drinking"]) and assing it to the @annotations variable. The var @self.actionList will get all the classes available in VCD
 - If you want to export and create/write material in a **destination folder**, you must set @write variable to True.
 - If you wish to **cut** the frame intervals to subintervals, the **size** of the final subintervals can be set in @intervalChunk variable. 
 - Sometimes not all frame intervals can be cutted because they are smaller than the @intervalChunk. To **ignore** and not export these **smaller frame intervals**, set @ignoreSmall to True
