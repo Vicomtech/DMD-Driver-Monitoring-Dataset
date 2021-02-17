@@ -203,7 +203,7 @@ For a complete list of changes check the [CHANGELOG.md](../CHANGELOG.md) file
 
 - **How can I change the labels name?**
 
-The number of labels per level and their names are specified at the [config file](../annotation-tool/config_distraction.json). You can change them there and restart the tool. You can also add more labels. If you delete labels, some problems of compatibility might appear. 
+The number of labels per level and their names are specified at the [config file](../annotation-tool/config_distraction.json). You can change them there and restart the tool. You can also add more labels. If you delete labels, some problems of compatibility might appear. You can create your own config file and define your levels and labels of annotation.
 
 - **What if I forgot to save?**
 
