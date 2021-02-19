@@ -658,7 +658,7 @@ def saveHour():
 # @annotations: annotations array to show along with the video
 # @validations: validations array to show along with the video
 # @mode: current level of annotation
-def showLiveAnnotations(countm, mosaicVideo, annotations, validations, mode):
+def showLiveAnnotationsGeneral(countm, mosaicVideo, annotations, validations, mode):
     mosaicVideo.set(cv2.CAP_PROP_POS_FRAMES, countm)
     annArray = np.array(annotations)
     valArray = np.array(validations)
@@ -779,6 +779,141 @@ def showLiveAnnotations(countm, mosaicVideo, annotations, validations, mode):
     cv2.destroyWindow("Annotation - viewer")
     return ret_count
 
+
+#Create new window to play the actual video along with its annotations
+# @count: the frame number to begin the video playing
+# @mosaicVideo: actual video
+# @annotations: annotations array to show along with the video
+# @validations: validations array to show along with the video
+# @mode: current level of annotation
+def showLiveAnnotationsDMD(countm, mosaicVideo, annotations, validations, mode):
+    mosaicVideo.set(cv2.CAP_PROP_POS_FRAMES, countm)
+    annArray = np.array(annotations)
+    valArray = np.array(validations)
+    ret_count = countm
+    while True:
+        key = cv2.waitKey(3)
+        if key == 27:  # Press [esc] to quit
+            break
+        elif key == 32:  # Press [SPACE] to pause playback
+            key = cv2.waitKey()
+            if key == 13:  # Press [ENTER] to return to previous frame
+                ret_count = countm - 1
+                break
+            elif key == 27:  # Press [esc] to quit
+                break
+        elif key == 13:  # Press [ENTER] to return to previous frame
+            ret_count = countm - 1
+            break
+        retMosaic, frameMosaic = mosaicVideo.read()
+        if not retMosaic:
+            break
+        mosaicA = frameMosaic
+        mosaicA[0:h2, w2:width] = np.uint8(np.full((h2, w2, 3), backgroundColorMain))
+        line = 30
+        h_line = 48
+        padding = 50
+        # Write annotations
+        for j in range(len(dic_names)):
+            cv2.putText(
+                mosaicA,
+                ("Label: " + dic_names[j]),
+                (w2 + padding, (line + j * h_line)),
+                font,
+                1,
+                textColorMain,
+                1,
+                cv2.LINE_AA,
+            )
+            cv2.putText(
+                mosaicA,
+                dic_levels[j][annotations[countm][j]],
+                (w2 + padding, (26 + line + j * h_line)),
+                font,
+                1.5,
+                textColorMain,
+                1,
+                cv2.LINE_AA,
+            )
+        # Write mosaic number
+        cv2.putText(
+            mosaicA,
+            str(countm),
+            (padding + 1000, 140),
+            font,
+            3,
+            colorDict[7],
+            2,
+            cv2.LINE_AA,
+        )
+        cv2.putText(
+            mosaicA,
+            "Mosaic frame",
+            (padding + 990, 160),
+            font,
+            1,
+            textColorMain,
+            1,
+            cv2.LINE_AA,
+        )
+        cv2.putText(
+            mosaicA,
+            ". Press [space] to pause video",
+            (padding + 910, 250),
+            font,
+            1,
+            colorDict[11],
+            1,
+            cv2.LINE_AA,
+        )
+        cv2.putText(
+            mosaicA,
+            ". Press [enter] to exit and go",
+            (padding + 910, 270),
+            font,
+            1,
+            colorDict[11],
+            1,
+            cv2.LINE_AA,
+        )
+        cv2.putText(
+            mosaicA,
+            "to actual frame",
+            (padding + 950, 290),
+            font,
+            1,
+            colorDict[11],
+            1,
+            cv2.LINE_AA,
+        )
+        cv2.putText(
+            mosaicA,
+            ". Press [esc] to exit this window",
+            (padding + 910, 310),
+            font,
+            1,
+            colorDict[11],
+            1,
+            cv2.LINE_AA,
+        )
+
+        # downscale image
+        scale_percent = 90  # percent of original size
+        new_width = int(width * scale_percent / 100)
+        new_height = int(height * scale_percent / 100)
+        dim = (new_width, new_height)
+        mosaicA = cv2.resize(cv2.UMat(mosaicA), dim, interpolation=cv2.INTER_AREA)
+
+        #move foward in timeline
+        showTimeLine(annArray[:, mode], countm, valArray[:, mode])
+
+        # set fixed window positions
+        cv2.imshow("Annotation - viewer", mosaicA)
+        cv2.moveWindow("Annotation - viewer", 30, 110)
+        countm += 1
+
+    cv2.destroyWindow("Annotation - viewer")
+    return ret_count
 
 # Show window of Labels of the actual level of annotation @mode
 # Called when the level of annotation is changed (press [TAB]) to refresh
@@ -1786,9 +1921,15 @@ def showMosaic(mosaicVideo, annotations, validations):
                 timeSave = now.strftime("%H:%M:%S")
             elif key == 8:  # press [BACKSPACE] to open viewer
                 save(annotations, validations, False)
-                count = showLiveAnnotations(
-                    count, mosaicVideo, annotations, validations, mode
-                )
+                if setUpManager._dataset_dmd:
+                    count = showLiveAnnotationsDMD(
+                        count, mosaicVideo, annotations, validations, mode
+                    )
+                else:
+                    count = showLiveAnnotationsGeneral(
+                        count, mosaicVideo, annotations, validations, mode
+                    )
+
             # press [p] to open Instructions window
             elif key == ord("p") or key == ord("P"):
                 showInstructionsWindow()
@@ -2166,9 +2307,14 @@ def showGeneralVideo(mosaicVideo, annotations, validations):
                 timeSave = now.strftime("%H:%M:%S")
             elif key == 8:  # press [BACKSPACE] to open viewer
                 save(annotations, validations, False)
-                count = showLiveAnnotations(
-                    count, mosaicVideo, annotations, validations, mode
-                )
+                if setUpManager._dataset_dmd:
+                    count = showLiveAnnotationsDMD(
+                        count, mosaicVideo, annotations, validations, mode
+                    )
+                else:
+                    count = showLiveAnnotationsGeneral(
+                        count, mosaicVideo, annotations, validations, mode
+                    )
             # press [p] to open Instructions window
             elif key == ord("p") or key == ord("P"):
                 showInstructionsWindow()
@@ -2515,6 +2661,7 @@ if not vcd_handler.file_loaded():
 
 if setUpManager._dataset_dmd:   
     # Show video, Labels window and timeline bar
+    
     showMosaic(mosaicVideo, annotation_list, validation_list)
 else:
     showGeneralVideo(mosaicVideo,annotation_list, validation_list)
