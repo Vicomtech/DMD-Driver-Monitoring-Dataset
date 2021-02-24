@@ -111,7 +111,7 @@ if opt == 0:
 
 elif opt == 1:
     # group exported material by classes
-    material_path = input("Enter exported DMD material path (inside must be sessions folders): ")
+    material_path = input("Enter exported DMD material path (inside must be sessions folders e.g:../dmd_rgb): ")
     groupClass(material_path)
 
     print("Oki :) ----------------------------------------")
