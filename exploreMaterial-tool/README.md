@@ -40,7 +40,7 @@ You can initialize the tool by executing the python script [DExTool.py](./DExToo
 If you need something more specific, you can direclty implement functions from [accessDMDAnn.py](./accessDMDAnn.py), [vcd4reader.py](./vcd4reader.py), [group_split_material.py](./group_split_material.py).
 
 ### DEx export configuration
-There are some export settings you can change at the end of file [accessDMDAnn.py](./accessDMDAnn.py) under “-- CONTROL VARIABLES --“ comment.
+There are some export settings you can change at the __init()__ function of file [accessDMDAnn.py](./accessDMDAnn.py) under “-- CONTROL VARIABLES --“ comment.
 - To define the **data format** you wish to export, add “image” and/or “video” to **@material** variable as a list.
 - The list of **camera perspectives** to export material from can be defined in **@streams** variable, these are: "face", "body" or "hands" camera. If is a video from other dataset, it must be "general"
 - To choose the channel of information, **RGB** or **IR**, you must specify it with the **@channels** variable. You can define a list of channesl: ["ir","rgb"]. For videos from other dataset, it must be only ["rgb"].
