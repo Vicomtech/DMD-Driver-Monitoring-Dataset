@@ -28,7 +28,7 @@ TaTo is a python-based tool to access VCD annotations more easily. You can prepa
 - Get a **list of frame intervals** of a specific activity (or label) from VCD.
 - Take a list of frame intervals and **divide** them into **subintervals** of desired size. This can be done starting from the first frame of from the last frame and back.
 - **Export** those frame intervals as **video clips** or **images**. The material can be exported from the 3 camera perspectives videos (only available for DMD).
-- **Export** intervals from **ir** or **rgb** material. 
+- **Export** intervals from **IR** or **RGB** material. 
 - You can choose what material to export: a group's material, a session material or just the material from a specific VCD annotation.
 - If you are working with the DMD, the exported material will be organized in a similar way as the DMD structure: by groups, sessions and subjects. With DEx, you can **group** this material by **classes**. This is only possible with DMD material.
 - After you have the data organized by classes, you can **split** the material into a **training** and a **testing** split. You must provide the testing **ratio or proportion** (e.g: 0.20, 0.25). If the testing ratio is 0.20, the result is a folder named “train” with 80% of the data and a folder named “test” with the 20% of the data.
