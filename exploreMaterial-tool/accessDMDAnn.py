@@ -83,15 +83,24 @@ class exportClass():
         @asc: True to start cutting from start of interval (ascendant) or False from the end of interval (descendant)
         Possible values: True or False
         """
-        # execute
+        # config
         material = ["image"]
-        streams = ["face", "body", "hands"] #must be "general" if not DMD dataset
+        streams = ["body","face", "hands"] #must be "general" if not DMD dataset
+        channels = ["rgb", "ir"] #must be only "rgb" if not DMD dataset
         annotations = self.actionList
         write = True
         intervalChunk = 0
-        self.exportMaterial(material, streams, annotations, write, intervalChunk, True)
         
-
+        #validations
+        if not self.datasetDMD and (streams[0] != "general" or len(streams)> 1):
+            raise RuntimeError(
+                                "WARNING: stream option for other datasets must be only 'general'")
+        if not self.datasetDMD and len(channels)> 1:
+            raise RuntimeError(
+                                "WARNING: channles option for other datasets must be only 'rgb'")
+        #exec
+        self.exportMaterial(material, streams, channels, annotations, write, intervalChunk, True)
+        
     # @material: list of data format to export (e.g. ["image","video"])
     # @streams: list of camera names to export (e.g. ["body", "hands"])
     # @annotations: list of annotations to export (e.g. ["driver_actions/reach_side", "talking/talking","hands_using_wheel/only_left"])
@@ -99,31 +108,33 @@ class exportClass():
     # @intervalChunk: (optional) chunk size if the user wants to divide material by chunks
     # @ignoreSmall: (optional) True to ignore intervals that cannot be cutted because they are smaller than @ intervalChunk
     # @asc: (optional) flag to start cutting from start of interval (ascendant) or from the end of interval (descendant)
-    def exportMaterial(self,material, streams, annotations, write, intervalChunk=0, ignoreSmall=False, asc=True):
+    def exportMaterial(self,material, streams, channels, annotations, write, intervalChunk=0, ignoreSmall=False, asc=True):
         for annotation in annotations:
-            for stream in streams:
-                for mat in material:
-                    validAnnotation = False
-                    # Check if annotation exists in vcd
-                    if isinstance(annotation, str):
-                        # if annotation is string, check with self.vcd_handler if it is in VCD
-                        if self.vcd_handler.is_action_type_get_uid(annotation)[0]:
-                            validAnnotation = True
-                    elif isinstance(annotation, int):
-                        # if annotation is int, is an id and has to be less then self.actionList length
-                        if annotation < len(self.actionList):
-                            validAnnotation = True
-                    else:
-                        raise RuntimeError(
-                            "WARNING: Annotation argument must be string or int")
-                    if validAnnotation:
-                        intervals = self.getIntervals(
-                            mat, stream, annotation, write, intervalChunk, ignoreSmall, asc)
-                    else:
-                        print("WARNING: annotation %s is not in this VCD." % str(annotation))
+            for channel in channels:
+                for stream in streams:
+                    for mat in material:
+                        validAnnotation = False
+                        # Check if annotation exists in vcd
+                        if isinstance(annotation, str):
+                            # if annotation is string, check with self.vcd_handler if it is in VCD
+                            if self.vcd_handler.is_action_type_get_uid(annotation)[0]:
+                                validAnnotation = True
+                        elif isinstance(annotation, int):
+                            # if annotation is int, is an id and has to be less then self.actionList length
+                            if annotation < len(self.actionList):
+                                validAnnotation = True
+                        else:
+                            raise RuntimeError(
+                                "WARNING: Annotation argument must be string or int")
+                        if validAnnotation:
+                            print("\n\n-- Getting data of %s channel --" % (channel))
+                            intervals = self.getIntervals(
+                                mat, channel, stream, annotation, write, intervalChunk, ignoreSmall, asc)
+                        else:
+                            print("WARNING: annotation %s is not in this VCD." % str(annotation))
 
     # Function to get intervals of @annotation from VCD and if @write, exports the @material of @stream indicated to @self.destinationPath
-    def getIntervals(self, material, stream, annotation, write, intervalChunk=0, ignoreSmall=False, asc=True):
+    def getIntervals(self, material, channel, stream, annotation, write, intervalChunk=0, ignoreSmall=False, asc=True):
         #get name of action if uid is fiven
         if isinstance(annotation, int):
             annotation = self.actionList[annotation]
@@ -131,7 +142,7 @@ class exportClass():
         print("\n\n-- Creating %s of action: %s --" % (material, str(annotation)))
         
         # Check and load valid video
-        capVideo = cv2.VideoCapture(str(self.getStreamVideo(stream)))
+        capVideo = cv2.VideoCapture(str(self.getStreamVideo(channel, stream)))
         # get intervals from vcd
         fullIntervals = self.vcd_handler.get_frames_intervals_of_action(annotation)
         # make lists from dictionaries
@@ -148,7 +159,7 @@ class exportClass():
 
             if self.datasetDMD:
                 # create folder per annotation and per session
-                dirName = Path(self.destinationPath + "/"+self.info[2] + "/" + str(annotation))
+                dirName = Path(self.destinationPath +"/dmd_"+channel+ "/"+self.info[2] + "/" + str(annotation))
             else:
                 dirName = Path(self.destinationPath+ "/" +str(annotation))
             if not dirName.exists():
@@ -264,7 +275,7 @@ class exportClass():
 
     # Function to get uri of the @videoStream video from VCD and check if video frame count matches with VCD.
     # Returns @videoPath: path of @videoStream in VCD
-    def getStreamVideo(self,videoStream):
+    def getStreamVideo(self,videoChannel,videoStream):
         # load Uri and frame count
         # uri e.g.: gA/1/s1/gA_1_s1_2019-03-08T09;31;15+01;00_rgb_face.mp4
         if self.datasetDMD:
@@ -279,6 +290,8 @@ class exportClass():
                 frameNum = self.vcd_handler.get_frame_numbers()[2]
             else:
                 raise RuntimeWarning(videoStream, ": Not a valid video stream. Must be: 'face', 'body' or 'hands'.")
+            #change to desire channel video path
+            videoPath = videoPath.replace("rgb",videoChannel)
         else:
             if videoStream =="general":
                 videoPath = self.vcd_handler.get_videos_uri()
@@ -298,11 +311,11 @@ class exportClass():
                 raise RuntimeWarning(
                     "VCD's and real video frame count don't match.")
             else:
-                print(videoStream, "stream loaded:", videoPath.name)
+                print(videoChannel, videoStream, "stream loaded:", videoPath.name)
         else:
             raise RuntimeError(
                 videoPath, "video not found. Video Uri in VCD is wrong or video does not exist")
-
+        
         return videoPath
 
     #Function to check if the mosaic-count frame is available in stream requested. Then calculate corresponding frame position in stream-count
