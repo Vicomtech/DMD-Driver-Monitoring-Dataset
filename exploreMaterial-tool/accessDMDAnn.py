@@ -308,6 +308,8 @@ class exportClass():
         capVideo.set(cv2.CAP_PROP_POS_FRAMES, frameStart)
         while success and capVideo.get(cv2.CAP_PROP_POS_FRAMES) <= frameEnd:
             success, image = capVideo.read()
+            if not success:
+                break
             cv2.imwrite(name+"_"+str(count)+".jpg", image)
             count += 1
 
