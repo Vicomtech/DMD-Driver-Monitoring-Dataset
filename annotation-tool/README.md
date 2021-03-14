@@ -54,7 +54,7 @@ TaTo is a python keyboard-based software application to create and modify tempor
 ## Usage Instructions
 
 ### General functionality
-Its operation depends on a general configuration file **“config.json”**. Among the main options to configure are in the object **“tatoConfig”**, these are:
+Its operation depends on a general configuration file **“config.json”**. The main options to configure are in the object **“tatoConfig”**, these are:
 
 #### Annotation mode
 DMD has predefined annotation modes. These annotation modes are defined by a group of labels related to an analysis dimension of the dataset. For example, there is the distraction annotation mode which includes labels like texting-left, drinking, etc. 
