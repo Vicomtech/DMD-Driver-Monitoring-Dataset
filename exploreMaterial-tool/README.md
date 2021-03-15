@@ -50,6 +50,8 @@ There are some export settings you can change at the __init()__ function of file
 - Sometimes not all frame intervals can be cutted because they are smaller than the @intervalChunk. To **ignore** and not export these **smaller frame intervals**, set **@ignoreSmall** to True
 - To decide where to start cutting the frame intervals, change the **@asc** variable. True to start from the **first frame** and False to start from the **last frame** and go backwards.
 
+You can read more details about depth data and how to export it on the [DMD-Depth-Material](https://github.com/Vicomtech/DMD-Driver-Monitoring-Dataset/wiki/DMD-Depth-Material) page of the wiki.
+
 ## Changelog
 For a complete list of changes check the [CHANGELOG.md](../CHANGELOG.md) file
 
