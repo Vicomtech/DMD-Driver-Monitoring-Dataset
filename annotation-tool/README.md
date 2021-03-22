@@ -43,7 +43,7 @@ TaTo is a python keyboard-based software application to create and modify tempor
 
 - Allows the annotation of temporal events in videos (not only from the DMD). 
 - The annotations could be divided in up to 7 different annotation levels(group of labels). Within each group the labels are **mutually exclusive.**
-- Levels and labels of annotation can be defined in a **configuration file** and it can work with many of these files (one at a time).
+- Levels and labels of annotation can be defined in a **configuration file** and TaTo can work with many of these files (one at a time).
 - Annotations are represented by colors in two timelines. Each label has its own color.
 - The labels can be input either frame-by-frame or by frame-block interval.
 - There is a **validation property** per each frame that indicates how it was annotated: frame-by-frame or frame-block interval.
