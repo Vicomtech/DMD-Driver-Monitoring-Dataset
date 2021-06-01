@@ -51,6 +51,7 @@ class ConfigTato:
         self._pre_annotate = bool(tatoConfig["pre_annotate"])
         self._annotation_mode = tatoConfig["annotation_mode"]
         self._annotation_dataset = tatoConfig["dataset"]
+        self._calculate_time = bool(tatoConfig["calculate_time"])
         self._default_annotation_mode = self._annotation_mode in default_annotation_modes
         self._dataset_dmd = self._annotation_dataset == "dmd"
 

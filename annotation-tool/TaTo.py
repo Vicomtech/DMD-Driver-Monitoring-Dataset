@@ -518,17 +518,19 @@ def loadPropertiesGeneral():
 def save(annotations, validations, toVCD):
     # Save time expended during the annotation process
 
-    """ If you want to save annotation time:
-    -Declare a annTimeFile Path down at the global variables
-    -Delete "if not external_struct" line
-    -Format document :)
-    """
+    
     global statics
     global staticExists
     global metadata
     global metadataExists
 
-    if not external_struct:
+    """ Save elapsed time of annotation:
+    -Go to config.json file
+    -Change calculate_time variable
+    -0: to not calculate, 1: to calculate
+    """
+    
+    if setUpManager._calculate_time:
         saveHour()
 
     if toVCD:

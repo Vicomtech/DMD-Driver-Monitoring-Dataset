@@ -2,7 +2,8 @@
     "tatoConfig": {
         "annotation_mode": "distraction",
         "dataset": "dmd",
-        "pre_annotate": 0
+        "pre_annotate": 0,
+        "calculate_time":1
     },
     "interfaceText": {
         "mainLevelDependency":{
