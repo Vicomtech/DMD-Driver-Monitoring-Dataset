@@ -2591,8 +2591,8 @@ height = int(mosaicVideo.get(cv2.CAP_PROP_FRAME_HEIGHT))
 h2 = int(height / 2)
 w2 = int(width / 2)
 
-total_width = 1280
-total_height = 720
+total_width = setUpManager._dimensions["total-width"]
+total_height = setUpManager._dimensions["total-height"]
 up_space = 70
 down_space = 50
 infoWidth = 300 #Width of info visualization for no mosaic videos

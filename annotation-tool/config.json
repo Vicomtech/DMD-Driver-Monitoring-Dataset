@@ -22,6 +22,8 @@
         }
     },
     "dimensions":{
+        "total-width": 1280,
+        "total-height":720
 
     },
     "colors": {

@@ -47,6 +47,7 @@ class ConfigTato:
         self._interfaceTexts = config_dict["interfaceText"]
         self._consoleTexts = config_dict["consoleText"]
         self._colorConfig = config_dict["colors"]
+        self._dimensions = config_dict["dimensions"]
         # Config variables
         self._pre_annotate = bool(tatoConfig["pre_annotate"])
         self._annotation_mode = tatoConfig["annotation_mode"]
