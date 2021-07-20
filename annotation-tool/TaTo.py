@@ -682,13 +682,20 @@ def showLiveAnnotationsGeneral(countm, mosaicVideo, annotations, validations, mo
         retMosaic, frameMosaic = mosaicVideo.read()
         if not retMosaic:
             break
-        mosaicA = frameMosaic
         
+        maxWindowWidth = 720
+        maxVideoWidth = maxWindowWidth - 300
+        newHeight = int(height*maxVideoWidth/width)
         h_line = 48 #space between titles
-        height_calculation = len(dic_names)*int(h_line+10)
-        mosaicA[0:height_calculation, width-int(w2/2):width] = np.uint8(np.full((height_calculation, int(w2/2), 3), backgroundColorMain))
 
-        padding = width-int(w2/2) +30
+        height_calculation = max(len(dic_names)*int(h_line+10),newHeight) +150
+        mosaicA = np.uint8(np.full((height_calculation, maxWindowWidth,3), backgroundColorMain))
+        
+        # Draw video on the rigth
+        mosaicA[0:newHeight, 300:maxWindowWidth] = cv2.resize(frameMosaic,(maxVideoWidth,newHeight))
+        #mosaicA[0:height_calculation, width-int(w2/2):width] = np.uint8(np.full((height_calculation, int(w2/2), 3), backgroundColorMain))
+
+        padding = 30
         line = 30
         # Write annotations
         for j in range(len(dic_names)):
@@ -713,8 +720,8 @@ def showLiveAnnotationsGeneral(countm, mosaicVideo, annotations, validations, mo
                 cv2.LINE_AA,
             )
         padding = 100   
-        line = height-150
-        mosaicA[line-30:height, 0:300] = np.uint8(np.full((180, 300, 3), backgroundColorMain))
+        line = height_calculation -150
+        mosaicA[height_calculation-150-30:height_calculation, 0:300] = np.uint8(np.full((180, 300, 3), backgroundColorMain))
         # Write mosaic number
         cv2.putText(
             mosaicA,
@@ -764,11 +771,11 @@ def showLiveAnnotationsGeneral(countm, mosaicVideo, annotations, validations, mo
                     cv2.LINE_AA)
 
         # downscale image
-        scale_percent = 90  # percent of original size
+        """scale_percent = 90  # percent of original size
         new_width = int(width * scale_percent / 100)
         new_height = int(height * scale_percent / 100)
         dim = (new_width, new_height)
-        mosaicA = cv2.resize(cv2.UMat(mosaicA), dim, interpolation=cv2.INTER_AREA)
+        mosaicA = cv2.resize(cv2.UMat(mosaicA), dim, interpolation=cv2.INTER_AREA)"""
 
         #move foward in timeline
         showTimeLine(annArray[:, mode], countm, valArray[:, mode])
