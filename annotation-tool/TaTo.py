@@ -801,7 +801,7 @@ def showLiveAnnotationsDMD(countm, mosaicVideo, annotations, validations, mode):
     valArray = np.array(validations)
     ret_count = countm
     while True:
-        key = cv2.waitKey(3)
+        key = cv2.waitKey(1)
         if key == 27:  # Press [esc] to quit
             break
         elif key == 32:  # Press [SPACE] to pause playback
@@ -1244,7 +1244,7 @@ def showInstructionsWindow():
         keyboardS[160:200, 200:240] = textColorInstructions  # S
 
         keyboardS[240:280, 80:240] = textColorInstructions  # SPACE
-        keyboardS[240:280, 260:300] = textColorInstructions  # ?
+        keyboardS[240:280, 260:300] = textColorInstructions  # any
 
         # text                                 x , y
         cv2.putText(
@@ -1293,9 +1293,9 @@ def showInstructionsWindow():
                     2, cv2.LINE_AA)  # space
 
         cv2.putText(keyboardS, ">", (270, 230), font, 0.8,
-                    textColorInstructions, 1, cv2.LINE_AA)  # ?
-        cv2.putText(keyboardS, "?", (270, 270), font, 2, textColorLabels, 2,
-                    cv2.LINE_AA)  # ?
+                    textColorInstructions, 1, cv2.LINE_AA)  # any
+        cv2.putText(keyboardS, "any", (265, 265), font, 1, textColorLabels, 1,
+                    cv2.LINE_AA)  # any
 
         # -- segundo cuadrante --             y, x
 
