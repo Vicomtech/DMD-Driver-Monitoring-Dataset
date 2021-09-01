@@ -1240,8 +1240,10 @@ def showInstructionsWindow():
         keyboardS[80:120, 200:240] = textColorInstructions  # E
         keyboardS[80:120, 260:300] = textColorInstructions  # R
 
-        keyboardS[160:200, 140:180] = textColorInstructions  # A
-        keyboardS[160:200, 200:240] = textColorInstructions  # S
+        keyboardS[160:200, 80:120] = textColorInstructions  # A
+        keyboardS[160:200, 140:180] = textColorInstructions  # S
+        keyboardS[160:200, 200:240] = textColorInstructions  # D
+        keyboardS[160:200, 260:300] = textColorInstructions  # F
 
         keyboardS[240:280, 80:240] = textColorInstructions  # SPACE
         keyboardS[240:280, 260:300] = textColorInstructions  # any
@@ -1274,25 +1276,32 @@ def showInstructionsWindow():
         cv2.putText(
             keyboardS, "R", (270, 110), font, 2, textColorLabels, 2, cv2.LINE_AA)  # R
 
+        cv2.putText(keyboardS, "[<", (90, 150),font, 0.8, 
+                    textColorInstructions, 1, cv2.LINE_AA)  # A     
         cv2.putText(
-            keyboardS,
-            "[<",
-            (150, 150),
-            font, 0.8, textColorInstructions, 1, cv2.LINE_AA)  # A     
-        cv2.putText(
-            keyboardS, "A", (150, 190), font, 2, textColorLabels, 2, cv2.LINE_AA)  # A
+            keyboardS, "A", (90, 190), font, 2, textColorLabels, 2, cv2.LINE_AA)  # A
 
-        cv2.putText(keyboardS, ">]", (210, 150), font, 0.8,
+        cv2.putText(keyboardS, ">]", (150, 150), font, 0.8,
                     textColorInstructions, 1, cv2.LINE_AA)  # S
-        cv2.putText(keyboardS, "S", (210, 190), font, 2, textColorLabels, 2,
+        cv2.putText(keyboardS, "S", (150, 190), font, 2, textColorLabels, 2,
                     cv2.LINE_AA)  # S
+
+        cv2.putText(keyboardS, "First", (208, 150), font, 0.8,
+                    textColorInstructions, 1, cv2.LINE_AA)  # S
+        cv2.putText(keyboardS, "D", (210, 190), font, 2, textColorLabels, 2,
+                    cv2.LINE_AA)  # D
+
+        cv2.putText(keyboardS, "Last", (268, 150), font, 0.8,
+                    textColorInstructions, 1, cv2.LINE_AA)  # S
+        cv2.putText(keyboardS, "F", (270, 190), font, 2, textColorLabels, 2,
+                    cv2.LINE_AA)  # F
 
         cv2.putText(keyboardS, "<", (160, 230), font, 0.8,
                     textColorInstructions, 1, cv2.LINE_AA)  # space
         cv2.putText(keyboardS, "SPACE", (110, 270), font, 2, textColorLabels,
                     2, cv2.LINE_AA)  # space
 
-        cv2.putText(keyboardS, ">", (270, 230), font, 0.8,
+        cv2.putText(keyboardS, ">", (275, 230), font, 0.8,
                     textColorInstructions, 1, cv2.LINE_AA)  # any
         cv2.putText(keyboardS, "any", (265, 265), font, 1, textColorLabels, 1,
                     cv2.LINE_AA)  # any
