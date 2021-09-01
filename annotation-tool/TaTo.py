@@ -1970,6 +1970,14 @@ def showMosaic(mosaicVideo, annotations, validations):
                 last_frame = count
                 if count + 300 < frameNumber:
                     count = count + 300
+            # press [d] to move to the first frame
+            elif key == ord("d") or key == ord("D"):
+                last_frame = count
+                count = 0
+            # press [f] to move to the last frame
+            elif key == ord("f") or key == ord("F"):
+                last_frame = count
+                count = frameNumber
             # press [s] to move to next boundary change
             elif key == ord("s") or key == ord("S"):
                 last_frame = count
