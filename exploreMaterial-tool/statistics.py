@@ -1,16 +1,13 @@
 # -*- coding: utf-8 -*-
-import sys
 import os
-import cv2
 from pathlib import Path  # To handle paths independent of OS
-import numpy as np
-from numpy.lib.function_base import append
-from vcd.utils import filter_outside
 
 # Import local class to parse VCD content
 from vcd4reader import VcdHandler
-from vcd4reader import VcdDMDHandler
 
+#Written by Paola Cañas with <3
+
+#Script to get statistics of the data (# of frames per class and total # of frames)
 class get_statistics():
 
     def __init__(self, vcdFile, destinationFile):
@@ -18,8 +15,8 @@ class get_statistics():
         self.vcdFile = vcdFile
         self.vcd_handler = VcdHandler(vcd_file=Path(self.vcdFile))
 
-        self.actionPath = destinationFile.replace(".txt","actions.txt")
-        self.framesPath = destinationFile.replace(".txt","frames.txt")
+        self.actionPath = destinationFile.replace(".txt","-actions.txt")
+        self.framesPath = destinationFile.replace(".txt","-frames.txt")
 
         # @self.actionList: ["driver_actions/safe_drive", "gaze_on_road/looking_road",.. , ..]
         self.actionList = self.vcd_handler.get_action_type_list()
@@ -76,7 +73,6 @@ class get_statistics():
         #write
         file = open(self.actionPath, "a+")
         for line in string_txt:
-            print("write",line)
             file.write(line[0]+":"+line[1])
         file.close()
 

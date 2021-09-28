@@ -131,14 +131,14 @@ elif opt == 2:
 elif opt == 3:
     # Get statistics
     print("This function only works with dmd material structure when exporting with DEx tool.")
-    destination_path = input("Enter destination filename: ")
+    destination_path = input("Enter filename for a report file (e.g. report.txt): ")
     selec = input("How do you want to read annotations, by: Group:[g]  Sessions:[f]  One VCD:[v] : ")
     
     #Delete destination_path to avoid redundancies
-    if os.path.exists(destination_path.replace(".txt","actions.txt")):
-        os.remove(destination_path.replace(".txt","actions.txt"))
-    if os.path.exists(destination_path.replace(".txt","frames.txt")):
-        os.remove(destination_path.replace(".txt","frames.txt"))
+    if os.path.exists(destination_path.replace(".txt","-actions.txt")):
+        os.remove(destination_path.replace(".txt","-actions.txt"))
+    if os.path.exists(destination_path.replace(".txt","-frames.txt")):
+        os.remove(destination_path.replace(".txt","-frames.txt"))
 
     if selec == "g":
         #By group
