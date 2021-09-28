@@ -51,6 +51,16 @@ class exportClass():
 
         # @self.actionList: ["driver_actions/safe_drive", "gaze_on_road/looking_road",.. , ..]
         self.actionList = self.vcd_handler.get_action_type_list()
+        #Get object list
+        self.objectList = self.vcd_handler.get_object_type_list()
+        #from 1 to not get "driver" object
+        for object in self.objectList: 
+            # Append objects to actionList
+            if "driver" in object:
+                #Dont add driver object
+                continue
+            self.actionList.append("objects_in_scene/"+object)
+            
         self.frameNum = 0
 
 
@@ -70,7 +80,8 @@ class exportClass():
         
         @annotations: list of classes you wish to export (e.g. ["safe_drive","drinking"])
         Possible values: all labels names
-        it can be the type name like in VCD ("driver_actions/safe_drive") or just the label name ("safe_drive")
+        it can be the type name like in VCD ("driver_actions/safe_drive") or just the label name ("safe_drive"). Except for objects.
+        Objects (cellphone, hair comb and bottle) have to be with the "object_in_scene/__" label before. 
         Also can be the action uid in number (e.g. [0,1,2]) but be aware that uid might not the same in all VCD's
         The var @self.actionList will get all the classes available in VCD
 
@@ -122,7 +133,7 @@ class exportClass():
                         # Check if annotation exists in vcd
                         if isinstance(annotation, str):
                             # if annotation is string, check with self.vcd_handler if it is in VCD
-                            if self.vcd_handler.is_action_type_get_uid(annotation)[0]:
+                            if self.vcd_handler.is_action_type_get_uid(annotation)[0] or self.vcd_handler.is_object_type_get_uid(annotation)[0]:
                                 validAnnotation = True
                         elif isinstance(annotation, int):
                             # if annotation is int, is an id and has to be less then self.actionList length
@@ -149,8 +160,13 @@ class exportClass():
         # Check and load valid video
         streamVideoPath = str(self.getStreamVideo(channel, stream))
         capVideo = cv2.VideoCapture(streamVideoPath)
-        # get intervals from vcd
-        fullIntervals = self.vcd_handler.get_frames_intervals_of_action(annotation)
+        # Check if annotation is an object or an action
+        if "object" in annotation:
+            # get object intervals from vcd
+            fullIntervals = self.vcd_handler.get_frames_intervals_of_object(annotation)
+        else:
+            # get action intervals from vcd
+            fullIntervals = self.vcd_handler.get_frames_intervals_of_action(annotation)
         # make lists from dictionaries
         fullIntervalsAsList = self.dictToList(fullIntervals)
         # if intervals must be cutted, cut
@@ -201,7 +217,6 @@ class exportClass():
                 else:
                     print(
                         "WARNING: Skipped interval %i, because some of its frames do not exist in stream %s" %(count,stream))
-
         return fullIntervalsAsList
 
     # Function to get invervals as dictionaries and return them as a python list

@@ -97,7 +97,11 @@ class VcdHandler():
             
             #Number of actions in vcd
             self.__num_actions = self._vcd.get_num_actions()
-            print("There are %s actions in this VCD" % (self.__num_actions))
+
+            #Number of objects in vcd, including the driver
+            self.__num_objects = self._vcd.get_num_objects()
+
+            print("There are %s actions in this VCD" % (self.__num_actions+self.__num_objects-1)) #minus 1 for "driver" object
 
             self.__vcd_loaded = True
 
@@ -111,11 +115,22 @@ class VcdHandler():
         if isinstance(uid, str):
             uid = self.is_action_type_get_uid(uid)[1]
         if uid >=0:
-            intervals = self._vcd.data["vcd"]["actions"][str(uid)]["frame_intervals"]
+            intervals = self._vcd.get_action(str(uid))["frame_intervals"]
             return intervals
         else:
             raise RuntimeError("WARNING: VCD does not have action with uid",uid)  
 
+    #function to get intervals from specific object, providing its name or its uid
+    def get_frames_intervals_of_object(self, uid):
+        if isinstance(uid, str):
+            uid = self.is_object_type_get_uid(uid)[1]
+        if uid >=0:
+            intervals = self._vcd.get_object(str(uid))["frame_intervals"]
+            return intervals
+        else:
+            raise RuntimeError("WARNING: VCD does not have an object with uid",uid) 
+        
+            
     #Function to know if an action name (label) given is an action type name. It is useful because type names are composed by level_name/label_name
     #Also returns uid of action (e.g "only_left" will return 8)
     def is_action_type_get_uid(self, action_string):
@@ -124,12 +139,28 @@ class VcdHandler():
                 return True, uid
         return False, -1
 
+    #Function to know if an object type name (label) given exists in vcd.
+    #Also returns uid of object (e.g "driver" will return 0)
+    def is_object_type_get_uid(self, object_string):
+        for uid, object_type in enumerate(self.get_object_type_list()):
+            if object_string.split("/")[1] == object_type:
+                return True, uid
+        return False, -1
+
+    #Funcion to go through the VCD and get the "type" val of all objects available
+    def get_object_type_list(self):
+        object_type_list = []
+        if self._vcd_file:
+            for uid in range(self.__num_objects):
+                object_type_list.append(self._vcd.get_object(str(uid)).get('type'))
+        return object_type_list
+    
     #Funcion to go through the VCD and get the "type" val of all actions available
     def get_action_type_list(self):
         action_type_list = []
         if self._vcd_file:
             for uid in range(self.__num_actions):
-                action_type_list.append(self._vcd.data["vcd"]['actions'][str(uid)].get('type'))
+                action_type_list.append(self._vcd.get_action(str(uid)).get('type'))
         return action_type_list
 
     # Return flag that indicate if vcd was loaded from file
@@ -213,9 +244,10 @@ class VcdDMDHandler(VcdHandler):
         self.__hands_uri = None
 
         # Check required essential fields inside to be considered loaded
-        vcd_metadata = self._vcd.data["vcd"]
-        body_sh_exist = keys_exists(vcd_metadata,"streams","body_camera","stream_properties","sync","frame_shift")
-        hands_sh_exist = keys_exists(vcd_metadata,"streams","hands_camera","stream_properties","sync","frame_shift")
+        #vcd_metadata = self._vcd.data["vcd"]
+        vcd_streams = self._vcd.get_streams()
+        body_sh_exist = keys_exists(vcd_streams,"body_camera","stream_properties","sync","frame_shift")
+        hands_sh_exist = keys_exists(vcd_streams,"hands_camera","stream_properties","sync","frame_shift")
 
         # If shifts fields exist then consider the vcd loaded was valid
         if body_sh_exist and hands_sh_exist:

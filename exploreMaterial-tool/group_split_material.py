@@ -50,7 +50,6 @@ class groupClass():
 # splitClass(): split dataset into train and test splits.
 # Dataset must be organized by classes. A folder containing each class material. ("radio","drinking"...)
 
-#TODO: validate self.testPercent variable.
 
 class splitClass():
 
