@@ -23,7 +23,7 @@ DEx tool has been tested using the following system configuration:
 For a detailed description on how to configure the environment and launch the tool, check: [Linux](../docs/setup_linux.md) / [Windows](../docs/setup_windows.md)
 
 ## DEx characteristics
-TaTo is a python-based tool to access VCD annotations more easily. You can prepare the DMD material for training by using DEx. The main functionalities of DEx are: exporting material in images or videos by frame intervals from the annotations, group the resulting material into folders organized by classes (only available for DMD) and after the material is organized by classes, the tool can generate a training and a testing split. 
+TaTo is a python-based tool to access VCD annotations more easily. You can prepare the DMD material for training by using DEx. The main functionalities of DEx are: exporting material in images or videos by frame intervals from the annotations, group the resulting material into folders organized by classes (only available for DMD) and after the material is organized by classes, the tool can generate a training and a testing split.
 
 - Get a **list of frame intervals** of a specific activity (or label) from VCD.
 - Take a list of frame intervals and **divide** them into **subintervals** of desired size. This can be done starting from the first frame of from the last frame and back.
@@ -32,6 +32,7 @@ TaTo is a python-based tool to access VCD annotations more easily. You can prepa
 - You can choose what material to export: a group's material, a session material or just the material from a specific VCD annotation.
 - If you are working with the DMD, the exported material will be organized in a similar way as the DMD structure: by groups, sessions and subjects. With DEx, you can **group** this material by **classes**. This is only possible with DMD material.
 - After you have the data organized by classes, you can **split** the material into a **training** and a **testing** split. You must provide the testing **ratio or proportion** (e.g: 0.20, 0.25). If the testing ratio is 0.20, the result is a folder named “train” with 80% of the data and a folder named “test” with the 20% of the data.
+- Get **statistics** of data. This means, get the number of frames per class and the total number of frames.
 
 ## Usage Instructions
 ### DEx initialization 
@@ -44,7 +45,7 @@ There are some export settings you can change at the __init()__ function of file
 - To define the **data format** you wish to export, add “image” and/or “video” to **@material** variable as a list.
 - The list of **camera perspectives** to export material from can be defined in **@streams** variable, these are: "face", "body" or "hands" camera. If is a video from other dataset, it must be "general"
 - To choose the channel of information, **RGB**, **IR** or **DEPTH**, you must specify it with the **@channels** variable. You can define a list of channesl: ["ir","rgb","depth"]. For videos from other datasets, it must be only ["rgb"].
-- You can make a list of the **classes** you want to get the frame intervals of (e.g. [“safe_drive”,"drinking"]) and assing it to the **@annotations** variable. The var @self.actionList will get all the classes available in VCD
+- You can make a list of the **classes** you want to get the frame intervals of (e.g. [“safe_drive”,"drinking"]) and assing it to the **@annotations** variable. Objects (cellphone, hair comb and bottle) have to be with the 'object_in_scene/__' label before. The var @self.actionList will get all the classes available in VCD
 - If you want to export and create/write material in a **destination folder**, you must set **@write** variable to True.
 - If you wish to **cut** the frame intervals to subintervals, the **size** of the final subintervals can be set in **@intervalChunk** variable. 
 - Sometimes not all frame intervals can be cutted because they are smaller than the @intervalChunk. To **ignore** and not export these **smaller frame intervals**, set **@ignoreSmall** to True
