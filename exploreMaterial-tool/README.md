@@ -32,7 +32,7 @@ TaTo is a python-based tool to access VCD annotations more easily. You can prepa
 - You can choose what material to export: a group's material, a session material or just the material from a specific VCD annotation.
 - If you are working with the DMD, the exported material will be organized in a similar way as the DMD structure: by groups, sessions and subjects. With DEx, you can **group** this material by **classes**. This is only possible with DMD material.
 - After you have the data organized by classes, you can **split** the material into a **training** and a **testing** split. You must provide the testing **ratio or proportion** (e.g: 0.20, 0.25). If the testing ratio is 0.20, the result is a folder named “train” with 80% of the data and a folder named “test” with the 20% of the data.
-- Get **statistics** of data. This means, get the number of frames per class and the total number of frames.
+- Get **statistics** of data. This means, get the number of frames per class and the total number of frames from data of a group, session or a single vcd.
 
 ## Usage Instructions
 ### DEx initialization 
