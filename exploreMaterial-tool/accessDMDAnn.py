@@ -106,6 +106,8 @@ class exportClass():
         annotations = self.actionList
         write = True
         intervalChunk = 0
+        ignoreSmall = False
+        asc = True
 
         #validations
         if not self.datasetDMD and (streams[0] != "general" or len(streams)> 1):
@@ -115,7 +117,7 @@ class exportClass():
             raise RuntimeError(
                 "WARNING: channles option for other datasets must be only 'rgb'")
         #exec
-        self.exportMaterial(material, streams, channels, annotations, write, intervalChunk, True)
+        self.exportMaterial(material, streams, channels, annotations, write, intervalChunk, ignoreSmall, asc)
 
     # @material: list of data format to export (e.g. ["image","video"])
     # @streams: list of camera names to export (e.g. ["body", "hands"])

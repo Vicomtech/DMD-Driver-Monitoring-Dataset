@@ -143,8 +143,13 @@ class VcdHandler():
     #Also returns uid of object (e.g "driver" will return 0)
     def is_object_type_get_uid(self, object_string):
         for uid, object_type in enumerate(self.get_object_type_list()):
-            if object_string.split("/")[1] == object_type:
-                return True, uid
+            #If class name comes with type/classname
+            if len(object_string.split("/"))>1:
+                if object_string.split("/")[1] == object_type:
+                    return True, uid
+            else:
+                if object_string == object_type:
+                    return True, uid
         return False, -1
 
     #Funcion to go through the VCD and get the "type" val of all objects available
