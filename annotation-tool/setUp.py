@@ -123,8 +123,8 @@ class ConfigTato:
             #check if video is according to mode
             distractionRelated = ['attm', 's1', 'atts', 's2', 'reach', 's3', 'attc', 's4',
                                 'attm2', 'atts2', 'reach2', 'attc2']
-            drowsinessRelated = ['drow2', 's7', 'drow']
-            gazeRelated = ['gaze', 's5', 'gazec', 's6', 'gaze2', 'gazec2']
+            drowsinessRelated = ['drow2', 's5', 'drow']
+            gazeRelated = ['gaze', 's6', 'gazec', 's7', 'gaze2', 'gazec2']
             if self._annotation_mode == "distraction" and self._session not in distractionRelated or self._annotation_mode == "drowsiness" and self._session not in drowsinessRelated or self._annotation_mode == "gaze" and self._session not in gazeRelated:
                 print("---!!WARNING!!: the annotation mode does not match the type of video session.---")
 
@@ -168,7 +168,7 @@ class ConfigTato:
                     self._video_file_path.parents[3] / "logs-sync" / ("shifts-" + self._group + ".txt")).resolve()
                 # To read the metadata of video session (driver info, frame numbers..etc)
                 self._metadata_file_path = (
-                    self._video_file_path.parents[3] / "logs-sync" / ("metadata-" + self._group + ".txt")).resolve()
+                    self._video_file_path.parents[3] / "metadata" / ("all_"+ self._group+"_bag_metadata.txt")).resolve()
                 #Check if shifts and metadata files exist
                 if not self._shifts_file_path.exists():
                     raise RuntimeError("Shift file doesn't exist: " +
