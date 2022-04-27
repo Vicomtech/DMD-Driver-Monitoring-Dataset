@@ -381,17 +381,25 @@ class exportClass():
             if videoChannel == "depth":
                 videoPath = videoPath.replace("mp4", "avi")
 
+            videoPath = Path(self.rootDmd + videoPath)
+
+            if not videoPath.exists():
+                videoPath = self.vcdFile.replace("ann_gaze.json",videoStream+".mp4")
+                # change to desire channel video path
+                videoPath = videoPath.replace("rgb", videoChannel)
+                if videoChannel == "depth":
+                    videoPath = videoPath.replace("mp4", "avi")
+                print("URI inside VCD not found. Possible path is considered:",videoPath)
+                videoPath = Path(videoPath)
+            
         else:
             if videoStream =="general":
                 videoPath = self.vcd_handler.get_videos_uri()
                 self.frameNum = self.vcd_handler.get_frames_number()
+                videoPath = Path(videoPath)
             else:
                 raise RuntimeWarning(videoStream,": Not a valid video stream. Must be 'general'")
 
-        if self.datasetDMD:
-            videoPath = Path(self.rootDmd + videoPath)
-        else:
-            videoPath = Path(videoPath)
         # Check video frame count and VCD's frame count
         if videoPath.exists():
             cap = cv2.VideoCapture(str(videoPath))
