@@ -205,7 +205,7 @@ class exportClass():
                     print('Exporting interval %d \r' % count, end="")
                     # Name with stream, date, subject and interval id to not overwrite
                     fileName = str(dirName) + "/" + stream + "_" + \
-                        self.dateDayHour + "_"+self.info[1] + "_"+str(count)
+                        self.dateDayHour.replace(":",";") + "_"+self.info[1] + "_"+str(count)
                     if material == "image" or material == "images" or material == "img" or material == "imgs":
                         if channel == "depth":
                             self.depthFrameIntervalToImages(startFrame, endFrame, depthVideoArray, fileName)
