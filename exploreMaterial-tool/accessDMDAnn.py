@@ -247,7 +247,7 @@ class exportClass():
             framesLost = 0
             init = interval[0]
             end = interval[1]
-            if end == self.frameNum-1:
+            if end == self.frameNum:
                 end = end-1
             dist = end - init
             framesSum = framesSum + dist
@@ -265,19 +265,25 @@ class exportClass():
                     for x in range(numOfChunks):
                         # if Ascendant, take the initial limit of interval and start dividing chunks from there adding chunk size
                         if asc:
-                            intervalsCutted.append([count, count + intervalChunk])
+                            intervalsCutted.append([count, count + intervalChunk - 1])
                             count = count + intervalChunk
                         # if descendant, take the final limit of interval and start dividing chunks from there substracting chunk size
                         else:
                             intervalsCutted.append([count, count - intervalChunk])
-                            count = count - intervalChunk
+                            count = count - intervalChunk - 1
                     framesLost = abs(
-                        count - end) if asc else abs(count - init)
+                        count - end) if asc else abs(count - init + 1)
+                if not ignoreSmall:
+                    if asc:
+                        intervalsCutted.append([count, count + framesLost])
+                    else:
+                        intervalsCutted.append([count, count - framesLost])
+                    framesLost = 0
                 else:
                     print("WARNING: Skipped interval",
                           interval, "for being too small :(")
             framesLostSum = framesLostSum + framesLost
-        print("Total frame loss:", framesLostSum, "of total:", framesSum)
+        print("Total frame loss:", framesLostSum, "of total:", framesSum + 1)
         print("Resulting number of intervals:", len(intervalsCutted),
               "from initial number:", len(intervals))
 
