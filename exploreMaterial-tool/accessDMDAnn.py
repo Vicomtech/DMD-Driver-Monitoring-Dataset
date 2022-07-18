@@ -101,13 +101,13 @@ class exportClass():
         """
         # config
         material = ["image"]
-        streams = ["body","face", "hands"] #must be "general" if not DMD dataset
-        channels = ["rgb", "ir"] #Include "depth" to export Depth information too. It must be only "rgb" if not DMD dataset
-        annotations = self.actionList
-        write = True
-        intervalChunk = 0
+        streams = ["body"]#,"face", "hands"] #must be "general" if not DMD dataset
+        channels = ["rgb"]#, "ir"] #Include "depth" to export Depth information too. It must be only "rgb" if not DMD dataset
+        annotations = ["safe_drive"]#self.actionList
+        write = False
+        intervalChunk = 30
         ignoreSmall = False
-        asc = True
+        asc = False
 
         #validations
         if not self.datasetDMD and (streams[0] != "general" or len(streams)> 1):
@@ -238,7 +238,7 @@ class exportClass():
     def cutIntervals(self, intervals, intervalChunk, ignoreSmall=False, asc=True):
         assert (len(intervals) > 0)
         assert (intervalChunk > 1)
-
+        print("original intervals:", intervals)
         intervalsCutted = []
         framesSum = 0
         framesLostSum = 0
@@ -256,9 +256,10 @@ class exportClass():
             # calculate how many chunks will result per interval
             numOfChunks = math.floor(dist / intervalChunk)
             # If the division of interval is not possible and cannot be ignored
-            if numOfChunks <= 0 and not ignoreSmall:
-                raise RuntimeError("WARNING: the interval chunk length chosen is too small, some intervals are too small to be cutted by",
+            if numOfChunks <= 0 and ignoreSmall:
+                print("WARNING: the interval chunk length chosen is too small, some intervals are too small to be cutted by",
                                    intervalChunk, "frames. To ignore small intervals, set True to ignoreSmall argument.")
+                print("WARNING: Skipped interval", interval, "for being too small :(")
             else:
                 # if the division of interval is possible
                 if numOfChunks > 0:
@@ -269,19 +270,19 @@ class exportClass():
                             count = count + intervalChunk
                         # if descendant, take the final limit of interval and start dividing chunks from there substracting chunk size
                         else:
-                            intervalsCutted.append([count, count - intervalChunk])
-                            count = count - intervalChunk - 1
+                            intervalsCutted.append([count, count - intervalChunk + 1])
+                            count = count - intervalChunk
                     framesLost = abs(
-                        count - end) if asc else abs(count - init + 1)
+                        count - end) if asc else abs(count - init)
                 if not ignoreSmall:
+                    framesLost = abs(
+                        count - end) if asc else abs(count - init)
                     if asc:
                         intervalsCutted.append([count, count + framesLost])
                     else:
                         intervalsCutted.append([count, count - framesLost])
                     framesLost = 0
-                else:
-                    print("WARNING: Skipped interval",
-                          interval, "for being too small :(")
+                    
             framesLostSum = framesLostSum + framesLost
         print("Total frame loss:", framesLostSum, "of total:", framesSum + 1)
         print("Resulting number of intervals:", len(intervalsCutted),
