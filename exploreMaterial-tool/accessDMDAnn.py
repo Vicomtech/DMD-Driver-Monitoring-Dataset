@@ -101,13 +101,13 @@ class exportClass():
         """
         # config
         material = ["image"]
-        streams = ["body"]#,"face", "hands"] #must be "general" if not DMD dataset
-        channels = ["rgb"]#, "ir"] #Include "depth" to export Depth information too. It must be only "rgb" if not DMD dataset
-        annotations = ["safe_drive"]#self.actionList
-        write = False
-        intervalChunk = 30
+        streams = ["body","face", "hands"] #must be "general" if not DMD dataset
+        channels = ["rgb", "ir"] #Include "depth" to export Depth information too. It must be only "rgb" if not DMD dataset
+        annotations = self.actionList
+        write = True
+        intervalChunk = 0
         ignoreSmall = False
-        asc = False
+        asc = True
 
         #validations
         if not self.datasetDMD and (streams[0] != "general" or len(streams)> 1):
@@ -238,7 +238,6 @@ class exportClass():
     def cutIntervals(self, intervals, intervalChunk, ignoreSmall=False, asc=True):
         assert (len(intervals) > 0)
         assert (intervalChunk > 1)
-        print("original intervals:", intervals)
         intervalsCutted = []
         framesSum = 0
         framesLostSum = 0
