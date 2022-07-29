@@ -390,9 +390,13 @@ class exportClass():
             videoPath = Path(self.rootDmd + videoPath)
 
             if not videoPath.exists():
-                videoPath = self.vcdFile.replace("ann_gaze.json",videoStream+".mp4")
+                videoPath = self.vcdFile
+                videoPath = videoPath.replace("ann_gaze.json",videoStream+".mp4")
+                videoPath = videoPath.replace("ann_distraction.json",videoStream+".mp4")
+                videoPath = videoPath.replace("ann_drowsiness.json",videoStream+".mp4")
                 # change to desire channel video path
                 videoPath = videoPath.replace("rgb", videoChannel)
+
                 if videoChannel == "depth":
                     videoPath = videoPath.replace("mp4", "avi")
                 print("URI inside VCD not found. Possible path is considered:",videoPath)
@@ -416,7 +420,7 @@ class exportClass():
                     self.frameNum = self.frameNum - 1
                 else:
                     raise RuntimeWarning(
-                        "VCD's and real video frame count don't match.")
+                        "VCD's and real video frame count don't match. VCD: %s video: %s",(self.frameNum,length))
             else:
                 print(videoChannel, videoStream, "stream loaded:", videoPath.name)
         else:
