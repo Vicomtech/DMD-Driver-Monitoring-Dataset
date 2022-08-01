@@ -27,21 +27,30 @@ class groupClass():
             class_paths.sort()
 
             for classF in class_paths:
-                #For each class folder, get the name and make a folder in destination
-                name  = Path(classF).name
-                dest = Path(self.materialPath+"/"+name)
-                os.makedirs(str(dest), exist_ok=True)
-                #If class folder already exists in destination, list the data inside and move it
-                if dest.exists():
-                    data_paths = glob.glob(classF + '/*')
-                    data_paths.sort()
-                    for data in data_paths:
-                        dest = Path(str(dest)+"/")
+                subClass = glob.glob(classF + '/*')
+                subClass.sort()
+                dir = Path(subClass[0]).is_dir()
+                print("dir",dir)
+                #If theres a level more of folers
+                if dir:
+                    for subClassF in subClass:
+                        class_name  = Path(classF).name
+                        name  = Path(subClassF).name
+                        dest = Path(self.materialPath+"/"+class_name+"/"+name)
+
+                        os.makedirs(str(dest), exist_ok=True)
+                        shutil.copytree(subClassF, str(dest),dirs_exist_ok=True)
+                        print("Moving",name)
                 
-                        shutil.move(data,  str(dest))
-                #else, move the folder to destination
-                else:            
-                    shutil.move(classF,  str(dest))
+                else:
+                    #For each class folder, get the name and make a folder in destination
+                    name  = Path(classF).name
+                    dest = Path(self.materialPath+"/"+name)
+
+                    os.makedirs(str(dest), exist_ok=True)
+                    shutil.copytree(classF, str(dest),dirs_exist_ok=True)
+                    print("Moving",name)
+                
             #Delete session folder
             shutil.rmtree(session)
         
