@@ -15,11 +15,8 @@
         "100": "NAN"
     },
     "2": {
-        "0": "open",
-        "1": "close",
-        "2": "opening",
-        "3": "closing",
-        "4": "undefined",
+        "0": "blinking",
+        "99": "--",
         "100": "NAN"
     },
     "3": {
@@ -30,8 +27,8 @@
     },
     "level_names": {
         "0": "occlusion",
-        "1": "eye_state_right",
-        "2": "eye_state_left",
+        "1": "eyes_state",
+        "2": "blinks",
         "3": "yawning"
     },
     "level_types": {
@@ -43,7 +40,7 @@
     "level_defaults": {
         "0": 99,
         "1": 0,
-        "2": 0,
+        "2": 99,
         "3": 99
     
     },

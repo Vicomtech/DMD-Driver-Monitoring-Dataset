@@ -380,6 +380,7 @@ def loadPropertiesDMD():
         distractionVCD = str(setUpManager._vcd_file_path).replace(str(setUpManager._annotation_mode),"distraction")
         drowsinessVCD = str(setUpManager._vcd_file_path).replace(str(setUpManager._annotation_mode),"drowsiness")
         gazeVCD = str(setUpManager._vcd_file_path).replace(str(setUpManager._annotation_mode), "gaze")
+        handsVCD = str(setUpManager._vcd_file_path).replace(str(setUpManager._annotation_mode), "hands")
         copyVCD = False
         copy_file = ""
         if Path(distractionVCD).exists():
@@ -400,6 +401,12 @@ def loadPropertiesDMD():
             copy_file = gazeVCD
             print(
                 "\nCreating new VCD file with default annotations, reading shifts and metadata from gaze VCD...")
+        elif Path(handsVCD).exists():
+            #Copy from hands VCD
+            copyVCD  = True
+            copy_file = handsVCD
+            print(
+                "\nCreating new VCD file with default annotations, reading shifts and metadata from hands VCD...")
         else:
             copyVCD = False
             print("A default annotation VCD was not found!")

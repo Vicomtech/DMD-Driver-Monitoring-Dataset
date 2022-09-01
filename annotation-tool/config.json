@@ -1,9 +1,9 @@
 {
     "tatoConfig": {
-        "annotation_mode": "hands",
+        "annotation_mode": "drowsiness",
         "dataset": "dmd",
         "pre_annotate": 0,
-        "calculate_time":1
+        "calculate_time":0
     },
     "interfaceText": {
         "mainLevelDependency":{
