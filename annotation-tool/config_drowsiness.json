@@ -1,14 +1,8 @@
 {  
-    "3": {
+    "0": {
         "0": "face_camera",
         "1": "body_camera",
         "2": "hands_camera",
-        "99": "--",
-        "100": "NAN"
-    },
-    "2": {
-        "0": "Yawning with hand",
-        "1": "Yawning without hand",
         "99": "--",
         "100": "NAN"
     },
@@ -20,7 +14,7 @@
         "4": "undefined",
         "100": "NAN"
     },
-    "0": {
+    "2": {
         "0": "open",
         "1": "close",
         "2": "opening",
@@ -28,27 +22,33 @@
         "4": "undefined",
         "100": "NAN"
     },
+    "3": {
+        "0": "Yawning with hand",
+        "1": "Yawning without hand",
+        "99": "--",
+        "100": "NAN"
+    },
     "level_names": {
-        "0": "eye_state_right",
-        "1": "eye_state_left",
-        "2": "yawning",
-        "3": "occlusion"
+        "0": "occlusion",
+        "1": "eye_state_right",
+        "2": "eye_state_left",
+        "3": "yawning"
     },
     "level_types": {
-        "0": "action",
+        "0": "stream_properties",
         "1": "action",
         "2": "action",
-        "3": "stream_properties"
+        "3": "action"
     },
     "level_defaults": {
-        "0": 0,
+        "0": 99,
         "1": 0,
-        "2": 99,
+        "2": 0,
         "3": 99
     
     },
     "camera_dependencies": {
-        "face": [0,1,2],
+        "face": [1,2,3],
         "body": [],
         "hands": []
     }

@@ -1,6 +1,6 @@
 {
     "tatoConfig": {
-        "annotation_mode": "distraction",
+        "annotation_mode": "hands",
         "dataset": "dmd",
         "pre_annotate": 0,
         "calculate_time":1

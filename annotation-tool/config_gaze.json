@@ -1,4 +1,9 @@
 {
+    "2": {
+        "0": "blinking",
+        "99": "--",
+        "100": "NAN"
+    },
     "1": {
         "0": "left_mirror",
         "1": "left",
@@ -21,18 +26,24 @@
     },
     "level_names": {
         "0": "occlusion",
-        "1": "gaze_zone"
+        "1": "gaze_zone",
+        "2": "blinks"
     },
     "level_types": {
         "0": "stream_properties",
-        "1": "action"
+        "1": "action",
+        "2": "action"
     },
     "level_defaults": {
         "0": 99,
-        "1": 2
+        "1": 2,
+        "2": 99
     },
-    "camera_dependencies":{
-        "face": [1],
+    "camera_dependencies": {
+        "face": [
+            1,
+            2
+        ],
         "body": [],
         "hands": []
     }
