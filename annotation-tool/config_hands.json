@@ -19,26 +19,35 @@
         "99": "--",
         "100": "NAN"
     },
+    "3": {
+        "0": "moving",
+        "1": "not_moving",
+        "100": "NAN"
+    },
     "level_names": {
         "0": "occlusion",
         "1": "hands_on_wheel",
-        "2": "transition"
+        "2": "transition",
+        "3": "moving_hands"
     },
     "level_types": {
         "0": "stream_properties",
         "1": "action",
-        "2": "action"
+        "2": "action",
+        "3": "action"
     },
     "level_defaults": {
         "0": 99,
         "1": 0,
-        "2": 99
+        "2": 99,
+        "3": 1
     },
     "camera_dependencies": {
         "face": [],
         "body": [
             1,
-            2
+            2,
+            3
         ],
         "hands": []
     }
