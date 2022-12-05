@@ -201,6 +201,8 @@ class exportClass():
                 valid, startFrame, endFrame = self.checkFrameInStream(
                     stream, interval[0], interval[1])
 
+                mosaicStartFrame = interval[0]
+
                 if valid:
                     print('Exporting interval %d \r' % count, end="")
                     # Name with stream, date, subject and interval id to not overwrite
@@ -208,9 +210,9 @@ class exportClass():
                         self.dateDayHour.replace(":",";") + "_"+self.info[1] + "_"+str(count)
                     if material == "image" or material == "images" or material == "img" or material == "imgs":
                         if channel == "depth":
-                            self.depthFrameIntervalToImages(startFrame, endFrame, depthVideoArray, fileName)
+                            self.depthFrameIntervalToImages(startFrame, endFrame, mosaicStartFrame, depthVideoArray, fileName)
                         else:
-                            self.frameIntervalToImages(startFrame, endFrame, capVideo, fileName)
+                            self.frameIntervalToImages(startFrame, endFrame, mosaicStartFrame,capVideo, fileName)
                     else:
                         if channel == "depth":
                             self.depthFrameIntervalToVideo(startFrame, endFrame, streamVideoPath, fileName)
@@ -323,30 +325,33 @@ class exportClass():
 
     # Function to get images from @frameStart to @frameEnd of stream video @capVideo
     # saves in @self.destinationPath
+    # @mosaicFrameStart is the initial frame number of the mosaic, this is to name the image with the frame number of the mosaic instead of the individual video and help synchronization afterwards
     # @capVideo: is video loaded in opencv, not path
     # @name of images with no extension
-    def frameIntervalToImages(self,frameStart, frameEnd, capVideo, name):
-        count = frameStart
+    def frameIntervalToImages(self,frameStart, frameEnd, mosaicFrameStart, capVideo, name):
+        frameCount = mosaicFrameStart
         success = True
         capVideo.set(cv2.CAP_PROP_POS_FRAMES, frameStart)
         while success and capVideo.get(cv2.CAP_PROP_POS_FRAMES) <= frameEnd:
             success, image = capVideo.read()
             if not success:
                 break
-            cv2.imwrite(name+"_"+str(count)+".jpg", image)
-            count += 1
+            cv2.imwrite(name+"_"+str(frameCount)+".jpg", image)
+            frameCount += 1
 
     # Function to get images from @frameStart to @frameEnd of stream DEPTH info array @depthVideoArray
-
     # saves in @self.destinationPath
+    # @mosaicFrameStart is the initial frame number of the mosaic, this is to name the image with the frame number of the mosaic instead of the individual video and help synchronization afterwards
     # @name of images with no extension
-    def depthFrameIntervalToImages(self, frameStart, frameEnd, depthVideoArray, name):
+    def depthFrameIntervalToImages(self, frameStart, frameEnd, mosaicFrameStart, depthVideoArray, name):
+        frameCount = mosaicFrameStart
         for i in range(frameStart,frameEnd+1):
             if i != self.frameNum:
-                cv2.imwrite(name+"_"+str(i)+".png",depthVideoArray[i])
+                cv2.imwrite(name+"_"+str(frameCount)+".png",depthVideoArray[i])
             else:
                 #write a black image
-                cv2.imwrite(name+"_"+str(i)+".png",np.zeros((720,1280),dtype=np.uint16))
+                cv2.imwrite(name+"_"+str(frameCount)+".png",np.zeros((720,1280),dtype=np.uint16))
+            frameCount +=1
 
     # Function to get depth information of all frames from depth video in a unit16 array. Array should be [self.frameNum,720,1280]
     # Uses ffmpeg-python to properly extract info from video in gray16le pixelformat
