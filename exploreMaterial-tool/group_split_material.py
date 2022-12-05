@@ -40,7 +40,7 @@ class groupClass():
 
                         os.makedirs(str(dest), exist_ok=True)
                         shutil.copytree(subClassF, str(dest),dirs_exist_ok=True)
-                        print("Moving",name)
+                        print("Moving",name, "to", dest)
                 
                 else:
                     #For each class folder, get the name and make a folder in destination
