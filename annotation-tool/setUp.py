@@ -84,7 +84,7 @@ class ConfigTato:
         #If annotating dmd
         if self._dataset_dmd:
             # Build a regular expression for the mosaic name to be satisfied by the input mosaic file name
-            regex_internal = '(?P<subject>[1-9]|[1-2][0-9]|[3][0-7])_(?P<session>[a-z]{1,})_'\
+            regex_internal = '(?P<subject>[1-9]|[1-2][0-9]|[3][0-7])_(?P<session>[a-z]{1,}|[a-z]{1,}[2])_'\
                 '(?P<stream>mosaic|body|face|hands)_(?P<date>(?P<month>0[1-9]|1[012])-(?P<day>0[1-9]|[12][0-9]|3[01]))'
             regex_external = '(?P<group>g[A-z]{1,})_(?P<subject>[1-9]|[1-2][0-9]|[3][0-7])_'\
                 '(?P<session>s[1-9]{1,})_(?P<timestamp>(?P<date>(?P<year>\d{4})-(?P<month>0[1-9]|1[012])-'\
