@@ -96,7 +96,7 @@ class VcdHandler(object):
             print("VCD exists")
             # Create a VCD instance and load file
             self._vcd = core.VCD()
-            self._vcd.load_from_file(file_name=self._vcd_file, validation=False)
+            self._vcd.load_from_file(file_name=self._vcd_file)
             self._vcd_loaded = True
         else:
             # Create Empty VCD
@@ -1035,7 +1035,9 @@ class DMDVcdHandler(VcdHandler):
     # new VCD
     def get_info_from_VCD(self, vcd_file_copy, staticDict, ctx_id):
         #load vcd
-        copy_vcd = core.VCD(file_name=vcd_file_copy, validation=False)
+        copy_vcd = core.VCD()
+        copy_vcd.load_from_file(file_name=vcd_file_copy)
+        
         self._vcd_loaded = True
         #get shifts
         body_face_sh = self.get_shift_in_vcd(copy_vcd,"body_camera")
