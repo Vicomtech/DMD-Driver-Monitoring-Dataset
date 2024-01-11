@@ -95,7 +95,8 @@ class VcdHandler(object):
         if self._vcd_file.exists():
             print("VCD exists")
             # Create a VCD instance and load file
-            self._vcd = core.VCD(file_name=self._vcd_file, validation=False)
+            self._vcd = core.VCD()
+            self._vcd.load_from_file(file_name=self._vcd_file, validation=False)
             self._vcd_loaded = True
         else:
             # Create Empty VCD

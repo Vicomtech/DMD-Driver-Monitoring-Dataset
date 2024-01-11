@@ -1,6 +1,6 @@
 {
     "tatoConfig": {
-        "annotation_mode": "drowsiness",
+        "annotation_mode": "distraction",
         "dataset": "dmd",
         "pre_annotate": 0,
         "calculate_time":0
