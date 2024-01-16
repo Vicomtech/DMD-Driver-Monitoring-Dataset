@@ -39,7 +39,7 @@ The TaTo tool has been tested using the following system configuration:
 For a detailed description on how to configure the environment and launch the tool, check: [Linux](../docs/setup_linux.md) / [Windows](../docs/setup_windows.md)
 
 ## TaTo characteristics
-TaTo is a python keyboard-based software application to create and modify temporal annotations in [VCD 4.3. format](https://vcd.vicomtech.org/). It was planned to manage annotations from [DMD](http://dmd.vicomtech.org/) videos, but recently it was modified to be compatible with videos in general. It supports multi-label annotation and has an intuitive interface to visualize temporal annotations through timelines. It offers the following features:
+TaTo is a python keyboard-based software application to create and modify temporal annotations in [VCD 5.0. format](https://vcd.vicomtech.org/). It was planned to manage annotations from [DMD](http://dmd.vicomtech.org/) videos, but recently it was modified to be compatible with videos in general. It supports multi-label annotation and has an intuitive interface to visualize temporal annotations through timelines. It offers the following features:
 
 - Allows the annotation of temporal events in videos (not only from the DMD). 
 - The annotations could be divided in up to 7 different annotation levels(group of labels). Within each group the labels are **mutually exclusive.**
