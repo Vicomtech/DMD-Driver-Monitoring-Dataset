@@ -34,7 +34,7 @@ We developed the TaTo tool to annotate temporal events and actions performed by 
 The TaTo tool has been tested using the following system configuration:
 
 **OS:**           Ubuntu 18.04, Windows 10 <br>
-**Dependencies:** Python 3.8, OpenCV-Python 4.2.0, VCD 4.3.0                        
+**Dependencies:** Python 3.8, OpenCV-Python 4.2.0, VCD>=5.0                        
 
 For a detailed description on how to configure the environment and launch the tool, check: [Linux](../docs/setup_linux.md) / [Windows](../docs/setup_windows.md)
 
