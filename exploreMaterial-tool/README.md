@@ -27,7 +27,7 @@ TaTo is a python-based tool to access VCD annotations more easily. You can prepa
 
 - Get a **list of frame intervals** of a specific activity (or label) from VCD.
 - Take a list of frame intervals and **divide** them into **subintervals** of desired size. This can be done starting from the first frame of from the last frame and back.
-- **Export** those frame intervals as **video clips** or **images**. The material can be exported from the 3 camera perspectives videos (only available for DMD).
+- **Export** those frame intervals as **video clips** or **images**. The material can be exported from the 3 camera perspectives videos (only available for DMD). You can also export images or videos in any size, like 224x224.
 - **Export** intervals from **IR**, **RGB** or **DEPTH** material. Each material type will be in a different folder: dmd-ir, dmd-rgb, dmd-depth. 
 - You can choose what material to export: a group's material, a session material or just the material from a specific VCD annotation.
 - If you are working with the DMD, the exported material will be organized in a similar way as the DMD structure: by groups, sessions and subjects. With DEx, you can **group** this material by **classes**. This is only possible with DMD material.
@@ -45,6 +45,7 @@ There are some export settings you can change at the __init()__ function of file
 - To define the **data format** you wish to export, add “image” and/or “video” to **@material** variable as a list.
 - The list of **camera perspectives** to export material from can be defined in **@streams** variable, these are: "face", "body" or "hands" camera. If is a video from other dataset, it must be "general"
 - To choose the channel of information, **RGB**, **IR** or **DEPTH**, you must specify it with the **@channels** variable. You can define a list of channesl: ["ir","rgb","depth"]. For videos from other datasets, it must be only ["rgb"].
+- You can choose the final image/video **size**. Set it as "original" or a tuple with a smaller size than the original (width, height). e.g.(224,224).
 - You can make a list of the **classes** you want to get the frame intervals of (e.g. [“safe_drive”,"drinking"]) and assing it to the **@annotations** variable. Objects (cellphone, hair comb and bottle) have to be with the 'object_in_scene/__' label before. The var @self.actionList will get all the classes available in VCD
 - If you want to export and create/write material in a **destination folder**, you must set **@write** variable to True.
 - If you wish to **cut** the frame intervals to subintervals, the **size** of the final subintervals can be set in **@intervalChunk** variable. 
