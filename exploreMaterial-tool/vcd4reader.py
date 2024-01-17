@@ -89,9 +89,9 @@ class VcdHandler():
             # -- Load VCD from file --
 
             # Create a VCD instance and load file
-            self._vcd = core.VCD()
-            self._vcd.load_from_file(file_name=self._vcd_file, validation=False)
             # vcd json is in self._vcd.data
+            self._vcd = core.VCD()
+            self._vcd.load_from_file(file_name=self._vcd_file)
 
             #Number of frames in video
             self.__full_mosaic_frames= int(self._vcd.get_frame_intervals().get_dict()[0]["frame_end"]) + 1 
