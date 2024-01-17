@@ -69,6 +69,7 @@ class exportClass():
         """
         args:
 
+
         @material: list of data format you wish to export.
         Possible values: "image","video"
 
@@ -89,6 +90,8 @@ class exportClass():
         Possible values: True, False
         
         Optional args:
+
+        @size: size of the final output (images or videos). Set it as "original" or a tuple with a smaller size than the original (width, height). e.g.(224,224).
         
         @intervalChunk: size of divisions you wish to do to the frame intervals (in case you want videos of x frames each)
         Possible values: Number greater than 1
@@ -101,10 +104,11 @@ class exportClass():
         """
         # config
         material = ["image"]
-        streams = ["body","face", "hands"] #must be "general" if not DMD dataset
-        channels = ["rgb", "ir"] #Include "depth" to export Depth information too. It must be only "rgb" if not DMD dataset
-        annotations = self.actionList
+        streams = ["face"]#,"hands","body"] #must be "general" if not DMD dataset
+        channels = ["depth"] #Include "depth" to export Depth information too. It must be only "rgb" if not DMD dataset
+        annotations = ["gaze_on_road/looking_road","gaze_on_road/not_looking_road"] #self.actionList
         write = True
+        size = "original" #(224,224) #"original" # or (width, height) e.g.(224,224)
         intervalChunk = 0
         ignoreSmall = False
         asc = True
@@ -117,7 +121,7 @@ class exportClass():
             raise RuntimeError(
                 "WARNING: channles option for other datasets must be only 'rgb'")
         #exec
-        self.exportMaterial(material, streams, channels, annotations, write, intervalChunk, ignoreSmall, asc)
+        self.exportMaterial(material, streams, channels, annotations, write, size, intervalChunk, ignoreSmall, asc)
 
     # @material: list of data format to export (e.g. ["image","video"])
     # @streams: list of camera names to export (e.g. ["body", "hands"])
@@ -126,7 +130,7 @@ class exportClass():
     # @intervalChunk: (optional) chunk size if the user wants to divide material by chunks
     # @ignoreSmall: (optional) True to ignore intervals that cannot be cutted because they are smaller than @ intervalChunk
     # @asc: (optional) flag to start cutting from start of interval (ascendant) or from the end of interval (descendant)
-    def exportMaterial(self,material, streams, channels, annotations, write, intervalChunk=0, ignoreSmall=False, asc=True):
+    def exportMaterial(self,material, streams, channels, annotations, write, size="original", intervalChunk=0, ignoreSmall=False, asc=True):
         for annotation in annotations:
             for channel in channels:
                 for stream in streams:
@@ -147,12 +151,12 @@ class exportClass():
                         if validAnnotation:
                             print("\n\n-- Getting data of %s channel --" % (channel))
                             intervals = self.getIntervals(
-                                mat, channel, stream, annotation, write, intervalChunk, ignoreSmall, asc)
+                                mat, channel, stream, annotation, write, size, intervalChunk, ignoreSmall, asc)
                         else:
                             print("WARNING: annotation %s is not in this VCD." % str(annotation))
 
     # Function to get intervals of @annotation from VCD and if @write, exports the @material of @stream indicated to @self.destinationPath
-    def getIntervals(self, material, channel, stream, annotation, write, intervalChunk=0, ignoreSmall=False, asc=True):
+    def getIntervals(self, material, channel, stream, annotation, write, size, intervalChunk=0, ignoreSmall=False, asc=True):
         #get name of action if uid is fiven
         if isinstance(annotation, int):
             annotation = self.actionList[annotation]
@@ -162,6 +166,13 @@ class exportClass():
         # Check and load valid video
         streamVideoPath = str(self.getStreamVideo(channel, stream))
         capVideo = cv2.VideoCapture(streamVideoPath)
+        
+        #Validation to check if given new size is smaller than original
+        if(size!="original"):
+            if (capVideo.get(cv2.CAP_PROP_FRAME_HEIGHT)<size[1] or capVideo.get(cv2.CAP_PROP_FRAME_WIDTH)<size[0]):
+                raise RuntimeError(
+                    "WARNING: the new size should be smaller than original")    
+        
         # Check if annotation is an object or an action
         if "object" in annotation:
             # get object intervals from vcd
@@ -193,7 +204,7 @@ class exportClass():
             #@depthVideoArray: numpy array with all frames of video containing depth information
             depthVideoArray = []
             if channel == "depth" and (material == "image" or material == "images" ):
-                depthVideoArray = self.getDepthVideoArray(streamVideoPath)
+                depthVideoArray = self.getDepthVideoArray(streamVideoPath, capVideo, size)
 
             for count, interval in enumerate(fullIntervalsAsList):
 
@@ -210,14 +221,14 @@ class exportClass():
                         self.dateDayHour.replace(":",";") + "_"+self.info[1] + "_"+str(count)
                     if material == "image" or material == "images" or material == "img" or material == "imgs":
                         if channel == "depth":
-                            self.depthFrameIntervalToImages(startFrame, endFrame, mosaicStartFrame, depthVideoArray, fileName)
+                            self.depthFrameIntervalToImages(startFrame, endFrame, mosaicStartFrame, depthVideoArray, capVideo, fileName, size)
                         else:
-                            self.frameIntervalToImages(startFrame, endFrame, mosaicStartFrame,capVideo, fileName)
+                            self.frameIntervalToImages(startFrame, endFrame, mosaicStartFrame, capVideo, fileName, size)
                     else:
                         if channel == "depth":
-                            self.depthFrameIntervalToVideo(startFrame, endFrame, streamVideoPath, fileName)
+                            self.depthFrameIntervalToVideo(startFrame, endFrame, streamVideoPath, fileName, size)
                         else:
-                            self.frameIntervalToVideo(startFrame, endFrame, capVideo, fileName)
+                            self.frameIntervalToVideo(startFrame, endFrame, capVideo, fileName, size)
                 else:
                     print(
                         "WARNING: Skipped interval %i, because some of its frames do not exist in stream %s" %(count,stream))
@@ -295,15 +306,21 @@ class exportClass():
     # saves video in @self.destinationPath
     # @capVideo: is video loaded in opencv, not path
     # @name of file with no extension
-    def frameIntervalToVideo(self, frameStart, frameEnd, capVideo, name):
+    def frameIntervalToVideo(self, frameStart, frameEnd, capVideo, name, size):
         fourcc = cv2.VideoWriter_fourcc(*'XVID')
-        width = int(capVideo.get(cv2.CAP_PROP_FRAME_WIDTH))
-        height = int(capVideo.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        if size =="original":
+            width = int(capVideo.get(cv2.CAP_PROP_FRAME_WIDTH))
+            height = int(capVideo.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        else:
+            width = size[0]
+            height = size[1]
         intervalVideo = cv2.VideoWriter(name + ".avi", fourcc, 29.76, (width, height))
         success = True
         capVideo.set(cv2.CAP_PROP_POS_FRAMES, frameStart)
         while success and capVideo.get(cv2.CAP_PROP_POS_FRAMES) <= frameEnd:
             success, image = capVideo.read()
+            if size != "original":
+                image = cv2.resize(image,size, interpolation=cv2.INTER_LANCZOS4)
             intervalVideo.write(image)
         intervalVideo.release()
 
@@ -313,22 +330,32 @@ class exportClass():
     # saves video in @self.destinationPath
     # @streamVideoPath: is the depth video path, not video
     # @name of file with no extension
-    def depthFrameIntervalToVideo(self, frameStart, frameEnd, streamVideoPath, name):
-
-        vid = (
-            ffmpeg.input(streamVideoPath)
-            .trim(start=int(frameStart/29.76), end=int(frameEnd/29.76))
-            .setpts('PTS-STARTPTS')
-            .output(name+".avi", vcodec='ffv1', pix_fmt='gray16le', crf=0)
-            .run()
-        )
+    def depthFrameIntervalToVideo(self, frameStart, frameEnd, streamVideoPath, name, size="original"):
+        
+        if size!="original":
+            vid = (
+                ffmpeg.input(streamVideoPath)
+                .trim(start=int(frameStart/29.76), end=int(frameEnd/29.76))
+                .setpts('PTS-STARTPTS')
+                .filter_('scale', w=size[0], h=size[1], sws_flags="neighbor")
+                .output(name+".avi", vcodec='ffv1', pix_fmt='gray16le', crf=0)
+                .run()
+            )
+        else:
+            vid = (
+                ffmpeg.input(streamVideoPath)
+                .trim(start=int(frameStart/29.76), end=int(frameEnd/29.76))
+                .setpts('PTS-STARTPTS')
+                .output(name+".avi", vcodec='ffv1', pix_fmt='gray16le', crf=0)
+                .run()
+            )
 
     # Function to get images from @frameStart to @frameEnd of stream video @capVideo
     # saves in @self.destinationPath
     # @mosaicFrameStart is the initial frame number of the mosaic, this is to name the image with the frame number of the mosaic instead of the individual video and help synchronization afterwards
     # @capVideo: is video loaded in opencv, not path
     # @name of images with no extension
-    def frameIntervalToImages(self,frameStart, frameEnd, mosaicFrameStart, capVideo, name):
+    def frameIntervalToImages(self,frameStart, frameEnd, mosaicFrameStart, capVideo, name, size):
         frameCount = mosaicFrameStart
         success = True
         capVideo.set(cv2.CAP_PROP_POS_FRAMES, frameStart)
@@ -336,37 +363,58 @@ class exportClass():
             success, image = capVideo.read()
             if not success:
                 break
+            if size != "original":
+                image = cv2.resize(image,size, interpolation=cv2.INTER_LANCZOS4)
+
             cv2.imwrite(name+"_"+str(frameCount)+".jpg", image)
             frameCount += 1
 
     # Function to get images from @frameStart to @frameEnd of stream DEPTH info array @depthVideoArray
     # saves in @self.destinationPath
-    # @mosaicFrameStart is the initial frame number of the mosaic, this is to name the image with the frame number of the mosaic instead of the individual video and help synchronization afterwards
+    # @mosaicFrameStart is the initial frame number of the mosaic, this is to name the image with the frame number of the mosaic 
+    # instead of the individual video and help synchronization afterwards
     # @name of images with no extension
-    def depthFrameIntervalToImages(self, frameStart, frameEnd, mosaicFrameStart, depthVideoArray, name):
+    def depthFrameIntervalToImages(self, frameStart, frameEnd, mosaicFrameStart, depthVideoArray, capVideo, name, size="original"):
         frameCount = mosaicFrameStart
         for i in range(frameStart,frameEnd+1):
             if i != self.frameNum:
-                cv2.imwrite(name+"_"+str(frameCount)+".png",depthVideoArray[i])
+                cv2.imwrite(name+"_"+str(frameCount)+".tif",depthVideoArray[i])
             else:
                 #write a black image
-                cv2.imwrite(name+"_"+str(frameCount)+".png",np.zeros((720,1280),dtype=np.uint16))
+                if size != "original":
+                    cv2.imwrite(name+"_"+str(frameCount)+".tif",np.zeros((size[1],size[0]),dtype=np.uint16))
+                cv2.imwrite(name+"_"+str(frameCount)+".tif",np.zeros(int((capVideo.get(cv2.CAP_PROP_FRAME_HEIGHT)),
+                                                                         int(capVideo.get(cv2.CAP_PROP_FRAME_WIDTH))),dtype=np.uint16))
             frameCount +=1
 
-    # Function to get depth information of all frames from depth video in a unit16 array. Array should be [self.frameNum,720,1280]
+    # Function to get depth information of all frames from depth video in a unit16 array. Array should be [self.frameNum, heigth, width]
     # Uses ffmpeg-python to properly extract info from video in gray16le pixelformat
-    def getDepthVideoArray(self, streamVideoPath):
-        out, _ = (
+    def getDepthVideoArray(self, streamVideoPath, capVideo, size="original"):
+        if size!="original":
+            out, _ = (
+            ffmpeg
+            .input(streamVideoPath)
+            .filter_('scale', width=size[0], height=size[1], sws_flags="neighbor")
+            .output('pipe:', format='rawvideo', pix_fmt='gray16le')
+            .run(capture_stdout=True)
+            )
+            array_imgs = (
+                np
+                .frombuffer(out, np.uint16)
+                .reshape([-1, size[1], size[0]])
+            )
+        else:
+            out, _ = (
             ffmpeg
             .input(streamVideoPath)
             .output('pipe:', format='rawvideo', pix_fmt='gray16le')
             .run(capture_stdout=True)
-        )
-        array_imgs = (
-            np
-            .frombuffer(out, np.uint16)
-            .reshape([-1, 720, 1280])
-        )
+            )
+            array_imgs = (
+                np
+                .frombuffer(out, np.uint16)
+                .reshape([-1, int(capVideo.get(cv2.CAP_PROP_FRAME_HEIGHT)), int(capVideo.get(cv2.CAP_PROP_FRAME_WIDTH))])
+            )
         return array_imgs
 
     # Function to get uri of the @videoStream video from VCD and check if video frame count matches with VCD.
