@@ -18,6 +18,9 @@ We have defined the following criteria to be used with tool to produce consisten
 
 - [DMD Distraction-related actions](https://github.com/Vicomtech/DMD-Driver-Monitoring-Dataset/wiki/DMD-distraction-related-action-annotation-criteria) annotation
 
+## Known Issues
+- The version of VCD in the annotation files (OpenLabel) and in the tools in this repository has been updated to VCD>=5.0. Make sure you download the annotations files again and update the tools. 
+- There was an error when uploading IR videos. They have to be .mp4 format, and they were uploaded as .avi. This is fixed now but requires the user to download them again. 
 
 ## Credits
 Development of DMD was supported and funded by the European Commission (EC) Horizon 2020 programme (project [VI-DAS](http://www.vi-das.eu/), grant agreement 690772) 
@@ -30,7 +33,7 @@ Developed with :blue_heart: by:
 Contributions of ideas and comments: Marcos Nieto, Mikel Garcia, Gonzalo Pierola, Itziar Sagastiberri, Itziar Urbieta, Eneritz Etxaniz, Orti Senderos. 
 
 ## License 
-Copyright :copyright: 2021 Vicomtech
+Copyright :copyright: 2024 Vicomtech
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
