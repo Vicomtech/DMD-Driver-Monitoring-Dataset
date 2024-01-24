@@ -67,7 +67,7 @@ You can indicate the annotation mode in the “annotation_mode” field. To defi
 - **camera_dependencies:** The DMD annotation is done with a mosaic video that includes 3 perspective views. Some labels are camera-dependant, so when there is no frame showing from one perspective, there shouldn’t be an annotation from those perspective-dependant labels. To indicate these dependencies, there must be an array of the labels ids for each camera perspective (e.g. "face": [1,2]).
 
 #### Dataset
-This option is to identify if you are working with the DMD and load predefined configuration and validations of TaTo for this dataset. If it is different, then it loads a general configuration and allows annotating any video with VCD 4.3.
+This option is to identify if you are working with the DMD and load predefined configuration and validations of TaTo for this dataset. If it is different, then it loads a general configuration and allows annotating any video with VCD>=5.0.
 
 #### Pre_annotate
 We created automatic pre-annotations for the DMD, also the DMD has metadata and static annotations we had to include inside the VCD. To do this, we load them before creating a VCD. To activate this functionality, we added this configuration option. You must leave it with a value of 0 since pre-annotation only works internally. 
