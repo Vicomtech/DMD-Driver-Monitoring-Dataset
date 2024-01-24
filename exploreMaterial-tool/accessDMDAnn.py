@@ -105,7 +105,7 @@ class exportClass():
         # config
         material = ["image"]
         streams = ["face"]#,"hands","body"] #must be "general" if not DMD dataset
-        channels = ["depth"] #Include "depth" to export Depth information too. It must be only "rgb" if not DMD dataset
+        channels = ["rgb"] #Include "depth" to export Depth information too. It must be only "rgb" if not DMD dataset
         annotations = ["gaze_on_road/looking_road","gaze_on_road/not_looking_road"] #self.actionList
         write = True
         size = "original" #(224,224) #"original" # or (width, height) e.g.(224,224)
@@ -383,8 +383,8 @@ class exportClass():
                 #write a black image
                 if size != "original":
                     cv2.imwrite(name+"_"+str(frameCount)+".tif",np.zeros((size[1],size[0]),dtype=np.uint16))
-                cv2.imwrite(name+"_"+str(frameCount)+".tif",np.zeros(int((capVideo.get(cv2.CAP_PROP_FRAME_HEIGHT)),
-                                                                         int(capVideo.get(cv2.CAP_PROP_FRAME_WIDTH))),dtype=np.uint16))
+                cv2.imwrite(name+"_"+str(frameCount)+".tif",np.zeros(int(capVideo.get(cv2.CAP_PROP_FRAME_HEIGHT)),
+                                                                         int(capVideo.get(cv2.CAP_PROP_FRAME_WIDTH)),dtype=np.uint16))
             frameCount +=1
 
     # Function to get depth information of all frames from depth video in a unit16 array. Array should be [self.frameNum, heigth, width]
