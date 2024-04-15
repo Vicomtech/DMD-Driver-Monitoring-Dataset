@@ -14,19 +14,23 @@ class groupClass():
     def __init__(self,materialPath):
 
         self.materialPath = materialPath
+        #e.g /mymaterialpath/dmd_rgb/
         if not Path(self.materialPath).exists():
             raise RuntimeError("Material path does not exist")
-
+        
         #list all sessions folders
         session_paths = glob.glob(self.materialPath + '/*')
         session_paths.sort()
 
         for session in session_paths:
+            # e.g /mymaterialpath/dmd_rgb/s1/
             #For each session folder, list all classes folders
             class_paths = glob.glob(session + '/*')
             class_paths.sort()
 
             for classF in class_paths:
+                #e.g /mymaterialpath/dmd_rgb/s1/driver_actions
+                # or /mymaterialpath/dmd_rgb/s1/safe_drive
                 subClass = glob.glob(classF + '/*')
                 subClass.sort()
                 dir = Path(subClass[0]).is_dir()
@@ -34,22 +38,23 @@ class groupClass():
                 #If theres a level more of folers
                 if dir:
                     for subClassF in subClass:
+                        #e.g /mymaterialpath/dmd_rgb/s1/driver_actions/safe_drive
                         class_name  = Path(classF).name
                         name  = Path(subClassF).name
                         dest = Path(self.materialPath+"/"+class_name+"/"+name)
-
+                        #e.g /mymaterialpath/dmd_rgb/driver_actions/safe_drive
                         os.makedirs(str(dest), exist_ok=True)
-                        shutil.copytree(subClassF, str(dest),dirs_exist_ok=True)
                         print("Moving",name, "to", dest)
-                
+                        shutil.copytree(subClassF, str(dest),dirs_exist_ok=True)
+                    
                 else:
                     #For each class folder, get the name and make a folder in destination
                     name  = Path(classF).name
                     dest = Path(self.materialPath+"/"+name)
-
+                    #e.g /mymaterialpath/dmd_rgb/safe_drive
                     os.makedirs(str(dest), exist_ok=True)
-                    shutil.copytree(classF, str(dest),dirs_exist_ok=True)
                     print("Moving",name)
+                    shutil.copytree(classF, str(dest),dirs_exist_ok=True)
                 
             #Delete session folder
             shutil.rmtree(session)
@@ -58,8 +63,6 @@ class groupClass():
 
 # splitClass(): split dataset into train and test splits.
 # Dataset must be organized by classes. A folder containing each class material. ("radio","drinking"...)
-
-
 class splitClass():
 
     def __init__(self,materialPath,destination,testPercent):

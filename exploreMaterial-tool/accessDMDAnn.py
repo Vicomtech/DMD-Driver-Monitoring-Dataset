@@ -103,12 +103,12 @@ class exportClass():
         Possible values: True or False
         """
         # config
-        material = ["image"]
-        streams = ["face"]#,"hands","body"] #must be "general" if not DMD dataset
-        channels = ["rgb"] #Include "depth" to export Depth information too. It must be only "rgb" if not DMD dataset
-        annotations = ["gaze_on_road/looking_road","gaze_on_road/not_looking_road"] #self.actionList
-        write = True
-        size = "original" #(224,224) #"original" # or (width, height) e.g.(224,224)
+        material = ["image"]#,"video"]
+        streams = ["body"]#,"hands","body"] #must be "general" if not DMD dataset
+        channels = ["rgb"]#"rgb"]#,"ir","depth"] #Include "depth" to export Depth information too. It must be only "rgb" if not DMD dataset
+        # annotations = #self.actionList for all labels
+        annotations = ["driver_actions/safe_drive","driver_actions/texting_right", "driver_actions/phonecall_right","driver_actions/texting_left","driver_actions/phonecall_left","driver_actions/reach_side","driver_actions/radio","driver_actions/drinking"]
+        size = (224,224) #"original" or (width, height) e.g.(224,224)
         intervalChunk = 0
         ignoreSmall = False
         asc = True
@@ -194,6 +194,8 @@ class exportClass():
 
             if self.datasetDMD:
                 # create folder per annotation and per session
+                #e.g /mypath/dmd_rgb/s1/driver_actions/safe_drive
+                # or /mypath/dmd_rgb/s1/safe_drive
                 dirName = Path(self.destinationPath +"/dmd_"+channel+ "/"+self.info[2] + "/" + str(annotation))
             else:
                 dirName = Path(self.destinationPath+ "/" +str(annotation))

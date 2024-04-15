@@ -112,7 +112,7 @@ if opt == 0:
 
 elif opt == 1:
     # group exported material by classes
-    material_path = input("Enter exported DMD material path (inside must be sessions folders e.g:../dmd_rgb): ")
+    material_path = input("Enter exported DMD material path (inside must be sessions folders(s#) e.g:../dmd_rgb/): ")
     groupClass(material_path)
 
     print("Oki :) ----------------------------------------")
@@ -120,8 +120,8 @@ elif opt == 1:
 elif opt == 2:
     # create train and test split
     print("This function only works with dmd material structure when exporting with DEx tool.")
-    material_path = input("Enter exported material path (inside must be classes folders): ")
-    destination_path = input("Enter destination path: ")
+    material_path = input("Enter exported material path (inside must be classes folders e.g.: /safe_driving/*.jpg): ")
+    destination_path = input("Enter destination path (a new folder to store train and test splits): ")
     test_proportion = input("Enter test proportion for split [0-1] (e.g. 0.20): ")  
 
     splitClass(material_path,destination_path,test_proportion)
