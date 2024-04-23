@@ -95,6 +95,7 @@ class VcdHandler(object):
         if self._vcd_file.exists():
             print("VCD exists")
             # Create a VCD instance and load file
+
             self._vcd = core.VCD()
             self._vcd.load_from_file(file_name=self._vcd_file)
             self._vcd_loaded = True
@@ -1035,6 +1036,7 @@ class DMDVcdHandler(VcdHandler):
     # new VCD
     def get_info_from_VCD(self, vcd_file_copy, staticDict, ctx_id):
         #load vcd
+
         copy_vcd = core.VCD()
         copy_vcd.load_from_file(file_name=vcd_file_copy)
         

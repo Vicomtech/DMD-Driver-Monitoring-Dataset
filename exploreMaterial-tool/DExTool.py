@@ -13,7 +13,7 @@ opt = int(input("What do you whish to do?:  export material for training:[0]  gr
 
 if opt == 0:
     # export material for training
-    print("To change export settings go to accessDMDAnn.py and change control variables.")
+    print("To change export settings go to config_DEx.json and change control variables.")
     destination_path = input("Enter destination path: ")
     selec = input("How do you want to read annotations, by: Group:[g]  Sessions:[f]  One VCD:[v] : ")
 

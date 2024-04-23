@@ -1,0 +1,11 @@
+{
+    "material": ["videos"],
+    "streams" : ["body"],
+    "channels" : ["rgb"],
+    "annotations" : ["driver_actions/safe_drive", "driver_actions/texting_right", "driver_actions/phonecall_right", "driver_actions/texting_left","driver_actions/phonecall_left","driver_actions/reach_side","driver_actions/radio","driver_actions/drinking"],
+    "write" : true,
+    "size" : [224, 224],
+    "intervalChunk" : 50,
+    "ignoreSmall" : false,
+    "asc" : true
+}
