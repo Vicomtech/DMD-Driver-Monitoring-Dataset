@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 from pathlib import Path  # To handle paths independent of OS
 
-# Import local class to parse VCD content
+# Import local class to parse OpenLABEL content
 from vcd4parser import VcdHandler
 from vcd4parser import DMDVcdHandler
 
@@ -21,7 +21,7 @@ from setUp import ConfigTato
 # Python and Opencv script to make corrections to the pre annotations or/and annotate the DMD.
 # Displays one mosaic video and offers a frame-per-frame annotation of differen levels of annotation
 # Starts with pre-annotations from model inference (not available for external structures)
-# Reads and writes annotations in VCD, saving temporary backups in txt.
+# Reads and writes annotations in OpenLABEL, saving temporary backups in txt.
 # The annotation data for the tool is represented in lists/arrays where each row is a frame and a column is an annotation level.
 
 #This tool is prepared to work inside DMD Developers internal structure and external structure. 
@@ -139,9 +139,9 @@ def loadPropertiesDMD():
     # ---- SHIFTS ----
     # Find shifts
     if vcd_handler.file_loaded():
-        # Load shifts from VCD
+        # Load shifts from OpenLABEL
         shift_bf, _, shift_hb = vcd_handler.get_shifts()
-        print("\nLoading shifts from VCD..")
+        print("\nLoading shifts from OpenLABEL..")
     # To read the shifts of body, face and hands videos
     elif not existAutoSaveAnn and setUpManager._pre_annotate:
         print("\nLoading shifts from txt..")
@@ -165,7 +165,7 @@ def loadPropertiesDMD():
 
     # ---- STATIC ANN AND METADATA ----
     if vcd_handler.file_loaded():
-        # Check if there are statics and metadata in VCD:
+        # Check if there are statics and metadata in OpenLABEL:
         if staticExists:
             # !!In this case is a Dictionary
             print("\nThese are the static annotations ->")
@@ -182,20 +182,20 @@ def loadPropertiesDMD():
             print("hands_frames:", metadata[2][0])
     
     # ---- ANNOTATIONS ----
-    # If there is a valid VCD file loaded then use this information to get
+    # If there is a valid OpenLABEL file loaded then use this information to get
     # @annotation and @validation matrices.
     if vcd_handler.file_loaded():
         # If there is also a autoSaveAnn.txt, there must be a confusion of
         # annotations
         if existAutoSaveAnn:
-            raise RuntimeError("/nThere are two annotation files: vcd and txt."
+            raise RuntimeError("/nThere are two annotation files: OpenLABEL and txt."
                                " Please, keep only the most recent one."
                                " \n You can delete '..ann.json' file or"
                                " '..autoSaveAnnA.txt and ..autoSaveAnnB.txt'"
                                " files"
             )
         else:
-            print("\nLoading VCD...")
+            print("\nLoading OpenLABEL...")
             # get @annotation and @validation vectors
             annotation, validation = vcd_handler.get_annotation_vectors()
 
@@ -249,7 +249,7 @@ def loadPropertiesDMD():
             body_meta = [line[2], line[3], body_mat]
             hands_meta = [line[5], hands_mat]
 
-            # set number of frames in vcd
+            # set number of frames in OpenLABEL
             vcd_handler.set_body_frames(line[3])
             vcd_handler.set_face_frames(line[0])
             vcd_handler.set_hands_frames(line[5])
@@ -280,7 +280,7 @@ def loadPropertiesDMD():
             validation.append([int(part[i].rstrip("\n")) for i in range(0, len(part))])
         ann.close()
         
-    # else If there is not VCD nor autosaveAnn:
+    # else If there is not OpenLABEL nor autosaveAnn:
     elif setUpManager._pre_annotate:
         # load preannotations(..ann.txt) and (...ann_intel.txt) and create new
         # matrix for @annotation and other for @validation
@@ -350,7 +350,7 @@ def loadPropertiesDMD():
         # but there are shifts and metadata)
         # -----------------------------------------------------
         else:   
-            print("\nCreating new VCD file with default annotations, reading "
+            print("\nCreating new OpenLABEL file with default annotations, reading "
                   "shifts and metadata...")
             for i in range(frameNumber + 1):
                 line = []
@@ -375,7 +375,7 @@ def loadPropertiesDMD():
         vcd_handler.set_face_frames(face_frames_count)
         vcd_handler.set_hands_frames(hands_frames_count)
 
-    #create annotation from 0, trying to get shifts and metadata from other VCD. if failed, then set 0 to everything
+    #create annotation from 0, trying to get shifts and metadata from other OpenLABEL. if failed, then set 0 to everything
     else:
         distractionVCD = str(setUpManager._vcd_file_path).replace(str(setUpManager._annotation_mode),"distraction")
         drowsinessVCD = str(setUpManager._vcd_file_path).replace(str(setUpManager._annotation_mode),"drowsiness")
@@ -384,32 +384,32 @@ def loadPropertiesDMD():
         copyVCD = False
         copy_file = ""
         if Path(distractionVCD).exists():
-            #Copy from distraction VCD
+            #Copy from distraction OpenLABEL
             copyVCD = True
             copy_file= distractionVCD
             print(
-                "\nCreating new VCD file with default annotations, reading shifts and metadata from distraction VCD...")
+                "\nCreating new OpenLABEL file with default annotations, reading shifts and metadata from distraction OpenLABEL...")
         elif Path(drowsinessVCD).exists():
-            #Copy from drowsiness VCD
+            #Copy from drowsiness OpenLABEL
             copyVCD = True
             copy_file = drowsinessVCD
             print(
-                "\nCreating new VCD file with default annotations, reading shifts and metadata from drowsiness VCD...")
+                "\nCreating new OpenLABEL file with default annotations, reading shifts and metadata from drowsiness OpenLABEL...")
         elif Path(gazeVCD).exists():
-            #Copy from gaze VCD
+            #Copy from gaze OpenLABEL
             copyVCD  = True
             copy_file = gazeVCD
             print(
-                "\nCreating new VCD file with default annotations, reading shifts and metadata from gaze VCD...")
+                "\nCreating new OpenLABEL file with default annotations, reading shifts and metadata from gaze OpenLABEL...")
         elif Path(handsVCD).exists():
-            #Copy from hands VCD
+            #Copy from hands OpenLABEL
             copyVCD  = True
             copy_file = handsVCD
             print(
-                "\nCreating new VCD file with default annotations, reading shifts and metadata from hands VCD...")
+                "\nCreating new OpenLABEL file with default annotations, reading shifts and metadata from hands OpenLABEL...")
         else:
             copyVCD = False
-            print("A default annotation VCD was not found!")
+            print("A default annotation OpenLABEL was not found!")
         
         for i in range(frameNumber + 1):
             line = []
@@ -423,12 +423,12 @@ def loadPropertiesDMD():
 
         if copyVCD:
             try:
-                #Get info from default VCD
+                #Get info from default OpenLABEL
                 shift_bf, shift_hb, static, metadata = vcd_handler.get_info_from_VCD(copy_file,statics_dic,0)
                 vcd_handler.set_shifts(body_face_shift=shift_bf, hands_body_shift=shift_hb, hands_face_shift=shift_bf + shift_hb)
             except:
-                #Create new VCD without shifts, statics and metadata
-                print("\n ---WARNING---: An error occured while trying to get info from VCD...\nCreating new VCD file with default annotations, without shifts and metadata...")
+                #Create new OpenLABEL without shifts, statics and metadata
+                print("\n ---WARNING---: An error occured while trying to get info from OpenLABEL...\nCreating new OpenLABEL file with default annotations, without shifts and metadata...")
                 #Initialize with default annotations
                 for i in range(frameNumber + 1):
                     line = []
@@ -442,9 +442,9 @@ def loadPropertiesDMD():
                 vcd_handler.set_shifts(body_face_shift=shift_bf, hands_body_shift=shift_hb, hands_face_shift=shift_bf + shift_hb)
 
         else:
-            #Not default VCD was found
-            #Create new VCD without shifts, statics and metadata
-            print("\n---WARNING---: A defalut annotation VCD was not found... \nCreating new VCD file with default annotations, without shifts and metadata...")
+            #Not default OpenLABEL was found
+            #Create new OpenLABEL without shifts, statics and metadata
+            print("\n---WARNING---: A defalut annotation OpenLABEL was not found... \nCreating new OpenLABEL file with default annotations, without shifts and metadata...")
             #Initialize with default annotations
             for i in range(frameNumber + 1):
                 line = []
@@ -466,17 +466,17 @@ def loadPropertiesGeneral():
     validation = []
     
     # ---- ANNOTATIONS ----
-    # If there is a valid VCD file loaded then use this information to get @annotation and
+    # If there is a valid OpenLABEL file loaded then use this information to get @annotation and
     # @validation matrices.
     if vcd_handler.file_loaded():
         # If there is also a autoSaveAnn.txt, there must be a confusion of annotations
         if existAutoSaveAnn:
             raise RuntimeError(
-                "/n There are two annotation files: vcd and txt. Please, keep only"
+                "/n There are two annotation files: OpenLABEL and txt. Please, keep only"
                 "the most recent one. \n You can delete '..ann_xx.json' file or '..autoSaveAnnA.txt and ..autoSaveAnnB.txt' files"
             )
         else:
-            print("\nLoading VCD...")
+            print("\nLoading OpenLABEL...")
             # get @annotation and @validation vectors
             annotation, validation = vcd_handler.get_annotation_vectors()
 
@@ -504,7 +504,7 @@ def loadPropertiesGeneral():
        
     #create annotation from 0
     else:
-        print("\nCreating new VCD file with default annotations")
+        print("\nCreating new OpenLABEL file with default annotations")
         for i in range(frameNumber + 1):
             line = []
             val_line = []
@@ -521,7 +521,7 @@ def loadPropertiesGeneral():
 # Called when [SPACE] or [ENTER] or [ESC] is pressed
 # @annotations: array of current manual corrections/annotations
 # @validations: array of current validation state of frames
-# @toVCD: if True, save annotations in vcd format and delete txt, else write in txt
+# @toVCD: if True, save annotations in OpenLABEL format and delete txt, else write in txt
 def save(annotations, validations, toVCD):
     # Save time expended during the annotation process
 
@@ -556,14 +556,14 @@ def save(annotations, validations, toVCD):
             cv2.moveWindow("Annotation - Saving", 400, 400)
             key = cv2.waitKey(3)
 
-            # Update VCD
-            #Get static annotations and metadata from VCD
+            # Update OpenLABEL
+            #Get static annotations and metadata from OpenLABEL
             if staticExists:
                 statics = vcd_handler.getStaticVector(statics_dic, 0)    
             if metadataExists:
                 metadata = vcd_handler.getMetadataVector(0)
                             
-            #create vcd - dmd
+            #create OpenLABEL - dmd
             if setUpManager._dataset_dmd:
                 vcd_handler.update_save_vcd(annotations, validations, statics,
                                             metadata, False)
@@ -2598,7 +2598,7 @@ if (setUpManager._dataset_dmd):
 else:
     vcd_handler = VcdHandler(setUpManager)
 
-#--Check if static annotations and metadata already exists in vcd file--
+#--Check if static annotations and metadata already exists in OpenLABEL file--
 staticExists = False
 metadataExists = False
 if vcd_handler.file_loaded() and setUpManager._dataset_dmd:
@@ -2672,7 +2672,7 @@ keyFrameColor = (setUpManager._colorConfig["keyFrameColor"][0], setUpManager._co
     "keyFrameColor"][1], setUpManager._colorConfig["keyFrameColor"][2])
 # color dictionary
 colorDict = setUpManager._colorConfig["colorDict"]
-#static and metadata info for VCD
+#static and metadata info for OpenLABEL
 statics = {}
 metadata = {}
 
@@ -2688,7 +2688,7 @@ else:
     shift_bf = 0
     shift_hb = 0
     annotation_list, validation_list = loadPropertiesGeneral()
-# create vcd if did not exist
+# create OpenLABEL if did not exist
 if not vcd_handler.file_loaded():
     save(annotation_list, validation_list, True)
 

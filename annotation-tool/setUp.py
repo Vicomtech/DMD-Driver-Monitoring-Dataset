@@ -128,7 +128,7 @@ class ConfigTato:
             if self._annotation_mode == "distraction" and self._session not in distractionRelated or self._annotation_mode == "drowsiness" and self._session not in drowsinessRelated or self._annotation_mode == "gaze" and self._session not in gazeRelated:
                 print("---!!WARNING!!: the annotation mode does not match the type of video session.---")
 
-            #Get VCD, AutoSaveAnn and TIME paths
+            #Get OpenLABEL, AutoSaveAnn and TIME paths
             if self._external_struct:
                 self._vcd_file_name = (base_name.replace(match.group(
                     "stream"), 'ann') + '_' + self._annotation_mode + ".json")
@@ -192,7 +192,7 @@ class ConfigTato:
             self._stream = "general"
             #Working with other dataset
             base_name = self._video_file_path.stem
-            #Get VCD, AutoSaveAnn and TIME paths
+            #Get OpenLABEL, AutoSaveAnn and TIME paths
             self._vcd_file_name = (base_name + '_ann_' +
                                 self._annotation_mode + ".json")
             #To save progress in anotations in txt

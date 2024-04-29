@@ -1,7 +1,7 @@
 # Driver Monitoring Dataset (DMD)
 The [Driver Monitoring Dataset](http://dmd.vicomtech.org/) is the largest visual dataset for real driving actions, with footage from synchronized multiple cameras (body, face, hands) and multiple streams (RGB, Depth, IR) recorded in two scenarios (real car, driving simulator). Different annotated labels related to distraction, fatigue and gaze-head pose can be used to train Deep Learning models for Driver Monitor Systems.
 
-This project includes a tool to annotate the dataset, inspect the annotated data and export training sets. Output annotations are formatted using [VCD (Video Content Description)](https://vcd.vicomtech.org/) language.
+This project includes a tool to annotate the dataset, inspect the annotated data and export training sets. Output annotations are formatted using [OpenLABEL](https://www.asam.net/standards/detail/openlabel/) language [VCD (Video Content Description)](https://vcd.vicomtech.org/).
 
 ## Dataset details
 More details of the recording and video material of DMD can be found at the [official website](http://dmd.vicomtech.org/)
@@ -19,7 +19,7 @@ We have defined the following criteria to be used with tool to produce consisten
 - [DMD Distraction-related actions](https://github.com/Vicomtech/DMD-Driver-Monitoring-Dataset/wiki/DMD-distraction-related-action-annotation-criteria) annotation
 
 ## Known Issues
-- The version of VCD in the annotation files (OpenLabel) and in the tools in this repository has been updated to VCD>=5.0. Make sure you download the annotations files again and update the tools. 
+- The version of OpenLABEL in the annotation files (OpenLabel) and in the tools in this repository has been updated to VCD>=5.0. Make sure you download the annotations files again and update the tools. 
 - There was an error when uploading IR videos. They have to be .mp4 format, and they were uploaded as .avi. This is fixed now but requires the user to download them again. 
 
 ## Credits

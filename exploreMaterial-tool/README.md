@@ -1,9 +1,9 @@
 # Dataset Explorer Tool (DEx)
-The DMD annotations come in [Video Content Description (VCD)](https://vcd.vicomtech.org/) format, which is compatible with the ASAM OpenLABEL annotation standard.
+The DMD annotations come in [OpenLABEL](https://www.asam.net/standards/detail/openlabel/) format [link vicomtech](https://vcd.vicomtech.org/), which is compatible with the ASAM OpenLABEL annotation standard.
 This language is defined with JSON schemas and supports different types of annotations, being ideal for describing any kind of scenes.
-The DMD has spatial and temporal annotations (e.g. Bounding boxes and time intervals), also context and static annotations (e.g. Driver’s and environmental info); with VCD, it is possible to have all these annotations in one file. VCD is also an API, you can use the library to create and update VCD files.
+The DMD has spatial and temporal annotations (e.g. Bounding boxes and time intervals), also context and static annotations (e.g. Driver’s and environmental info); with OpenLABEL, it is possible to have all these annotations in one file. VCD is also an API, you can use the library to create and update OpenLABEL files.
 
-We have developed DEx tool to help access those annotations in the VCD easily. The main functionality of DEx at the moment is to access the VCD’s, read annotations and prepare DMD material for training.
+We have developed DEx tool to help access those annotations in the OpenLABEL easily. The main functionality of DEx at the moment is to access the OpenLABEL’s, read annotations and prepare DMD material for training.
 
 ## Content
 - [Dataset Explorer Tool (DEx)](#dataset-explorer-tool-dex)
@@ -23,16 +23,16 @@ DEx tool has been tested using the following system configuration:
 For a detailed description on how to configure the environment and launch the tool, check: [Linux](../docs/setup_linux.md) / [Windows](../docs/setup_windows.md)
 
 ## DEx characteristics
-TaTo is a python-based tool to access VCD annotations more easily. You can prepare the DMD material for training by using DEx. The main functionalities of DEx are: exporting material in images or videos by frame intervals from the annotations, group the resulting material into folders organized by classes (only available for DMD) and after the material is organized by classes, the tool can generate a training and a testing split.
+TaTo is a python-based tool to access OpenLABEL annotations more easily. You can prepare the DMD material for training by using DEx. The main functionalities of DEx are: exporting material in images or videos by frame intervals from the annotations, group the resulting material into folders organized by classes (only available for DMD) and after the material is organized by classes, the tool can generate a training and a testing split.
 
-- Get a **list of frame intervals** of a specific activity (or label) from VCD.
+- Get a **list of frame intervals** of a specific activity (or label) from OpenLABEL.
 - Take a list of frame intervals and **divide** them into **subintervals** of desired size. This can be done starting from the first frame of from the last frame and back.
 - **Export** those frame intervals as **video clips** or **images**. The material can be exported from the 3 camera perspectives videos (only available for DMD). You can also export images or videos in any size, like 224x224.
 - **Export** intervals from **IR**, **RGB** or **DEPTH** material. Each material type will be in a different folder: dmd-ir, dmd-rgb, dmd-depth. 
-- You can choose what material to export: a group's material, a session material or just the material from a specific VCD annotation.
+- You can choose what material to export: a group's material, a session material or just the material from a specific OpenLABEL annotation.
 - If you are working with the DMD, the exported material will be organized in a similar way as the DMD structure: by groups, sessions and subjects. With DEx, you can **group** this material by **classes**. This is only possible with DMD material.
 - After you have the data organized by classes, you can **split** the material into a **training** and a **testing** split. You must provide the testing **ratio or proportion** (e.g: 0.20, 0.25). If the testing ratio is 0.20, the result is a folder named “train” with 80% of the data and a folder named “test” with the 20% of the data.
-- Get **statistics** of data. This means, get the number of frames per class and the total number of frames from data of a group, session or a single vcd.
+- Get **statistics** of data. This means, get the number of frames per class and the total number of frames from data of a group, session or a single OpenLABEL.
 
 ## Usage Instructions
 ### DEx initialization 
@@ -46,7 +46,7 @@ There are some export settings you can change at the __init()__ function of file
 - The list of **camera perspectives** to export material from can be defined in **@streams** variable, these are: "face", "body" or "hands" camera. If is a video from other dataset, it must be "general"
 - To choose the channel of information, **RGB**, **IR** or **DEPTH**, you must specify it with the **@channels** variable. You can define a list of channesl: ["ir","rgb","depth"]. For videos from other datasets, it must be only ["rgb"].
 - You can choose the final image/video **size**. Set it as "original" or a tuple with a smaller size than the original (width, height). e.g.(224,224).
-- You can make a list of the **classes** you want to get the frame intervals of (e.g. [“safe_drive”,"drinking"]) and assing it to the **@annotations** variable. Objects (cellphone, hair comb and bottle) have to be with the 'object_in_scene/__' label before. The var @self.actionList will get all the classes available in VCD
+- You can make a list of the **classes** you want to get the frame intervals of (e.g. [“safe_drive”,"drinking"]) and assing it to the **@annotations** variable. Objects (cellphone, hair comb and bottle) have to be with the 'object_in_scene/__' label before. The var @self.actionList will get all the classes available in OpenLABEL
 - If you want to export and create/write material in a **destination folder**, you must set **@write** variable to True.
 - If you wish to **cut** the frame intervals to subintervals, the **size** of the final subintervals can be set in **@intervalChunk** variable. 
 - Sometimes not all frame intervals can be cutted because they are smaller than the @intervalChunk. To **ignore** and not export these **smaller frame intervals**, set **@ignoreSmall** to True

@@ -8,7 +8,7 @@ import math
 import time
 import json
 
-# Import local class to parse VCD content
+# Import local class to parse OpenLABEL content
 from vcd4reader import VcdHandler
 from vcd4reader import VcdDMDHandler
 
@@ -16,7 +16,7 @@ import ffmpeg
 # Written by Paola Cañas and David Galvañ with <3
 
 # Python and Opencv script to prepare/export material of DMD for training.
-# Reads annotations in VCD and the 3 stream videos.
+# Reads annotations in OpenLABEL and the 3 stream videos.
 # To change export settings, go to __init__ and change control variables.
 
 # Run it through python script DExTool.py
@@ -82,10 +82,10 @@ class exportClass():
         
         @annotations: list of classes you wish to export (e.g. ["safe_drive","drinking"], "actionList")
         Possible values: all labels names  or only actionList
-        it can be the type name like in VCD ("driver_actions/safe_drive") or just the label name ("safe_drive"). Except for objects.
+        it can be the type name like in OpenLABEL ("driver_actions/safe_drive") or just the label name ("safe_drive"). Except for objects.
         Objects (cellphone, hair comb and bottle) have to be with the "object_in_scene/__" label before. 
-        Also can be the action uid in number (e.g. [0,1,2]) but be aware that uid might not the same in all VCD's
-        If you put the value in the config file as actionList, the system loads all the classes available in VCD from the var @self.actionList.
+        Also can be the action uid in number (e.g. [0,1,2]) but be aware that uid might not the same in all OpenLABEL's
+        If you put the value in the config file as actionList, the system loads all the classes available in OpenLABEL from the var @self.actionList.
 
         @write: Flag to create/write material in destination folder (True) or just get the intervals (False)
         Possible values: True, False
@@ -160,9 +160,9 @@ class exportClass():
                 for stream in self.streams:
                     for mat in self.material:
                         validAnnotation = False
-                        # Check if annotation exists in vcd
+                        # Check if annotation exists in OpenLABEL
                         if isinstance(annotation, str):
-                            # if annotation is string, check with self.vcd_handler if it is in VCD
+                            # if annotation is string, check with self.vcd_handler if it is in OpenLABEL
                             if self.vcd_handler.is_action_type_get_uid(annotation)[0] or self.vcd_handler.is_object_type_get_uid(annotation)[0]:
                                 validAnnotation = True
                         elif isinstance(annotation, int):
@@ -176,9 +176,9 @@ class exportClass():
                             print("\n\n-- Getting data of %s channel --" % (channel))
                             intervals = self.getIntervals(mat, channel, stream, annotation)
                         else:
-                            print("WARNING: annotation %s is not in this VCD." % str(annotation))
+                            print("WARNING: annotation %s is not in this OpenLABEL." % str(annotation))
 
-    # Function to get intervals of @annotation from VCD and if @write, exports the @material of @stream indicated to @self.destinationPath
+    # Function to get intervals of @annotation from OpenLABEL and if @write, exports the @material of @stream indicated to @self.destinationPath
     def getIntervals(self, material, channel, stream, annotation):
         #get name of action if uid is fiven
         if isinstance(annotation, int):
@@ -198,10 +198,10 @@ class exportClass():
         
         # Check if annotation is an object or an action
         if "object" in annotation:
-            # get object intervals from vcd
+            # get object intervals from OpenLABEL
             fullIntervals = self.vcd_handler.get_frames_intervals_of_object(annotation)
         else:
-            # get action intervals from vcd
+            # get action intervals from OpenLABEL
             fullIntervals = self.vcd_handler.get_frames_intervals_of_action(annotation)
         # make lists from dictionaries
         fullIntervalsAsList = self.dictToList(fullIntervals)
@@ -211,7 +211,7 @@ class exportClass():
 
         if self.write:
             print("Writing...")
-            """If annotation string is the action type from VCD, it will create a folder 
+            """If annotation string is the action type from OpenLABEL, it will create a folder 
             for each label inside their level folder because of the "/" in the name.
             If annotation is a number, then a folder will be created for each label with its uid as name """
 
@@ -440,8 +440,8 @@ class exportClass():
             )
         return array_imgs
 
-    # Function to get uri of the @videoStream video from VCD and check if video frame count matches with VCD.
-    # Returns @videoPath: path of @videoStream in VCD
+    # Function to get uri of the @videoStream video from OpenLABEL and check if video frame count matches with OpenLABEL.
+    # Returns @videoPath: path of @videoStream in OpenLABEL
     def getStreamVideo(self,videoChannel,videoStream):
         # load Uri and frame count
         # uri e.g.: gA/1/s1/gA_1_s1_2019-03-08T09;31;15+01;00_rgb_face.mp4
@@ -475,7 +475,7 @@ class exportClass():
 
                 if videoChannel == "depth":
                     videoPath = videoPath.replace("mp4", "avi")
-                print("URI inside VCD not found. Possible path is considered:",videoPath)
+                print("URI inside OpenLABEL not found. Possible path is considered:",videoPath)
                 videoPath = Path(videoPath)
             
         else:
@@ -486,7 +486,7 @@ class exportClass():
             else:
                 raise RuntimeWarning(videoStream,": Not a valid video stream. Must be 'general'")
 
-        # Check video frame count and VCD's frame count
+        # Check video frame count and OpenLABEL's frame count
         if videoPath.exists():
             cap = cv2.VideoCapture(str(videoPath))
             length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -496,12 +496,12 @@ class exportClass():
                     self.frameNum = self.frameNum - 1
                 else:
                     raise RuntimeWarning(
-                        "VCD's and real video frame count don't match. VCD: %s video: %s",(self.frameNum,length))
+                        "OpenLABEL's and real video frame count don't match. OpenLABEL: %s video: %s",(self.frameNum,length))
             else:
                 print(videoChannel, videoStream, "stream loaded:", videoPath.name)
         else:
             raise RuntimeError(
-                videoPath, "video not found. Video Uri in VCD is wrong or video does not exist")
+                videoPath, "video not found. Video Uri in OpenLABEL is wrong or video does not exist")
 
         return videoPath
 

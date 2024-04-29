@@ -2,7 +2,7 @@
 import os
 from pathlib import Path  # To handle paths independent of OS
 
-# Import local class to parse VCD content
+# Import local class to parse OpenLABEL content
 from vcd4reader import VcdHandler
 
 #Written by Paola Cañas with <3
@@ -49,10 +49,10 @@ class get_statistics():
             sum = 0
             # Check if annotation is an object or an action
             if "object" in annotation:
-                # get object intervals from vcd
+                # get object intervals from OpenLABEL
                 fullIntervals = self.vcd_handler.get_frames_intervals_of_object(annotation)
             else:
-                # get action intervals from vcd
+                # get action intervals from OpenLABEL
                 fullIntervals = self.vcd_handler.get_frames_intervals_of_action(annotation)
 
             #sum all frames in intervals

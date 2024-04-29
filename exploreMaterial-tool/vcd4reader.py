@@ -86,28 +86,28 @@ class VcdHandler():
         # If vcd_file exists then load data into vcd object
         if vcd_file.exists():
 
-            # -- Load VCD from file --
+            # -- Load OpenLABEL from file --
 
             # Create a VCD instance and load file
-            # vcd json is in self._vcd.data
+            # OpenLABEL json is in self._vcd.data
             self._vcd = core.VCD()
             self._vcd.load_from_file(file_name=self._vcd_file)
 
             #Number of frames in video
             self.__full_mosaic_frames= int(self._vcd.get_frame_intervals().get_dict()[0]["frame_end"]) + 1 
             
-            #Number of actions in vcd
+            #Number of actions in OpenLABEL
             self.__num_actions = self._vcd.get_num_actions()
 
-            #Number of objects in vcd, including the driver
+            #Number of objects in OpenLABEL, including the driver
             self.__num_objects = self._vcd.get_num_objects()
 
-            print("There are %s actions in this VCD" % (self.__num_actions+self.__num_objects-1)) #minus 1 for "driver" object
+            print("There are %s actions in this OpenLABEL" % (self.__num_actions+self.__num_objects-1)) #minus 1 for "driver" object
 
             self.__vcd_loaded = True
 
         else:
-            raise RuntimeError("VCD file not found.")
+            raise RuntimeError("OpenLABEL file not found.")
 
         
     
@@ -119,7 +119,7 @@ class VcdHandler():
             intervals = self._vcd.get_action(str(uid))["frame_intervals"]
             return intervals
         else:
-            raise RuntimeError("WARNING: VCD does not have action with uid",uid)  
+            raise RuntimeError("WARNING: OpenLABEL does not have action with uid",uid)  
 
     #function to get intervals from specific object, providing its name or its uid
     def get_frames_intervals_of_object(self, uid):
@@ -129,7 +129,7 @@ class VcdHandler():
             intervals = self._vcd.get_object(str(uid))["frame_intervals"]
             return intervals
         else:
-            raise RuntimeError("WARNING: VCD does not have an object with uid",uid) 
+            raise RuntimeError("WARNING: OpenLABEL does not have an object with uid",uid) 
         
             
     #Function to know if an action name (label) given is an action type name. It is useful because type names are composed by level_name/label_name
@@ -140,7 +140,7 @@ class VcdHandler():
                 return True, uid
         return False, -1
 
-    #Function to know if an object type name (label) given exists in vcd.
+    #Function to know if an object type name (label) given exists in OpenLABEL.
     #Also returns uid of object (e.g "driver" will return 0)
     def is_object_type_get_uid(self, object_string):
         for uid, object_type in enumerate(self.get_object_type_list()):
@@ -153,7 +153,7 @@ class VcdHandler():
                     return True, uid
         return False, -1
 
-    #Funcion to go through the VCD and get the "type" val of all objects available
+    #Funcion to go through the OpenLABEL and get the "type" val of all objects available
     def get_object_type_list(self):
         object_type_list = []
         if self._vcd_file:
@@ -161,7 +161,7 @@ class VcdHandler():
                 object_type_list.append(self._vcd.get_object(str(uid)).get('type'))
         return object_type_list
     
-    #Funcion to go through the VCD and get the "type" val of all actions available
+    #Funcion to go through the OpenLABEL and get the "type" val of all actions available
     def get_action_type_list(self):
         action_type_list = []
         if self._vcd_file:
@@ -169,13 +169,13 @@ class VcdHandler():
                 action_type_list.append(self._vcd.get_action(str(uid)).get('type'))
         return action_type_list
 
-    # Return flag that indicate if vcd was loaded from file
+    # Return flag that indicate if OpenLABEL was loaded from file
     def fileLoaded(self):
         return self.__vcd_loaded
 
     
 
-    # This function reads each stream video uri from the VCD
+    # This function reads each stream video uri from the OpenLABEL
     def get_videos_uri(self):
         
         streams_data = self._vcd.get_streams()
@@ -255,12 +255,12 @@ class VcdDMDHandler(VcdHandler):
         body_sh_exist = keys_exists(vcd_streams,"body_camera","stream_properties","sync","frame_shift")
         hands_sh_exist = keys_exists(vcd_streams,"hands_camera","stream_properties","sync","frame_shift")
 
-        # If shifts fields exist then consider the vcd loaded was valid
+        # If shifts fields exist then consider the OpenLABEL loaded was valid
         if body_sh_exist and hands_sh_exist:
             self.__vcd_loaded = True
         else:
             raise RuntimeError(
-                "VCD doesn't have all necesary information. Not valid."
+                "OpenLABEL doesn't have all necesary information. Not valid."
             )
 
         # -- Get video info --
@@ -298,13 +298,13 @@ class VcdDMDHandler(VcdHandler):
                     date = time.strftime("%Y-%m-%d-%H;%M;%S", named_tuple)
                 return group, subject, session, date
             else:
-                raise RuntimeError("WARNING: VCD does not have a name")
+                raise RuntimeError("WARNING: OpenLABEL does not have a name")
         else:
             return self.__group, self.__subject, self.__session, self.__date
 
 
     # This function allows to get the stream shifts directly from a valid and
-    # loaded VCD file
+    # loaded OpenLABEL file
     # Returns:
     # @body_face_shift
     # @hands_face_shift
@@ -324,7 +324,7 @@ class VcdDMDHandler(VcdHandler):
             hands_body_sh = self.__hb_shift
         return body_face_sh, hands_face_sh, hands_body_sh
 
-    # This function reads each stream video uri from the VCD
+    # This function reads each stream video uri from the OpenLABEL
     def get_videos_uris(self):
         if self.__vcd_loaded:
             stream = self._vcd.get_stream("face_camera")
@@ -339,7 +339,7 @@ class VcdDMDHandler(VcdHandler):
             hands = self.__hands_uri
         return face, body, hands
 
-    # This function reads the number of frames of the hands video from the VCD
+    # This function reads the number of frames of the hands video from the OpenLABEL
     def get_frame_numbers(self):
         if self.__vcd_loaded:
             stream = self._vcd.get_stream("face_camera")
@@ -375,7 +375,7 @@ class VcdDMDHandler(VcdHandler):
         return exist
 
 
-    # this functions checks if the vcd has the fields of statics annotations
+    # this functions checks if the OpenLABEL has the fields of statics annotations
     # and the numbers of frames registered are not 0. If true, static
     # annotations exist
     def isStaticAnnotation(self, staticDict, obj_id):
@@ -392,14 +392,14 @@ class VcdDMDHandler(VcdHandler):
             exist = False
         return exist
 
-    # This function get different values from vcd to keep the consistency when
-    # the user saves/creates a new vcd
-    # @staticDict: dict of static annotations to get its values from vcd
+    # This function get different values from OpenLABEL to keep the consistency when
+    # the user saves/creates a new OpenLABEL
+    # @staticDict: dict of static annotations to get its values from OpenLABEL
     # @ctx_id: id of the context (in this case 0)
     def getStaticVector(self, staticDict, ctx_id):
         for x in range(5):
             att = staticDict[x]
-            # Get each of the static annotations of the directory from the VCD
+            # Get each of the static annotations of the directory from the OpenLABEL
             object_vcd = dict(self._vcd.get_object_data(0, att["name"]))
             att.update({"val": object_vcd["val"]})
         # context
@@ -412,11 +412,11 @@ class VcdDMDHandler(VcdHandler):
         annotator = meta_data["annotator"]
         staticDict[7].update({"val": annotator})
         # returns:
-        # @staticDict: the dict with the values taken from the vcd
+        # @staticDict: the dict with the values taken from the OpenLABEL
         return staticDict
 
-    # This function get different values from vcd to keep the consistency when
-    # the user saves/creates a new vcd
+    # This function get different values from OpenLABEL to keep the consistency when
+    # the user saves/creates a new OpenLABEL
     # @ctx_id: id of the object (in this case 0)
     def getMetadataVector(self, ctx_id):
         # context

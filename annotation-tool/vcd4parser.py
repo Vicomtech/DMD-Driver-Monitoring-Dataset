@@ -91,22 +91,22 @@ class VcdHandler(object):
         self._default_levels = self._default_levels.items()
         self._annotation_types = self._annotation_types.items()
 
-        # If vcd_file exists then load data from file
+        # If OpenLABEL_file exists then load data from file
         if self._vcd_file.exists():
-            print("VCD exists")
-            # Create a VCD instance and load file
+            print("OpenLABEL exists")
+            # Create a OpenLABEL instance and load file
 
             self._vcd = core.VCD()
             self._vcd.load_from_file(file_name=self._vcd_file)
             self._vcd_loaded = True
         else:
-            # Create Empty VCD
+            # Create Empty OpenLABEL
             self._vcd = core.VCD()
             self._vcd_loaded = False
 
     
     # This function adds the annotations and validation vectors to the provided
-    # VCD object.
+    # OpenLABEL object.
     # IMPORTANT: Call to this function should be done after defining all the
     # available streams for annotation, as this function could write
     # stream_properties
@@ -254,18 +254,18 @@ class VcdHandler(object):
                 range_start = previous_number = number
         yield [int(range_start), int(previous_number)]
 
-    # Return flag that indicate if vcd was loaded from file
+    # Return flag that indicate if OpenLABEL was loaded from file
     def file_loaded(self):
         return self._vcd_loaded
 
-    # This function only saves the stored VCD object in the external file
+    # This function only saves the stored OpenLABEL object in the external file
     def save_vcd(self, pretty=False):
         # Save into file
         self._vcd.save(self._vcd_file, pretty=pretty)
 
     def update_vcd(self, annotations, validations):
-        """ From an empty VCD, the annotation and validation vectors are
-            parsed to VCD format.
+        """ From an empty OpenLABEL, the annotation and validation vectors are
+            parsed to OpenLABEL format.
 
         """
         # Get total number of lines which is equivalent to total number of
@@ -273,10 +273,10 @@ class VcdHandler(object):
         assert (len(annotations) == len(validations))
         total_frames = len(annotations)
 
-        # 1.- Create VCD only with annotations and validations
+        # 1.- Create OpenLABEL only with annotations and validations
         new_vcd = core.VCD()
 
-        # 2.- VCD Name
+        # 2.- OpenLABEL Name
         vcd_name = Path(self._vcd_file).stem
         new_vcd.add_name(str(vcd_name))
 
@@ -295,36 +295,36 @@ class VcdHandler(object):
         # 5.- Add annotations and validations
         vcd = self.add_annotations(new_vcd,annotations, validations,0)
 
-        # Update current VCD with newly created VCD
+        # Update current OpenLABEL with newly created OpenLABEL
         self._vcd = vcd
 
     # This function is handy to perform simultaneously the updating and saving
-    # of the VCD object
+    # of the OpenLABEL object
     # @annotations: annotations array
     # @validations: validations array
     # @statics: dict with values
     # @metadata: array with values from metadata file
     # @pretty
     def update_save_vcd(self, annotations, validations, pretty=False):
-        # Update VCD
+        # Update OpenLABEL
         self.update_vcd(annotations, validations)
 
-        # Save VCD
+        # Save OpenLABEL
         self.save_vcd(pretty)
         self._vcd_loaded = True
 
-    # This function extracts the annotation information from the vcd object
+    # This function extracts the annotation information from the OpenLABEL object
     # Returns:
     # @annotations: A matrix consisting of the annotation labels for each of
     #               the levels in dict
     # @validations: A matrix consisting of the validation method while
     #               annotating
     def get_annotation_vectors(self):
-        # Get a copy of VCD object
+        # Get a copy of OpenLABEL object
         vcd = self._vcd
 
         if vcd is None:
-            raise RuntimeError("Couldn't get VCD data")
+            raise RuntimeError("Couldn't get OpenLABEL data")
 
         # Create annotation and validation vectors
         frame_interval = vcd.get_frame_intervals().fis_dict
@@ -364,7 +364,7 @@ class VcdHandler(object):
                         elem_type = core.ElementType.object
                     l_uids = vcd.get_elements_of_type(element_type=elem_type,
                                                       semantic_type=ann_type)
-                    # Only allowed 0 or 1 action type in VCD
+                    # Only allowed 0 or 1 action type in OpenLABEL
                     assert (0 <= len(l_uids) <= 1)
                     # Loop over all elements of specific type
                     if len(l_uids) == 0:
@@ -402,7 +402,7 @@ class VcdHandler(object):
 
         return annotations, validations
 
-# Class to handle specific fields in VCD when the DMD dataset is used
+# Class to handle specific fields in OpenLABEL when the DMD dataset is used
 
 
 class DMDVcdHandler(VcdHandler):
@@ -413,7 +413,7 @@ class DMDVcdHandler(VcdHandler):
         # Ontology
         self.ont_uid = 0
 
-        # VCD metadata
+        # OpenLABEL metadata
         self.group = self._setUpManager._group
         self.subject = self._setUpManager._subject
         self.session = self._setUpManager._session
@@ -450,16 +450,16 @@ class DMDVcdHandler(VcdHandler):
         # Other metadata
         self.annotatorID = -1
 
-        # If a VCD file was loaded,
+        # If a OpenLABEL file was loaded,
         # Try to extract metadata and statics
         if self._vcd_loaded:
-            # Get values of shifts from loaded VCD
+            # Get values of shifts from loaded OpenLABEL
             self._bf_shift, self._hf_shift, self._hb_shift = self.get_shifts()
 
-            # Get values of stream frame number from loaded VCD
+            # Get values of stream frame number from loaded OpenLABEL
             self._f_frames, self._b_frames, self._h_frames = self.get_frames()
 
-            # Get stream intrinsics from loaded VCD
+            # Get stream intrinsics from loaded OpenLABEL
             self._f_intrinsics, self._b_intrinsics, self._h_intrinsics = \
                 self.get_intrinsics(self._vcd)
 
@@ -471,10 +471,10 @@ class DMDVcdHandler(VcdHandler):
         self._vcd.save(self._vcd_file, pretty=pretty)
 
     def update_vcd(self, annotations, validations, statics=None, metadata=None):
-        """ Convert annotations into VCD4 format
+        """ Convert annotations into OpenLABEL format
         """
-        # But, if there are already static annotations in vcd, take and keep
-        # them for the next vcd
+        # But, if there are already static annotations in OpenLABEL, take and keep
+        # them for the next OpenLABEL
         areStatics = bool(statics)
         isMetadata = bool(metadata)
 
@@ -525,14 +525,14 @@ class DMDVcdHandler(VcdHandler):
         assert (len(annotations) == len(validations))
         total_frames = len(annotations)
 
-        # 1.- Create a VCD instance
+        # 1.- Create a OpenLABEL instance
         vcd = core.VCD()
 
         # 2.- Add Object for Subject
         self.uid_driver = vcd.add_object(self.subject, "driver", ont_uid=0,
                                          frame_value=(0, total_frames - 1))
 
-        # 3.- VCD Name
+        # 3.- OpenLABEL Name
         vcd.add_name(self.group + '_' + self.subject + '_' +
                      self.session + '_' + self.date + '_' +
                      self._annotation_mode)
@@ -637,7 +637,7 @@ class DMDVcdHandler(VcdHandler):
                                      types.text(name='recordTime',
                                                 val=self.timeStamp))
 
-        # 10.- Save annotation and validation vectors in VCD format
+        # 10.- Save annotation and validation vectors in OpenLABEL format
         # Perform general update
         new_vcd = self.add_annotationsx(vcd, annotations, validations, self.ont_uid)
 
@@ -646,7 +646,7 @@ class DMDVcdHandler(VcdHandler):
         return True
 
     # This function is handy to perform simultaneously the updating and saving
-    # of the VCD object
+    # of the OpenLABEL object
     # @annotations: annotations array
     # @validations: validations array
     # @statics: dict with values
@@ -654,18 +654,18 @@ class DMDVcdHandler(VcdHandler):
     # @pretty
     def update_save_vcd(self, annotations, validations, statics=None,
                         metadata=None, pretty=False):
-        # Update VCD
+        # Update OpenLABEL
         self.update_vcd(annotations, validations, statics, metadata)
 
-        # Save VCD
+        # Save OpenLABEL
         self.save_vcd_dmd(pretty)
         self._vcd_loaded = True
 
-    # Return flag that indicate if vcd was loaded from file
+    # Return flag that indicate if OpenLABEL was loaded from file
     def file_loaded(self):
         return self._vcd_loaded
 
-    # Function to check the existence of total_frames field in VCD given a
+    # Function to check the existence of total_frames field in OpenLABEL given a
     # stream name
     def stream_frames_exist(self,_vcd, stream_name: str):
         frame_exists = False
@@ -675,10 +675,10 @@ class DMDVcdHandler(VcdHandler):
                                       'total_frames')
         else:
             warnings.warn('WARNING: stream ' + stream_name + ' is not present '
-                          'in input VCD')
+                          'in input OpenLABEL')
         return frame_exists
 
-    # Function to check the existence of frame_shift field in VCD given a
+    # Function to check the existence of frame_shift field in OpenLABEL given a
     # stream name
     def shift_exist(self, _vcd,stream_name: str):
         shift_exists = False
@@ -688,10 +688,10 @@ class DMDVcdHandler(VcdHandler):
                                       'frame_shift')
         else:
             warnings.warn('WARNING: stream ' + stream_name + ' is not present '
-                          'in input VCD')
+                          'in input OpenLABEL')
         return shift_exists
 
-    # Function to check the existence of camera_matrix field in VCD given a
+    # Function to check the existence of camera_matrix field in OpenLABEL given a
     # stream name
     def cam_matrix_exist(self,_vcd, stream_name: str):
         matrix_exist = False
@@ -702,12 +702,12 @@ class DMDVcdHandler(VcdHandler):
                                       'camera_matrix_3x4')
         else:
             warnings.warn('WARNING: stream ' + stream_name + ' is not present '
-                          'in input VCD')
+                          'in input OpenLABEL')
         return matrix_exist
 
-    # Function to check the existence of static fields of driver in VCD
+    # Function to check the existence of static fields of driver in OpenLABEL
     def driver_statics_exist(self):
-        # Check in VCD the existence of the following statics variables
+        # Check in OpenLABEL the existence of the following statics variables
         driver_uid = self._vcd.get_object_uid_by_name(str(self.subject))
         elem_type = core.ElementType.object
         driver_list = self._vcd.get_elements_of_type(elem_type, "driver")
@@ -724,7 +724,7 @@ class DMDVcdHandler(VcdHandler):
 
         
 
-    # This function reads the number of frames of a stream from the VCD object
+    # This function reads the number of frames of a stream from the OpenLABEL object
     # Returns:
     #   stream_frames: number of frames of the requested stream
     def get_stream_frames_in_vcd(self, _vcd, stream_name: str):
@@ -733,10 +733,10 @@ class DMDVcdHandler(VcdHandler):
             stream_frames = stream['stream_properties']['total_frames']
             return stream_frames
         else:
-            raise RuntimeError("VCD: doesn't have frame number information for "
+            raise RuntimeError("OpenLABEL: doesn't have frame number information for "
                                "stream: " + stream_name)
 
-    # This function reads the shift of a stream from the VCD object
+    # This function reads the shift of a stream from the OpenLABEL object
     # Returns:
     #   shift_in_vcd: shift of the given stream
     def get_shift_in_vcd(self, _vcd,stream_name: str):
@@ -745,10 +745,10 @@ class DMDVcdHandler(VcdHandler):
             shift_in_vcd = stream['stream_properties']['sync']['frame_shift']
             return shift_in_vcd
         else:
-            raise RuntimeError("VCD: doesn't have shift information for "
+            raise RuntimeError("OpenLABEL: doesn't have shift information for "
                                "stream: " + stream_name)
 
-    # This function reads the camera matrix of a stream from the VCD object
+    # This function reads the camera matrix of a stream from the OpenLABEL object
     # Returns:
     #   matrix_in_vcd: camera matrix of the given stream
     def get_cam_matrix_in_vcd(self, _vcd,stream_name: str):
@@ -758,12 +758,12 @@ class DMDVcdHandler(VcdHandler):
                 'camera_matrix_3x4']
             return matrix_in_vcd
         else:
-            raise RuntimeError("VCD: doesn't have shift information for "
+            raise RuntimeError("OpenLABEL: doesn't have shift information for "
                                "stream: " + stream_name)
 
     # This function returns all the three stream frame numbers
-    # If a vcd is loaded, this function will get the numbers from the vcd object
-    # If no vcd is loaded, this function will return the internal values.
+    # If a OpenLABEL is loaded, this function will get the numbers from the OpenLABEL object
+    # If no OpenLABEL is loaded, this function will return the internal values.
     # Returns:
     #   face_frames: number of frames in face stream
     #   body_frames: number of frames in body stream
@@ -781,8 +781,8 @@ class DMDVcdHandler(VcdHandler):
         return face_frames, body_frames, hands_frames
 
     # With this function the shifts of all three streams could be retrieved.
-    # If a vcd is loaded, this function will get the numbers from the vcd object
-    # If no vcd is loaded, this function will return the internal values.
+    # If a OpenLABEL is loaded, this function will get the numbers from the OpenLABEL object
+    # If no OpenLABEL is loaded, this function will return the internal values.
     # Returns:
     #   body_face_sh: shift of body stream respect to face stream
     #   hands_face_sh: shift of hands stream respect to face stream
@@ -800,8 +800,8 @@ class DMDVcdHandler(VcdHandler):
 
     # With this function the camera matrix of all three streams could be
     # retrieved.
-    # If a vcd is loaded, this function will get the numbers from the vcd object
-    # If no vcd is loaded, this function will return the internal values.
+    # If a OpenLABEL is loaded, this function will get the numbers from the OpenLABEL object
+    # If no OpenLABEL is loaded, this function will return the internal values.
     # Returns:
     #   face_cam_matrix: camera matrix of face camera
     #   body_cam_matrix: camera matrix of body camera
@@ -817,23 +817,23 @@ class DMDVcdHandler(VcdHandler):
             hands_cam_matrix = self._h_intrinsics
         return face_cam_matrix, body_cam_matrix, hands_cam_matrix
 
-    # This function is to set the number of frames of the body video to the VCD
+    # This function is to set the number of frames of the body video to the OpenLABEL
     # @body_frames: number of frames
     def set_body_frames(self, body_frames):
         self._b_frames = int(body_frames)
 
-    # This function is to set the number of frames of the face video to the VCD
+    # This function is to set the number of frames of the face video to the OpenLABEL
     # @face_frames: number of frames
     def set_face_frames(self, face_frames):
         self._f_frames = int(face_frames)
 
-    # This function is to set the number of frames of the hands video to the VCD
+    # This function is to set the number of frames of the hands video to the OpenLABEL
     # @hands_frames: number of frames
     def set_hands_frames(self, hands_frames):
         self._h_frames = int(hands_frames)
 
     # This function allows to set the stream shifts and store in the internal
-    # variables to be used when saving the VCD file
+    # variables to be used when saving the OpenLABEL file
     def set_shifts(self, body_face_shift=None, hands_face_shift=None,
                    hands_body_shift=None, ):
         if (body_face_shift is None and hands_face_shift is None) or \
@@ -871,7 +871,7 @@ class DMDVcdHandler(VcdHandler):
         hands_face_shift = self._hf_shift
 
         if body_face_shift is None or hands_face_shift is None:
-            raise RuntimeError("Couldn't get VCD data")
+            raise RuntimeError("Couldn't get OpenLABEL data")
 
         face_shift = 0
         body_shift = body_face_shift
@@ -922,7 +922,7 @@ class DMDVcdHandler(VcdHandler):
                 for level in body_dependant:
                     annotations[body_end:total_frames, level] = 100
         else:
-            warnings.warn('WARNING: Body frame number hasn\'t been set in VCD')
+            warnings.warn('WARNING: Body frame number hasn\'t been set in OpenLABEL')
         # Fill end of vectors with NAN values - hands related
         if self._h_frames is not None and self._h_frames > 0:
             hands_end = self._h_frames + hands_shift
@@ -931,7 +931,7 @@ class DMDVcdHandler(VcdHandler):
                     annotations[hands_end:total_frames, level] = 100
         else:
             warnings.warn(
-                'WARNING: Hands frame number hasn\'t been set in VCD')
+                'WARNING: Hands frame number hasn\'t been set in OpenLABEL')
         # Fill end of vectors with NAN values - face related
         if self._f_frames is not None and self._f_frames > 0:
             face_end = self._f_frames + face_shift
@@ -939,11 +939,11 @@ class DMDVcdHandler(VcdHandler):
                 for level in face_dependant:
                     annotations[face_end:total_frames, level] = 100
         else:
-            warnings.warn('WARNING: Face frame number hasn\'t been set in VCD')
+            warnings.warn('WARNING: Face frame number hasn\'t been set in OpenLABEL')
 
         return annotations, validations
 
-    # This functions checks if the vcd has the fields of metadata and the values
+    # This functions checks if the OpenLABEL has the fields of metadata and the values
     # are valid
     def verify_metadata(self, ctx_id):
         valid_metadata = True
@@ -966,7 +966,7 @@ class DMDVcdHandler(VcdHandler):
         return valid_metadata
 
     # --- TEMP FEATURE ---#
-    # this functions checks if the vcd has the fields of statics annotations
+    # this functions checks if the OpenLABEL has the fields of statics annotations
     # and the numbers of frames registered are not 0. If true, static
     # annotations exist
     def verify_statics(self, staticDict, obj_id):
@@ -980,9 +980,9 @@ class DMDVcdHandler(VcdHandler):
                 break
         return exist
 
-    # This function get different values from vcd to keep the consistency when
-    # the user saves/creates a new vcd
-    # @staticDict: dict of static annotations to get its values from vcd
+    # This function get different values from OpenLABEL to keep the consistency when
+    # the user saves/creates a new OpenLABEL
+    # @staticDict: dict of static annotations to get its values from OpenLABEL
     # @ctx_id: id of the context (in this case 0)
     def getStaticVector(self, staticDict, ctx_id):
         return self.get_static_in_vcd(self._vcd,staticDict,ctx_id)
@@ -990,7 +990,7 @@ class DMDVcdHandler(VcdHandler):
     def get_static_in_vcd(self,_vcd,staticDict,ctx_id):
         for x in range(5):
             att = staticDict[x]
-            # Get each of the static annotations of the directory from the VCD
+            # Get each of the static annotations of the directory from the OpenLABEL
             object_vcd = dict(_vcd.get_object_data(0, att["name"]))
             att.update({"val": object_vcd["val"]})
         # context
@@ -1003,11 +1003,11 @@ class DMDVcdHandler(VcdHandler):
         annotator = meta_data["annotator"]
         staticDict[7].update({"val": annotator})
         # returns:
-        # @staticDict: the dict with the values taken from the vcd
+        # @staticDict: the dict with the values taken from the OpenLABEL
         return staticDict
 
-    # This function get different values from vcd to keep the consistency when
-    # the user saves/creates a new vcd
+    # This function get different values from OpenLABEL to keep the consistency when
+    # the user saves/creates a new OpenLABEL
     # @ctx_id: id of the object (in this case 0)
     def getMetadataVector(self, ctx_id):
         return self.get_metadata_in_vcd(self._vcd,ctx_id)
@@ -1033,9 +1033,9 @@ class DMDVcdHandler(VcdHandler):
                [hands, hands_mat]
 
     # Function to extract shifts, metadata and maybe statics info to create a
-    # new VCD
+    # new OpenLABEL
     def get_info_from_VCD(self, vcd_file_copy, staticDict, ctx_id):
-        #load vcd
+        #load OpenLABEL
 
         copy_vcd = core.VCD()
         copy_vcd.load_from_file(file_name=vcd_file_copy)

@@ -15,7 +15,7 @@ if opt == 0:
     # export material for training
     print("To change export settings go to config_DEx.json and change control variables.")
     destination_path = input("Enter destination path: ")
-    selec = input("How do you want to read annotations, by: Group:[g]  Sessions:[f]  One VCD:[v] : ")
+    selec = input("How do you want to read annotations, by: Group:[g]  Sessions:[f]  One OpenLABEL:[v] : ")
 
     if selec == "g":
         #By group
@@ -80,7 +80,7 @@ if opt == 0:
 
     elif selec == "v":
 
-        vcd_path = input("Paste the vcd file path (..._ann.json): ")
+        vcd_path = input("Paste the OpenLABEL file path (..._ann.json): ")
         # e.g: /Desktop/consumption/dmd/gA/1/s2/gA_1_s2_2019-03-08T09;21;03+01;00_rgb_ann.json
         regex_internal = '(?P<subject>[1-9]|[1-2][0-9]|[3][0-7])_(?P<session>[a-z]{1,})_'\
                 '(?P<date>(?P<month>0[1-9]|1[012])-(?P<day>0[1-9]|[12][0-9]|3[01]))'
@@ -132,7 +132,7 @@ elif opt == 3:
     # Get statistics
     print("This function only works with dmd material structure when exporting with DEx tool.")
     destination_path = input("Enter filename for a report file (e.g. report.txt): ")
-    selec = input("How do you want to read annotations, by: Group:[g]  Sessions:[f]  One VCD:[v] : ")
+    selec = input("How do you want to read annotations, by: Group:[g]  Sessions:[f]  One OpenLABEL:[v] : ")
     
     #Delete destination_path to avoid redundancies
     if os.path.exists(destination_path.replace(".txt","-actions.txt")):
@@ -201,7 +201,7 @@ elif opt == 3:
 
     elif selec == "v":
 
-        vcd_path = input("Paste the vcd file path (..._ann.json): ")
+        vcd_path = input("Paste the OpenLABEL file path (..._ann.json): ")
         # e.g: /Desktop/consumption/dmd/gA/1/s2/gA_1_s2_2019-03-08T09;21;03+01;00_rgb_ann.json
         regex_internal = '(?P<subject>[1-9]|[1-2][0-9]|[3][0-7])_(?P<session>[a-z]{1,})_'\
                 '(?P<date>(?P<month>0[1-9]|1[012])-(?P<day>0[1-9]|[12][0-9]|3[01]))'
