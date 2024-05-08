@@ -21,7 +21,7 @@ if opt == 0:
         #By group
         folder_path = input("Enter DMD group's path (../dmd/g#): ")
         #e.g /home/pncanas/Desktop/consumption/dmd/gA
-        selec_session = input("Enter the session you wish to export in this group:  all:[0]  S1:[1]  S2:[2]  S3[3]  S4[4] : ")
+        selec_session = input("Enter the session you wish to export in this group:  all:[0]  S1:[1]  S2:[2]  S3[3]  S4[4] S5[5] S6[6] : ")
 
         subject_paths = glob.glob(folder_path + '/*')
         subject_paths.sort()
@@ -49,7 +49,7 @@ if opt == 0:
         #By session
         folder_path = input("Enter root dmd folder path(../dmd): ")
         #e.g /home/pncanas/Desktop/dmd/
-        selec_session = input("Enter the session you wish to export in this group:  all:[0]  S1:[1]  S2:[2]  S3[3]  S4[4] : ")
+        selec_session = input("Enter the session you wish to export in this group:  all:[0]  S1:[1]  S2:[2]  S3[3]  S4[4] S5[5] S6[6] : ")
 
         group_paths = glob.glob(folder_path + '/*')
         group_paths.sort()
@@ -144,7 +144,7 @@ elif opt == 3:
         #By group
         folder_path = input("Enter DMD group's path (../dmd/g#): ")
         #e.g /home/pncanas/Desktop/consumption/dmd/gA
-        selec_session = input("Enter the session you wish to export in this group:  all:[0]  S1:[1]  S2:[2]  S3[3]  S4[4] : ")
+        selec_session = input("Enter the session you wish to export in this group:  all:[0]  S1:[1]  S2:[2]  S3[3]  S4[4] S5[5] S6[6] : ")
 
         subject_paths = glob.glob(folder_path + '/*')
         subject_paths.sort()
@@ -170,7 +170,7 @@ elif opt == 3:
         #By session
         folder_path = input("Enter root dmd folder path(../dmd): ")
         #e.g /home/pncanas/Desktop/dmd/
-        selec_session = input("Enter the session you wish to export in this group:  all:[0]  S1:[1]  S2:[2]  S3[3]  S4[4] : ")
+        selec_session = input("Enter the session you wish to export in this group:  all:[0]  S1:[1]  S2:[2]  S3[3]  S4[4] S5[5] S6[6] : ")
 
         group_paths = glob.glob(folder_path + '/*')
         group_paths.sort()

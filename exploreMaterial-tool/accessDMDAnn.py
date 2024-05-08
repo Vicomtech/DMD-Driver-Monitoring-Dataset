@@ -80,12 +80,12 @@ class exportClass():
         @channels: list of channels of information you wish to export .
         Possible values: "rgb", "ir", "depth"
         
-        @annotations: list of classes you wish to export (e.g. ["safe_drive","drinking"], "actionList")
-        Possible values: all labels names  or only actionList
+        @annotations: list of classes you wish to export (e.g. ["safe_drive","drinking"], "all")
+        Possible values: all labels names or only "all"
         it can be the type name like in OpenLABEL ("driver_actions/safe_drive") or just the label name ("safe_drive"). Except for objects.
         Objects (cellphone, hair comb and bottle) have to be with the "object_in_scene/__" label before. 
         Also can be the action uid in number (e.g. [0,1,2]) but be aware that uid might not the same in all OpenLABEL's
-        If you put the value in the config file as actionList, the system loads all the classes available in OpenLABEL from the var @self.actionList.
+        If you put the value "all" in the config file, the system loads all the classes available in OpenLABEL from the var @self.actionList.
 
         @write: Flag to create/write material in destination folder (True) or just get the intervals (False)
         Possible values: True, False
@@ -100,8 +100,9 @@ class exportClass():
         @ignoreSmall: True to ignore intervals that cannot be cutted because they are smaller than @intervalChunk
         Possible values: True or False
 
-        @asc: True to start cutting from start of interval (ascendant) or False from the end of interval (descendant)
-        Possible values: True or False
+        @asc: When cutting interval chunks, the value should be true to create the intervals going in ascendant order (in a video of 105 frames taking chunks of 50 frames DEx creates 
+        [0-49, 50-99, 100-104] intervals). The value should be false to go in descendent order (With the 105 frames video taking chunks of 50 frames the intervals created will be 
+        [55-104, 5-54, 0-4]). Possible values: True or False
         """
         # ----LOAD CONFIG FROM JSON----
         # Config dictionary path
@@ -118,8 +119,7 @@ class exportClass():
         self.channels = config_dict["channels"] #List: ["rgb", "ir", "depth"]. Include "depth" to export Depth information too. It must be only "rgb" if not DMD dataset
         if not isinstance(self.channels,list):
             self.channels = [self.channels]
-
-        if config_dict["annotations"] == "all":
+        if type(config_dict["annotations"]) == type("all") and config_dict["annotations"].lower() == "all":
             self.annotations = self.actionList
         else:
             self.annotations = config_dict["annotations"] 
@@ -485,6 +485,18 @@ class exportClass():
                 videoPath = Path(videoPath)
             else:
                 raise RuntimeWarning(videoStream,": Not a valid video stream. Must be 'general'")
+            
+            if not videoPath.exists():
+                videoPath = self.vcdFile
+                videoPath = videoPath.split("_ann")[0]
+                videoPath = videoPath+".mp4"
+                print("URI inside OpenLABEL not found. Possible path is considered:",videoPath)
+                videoPath = Path(videoPath)
+                if not videoPath.exists():
+                    videoPath = str(videoPath).replace(".mp4",".avi")
+                    print("URI inside OpenLABEL not found. Possible path is considered:",videoPath)
+                    
+                videoPath = Path(videoPath)
 
         # Check video frame count and OpenLABEL's frame count
         if videoPath.exists():
@@ -569,7 +581,3 @@ class exportClass():
     # Function to transform int keys to integer if possible
     def keys_to_int(self,x):
         return {int(k) if self.is_string_int(k) else k: v for k, v in x}
-
-
-
-

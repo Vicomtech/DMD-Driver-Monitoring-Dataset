@@ -113,5 +113,3 @@ class splitClass():
         random.shuffle(shuffled)
         #return partitions
         return shuffled[howManyNumbers:], shuffled[:howManyNumbers]
-
-
