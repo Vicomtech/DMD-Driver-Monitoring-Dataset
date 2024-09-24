@@ -400,13 +400,13 @@ class exportClass():
     def depthFrameIntervalToImages(self, frameStart, frameEnd, mosaicFrameStart, depthVideoArray, capVideo, name):
         frameCount = mosaicFrameStart
         for i in range(frameStart,frameEnd+1):
-            if i != self.frameNum:
+            if i < self.frameNum:
                 cv2.imwrite(name+"_"+str(frameCount)+".tif",depthVideoArray[i])
             else:
                 #write a black image
                 if self.size != "original":
                     cv2.imwrite(name+"_"+str(frameCount)+".tif",np.zeros((self.size[1],self.size[0]),dtype=np.uint16))
-                cv2.imwrite(name+"_"+str(frameCount)+".tif",np.zeros(int((capVideo.get(cv2.CAP_PROP_FRAME_HEIGHT)),
+                cv2.imwrite(name+"_"+str(frameCount)+".tif",np.zeros((int(capVideo.get(cv2.CAP_PROP_FRAME_HEIGHT)),
                                                                          int(capVideo.get(cv2.CAP_PROP_FRAME_WIDTH))),dtype=np.uint16))
             frameCount +=1
 
