@@ -66,14 +66,15 @@ DMD was funded by the European Commission (EC) Horizon 2020 programme via the [V
 ---
 
 ## 📄 License
-Copyright © 2026 Vicomtech. Distributed under the **MIT License**.
+Copyright © 2026 Vicomtech. Published under the **Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License** (CC BY-NC-ND 4.0).
 
 <details>
-<summary><b>View Full License Text</b></summary>
+<summary><b>View License Details</b></summary>
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+All datasets on this page are copyright by Vicomtech and published under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License. 
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+This means that:
+* **Attribution:** You must attribute the work in the manner specified by the authors.
+* **NonCommercial:** You may not use this work for commercial purposes.
+* **NoDerivatives:** If you remix, transform, or build upon the material, you may not distribute the modified material.
 </details>
